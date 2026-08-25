@@ -1,0 +1,124 @@
+<section id="about" class="section relative overflow-hidden">
+  {{!-- Soft ambient wash --}}
+  <div class="pointer-events-none absolute -left-40 top-20 -z-10 h-96 w-96 rounded-full bg-brand-100/60 blur-3xl"></div>
+
+  <div class="container">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+
+      {{!-- Visual --}}
+      <div class="reveal relative">
+        <div class="relative overflow-hidden rounded-[2rem] shadow-lift">
+          <img
+            src="{{site.about.image.src}}"
+            alt="{{site.about.image.alt}}"
+            class="h-[380px] w-full object-cover sm:h-[460px]"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/40 to-transparent"></div>
+        </div>
+
+        <div class="absolute -bottom-8 -left-6 hidden w-56 overflow-hidden rounded-3xl border-[6px] border-white shadow-lift sm:block">
+          <img
+            src="{{site.about.insetImage.src}}"
+            alt="{{site.about.insetImage.alt}}"
+            class="h-40 w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div class="absolute -right-3 bottom-8 rounded-2xl bg-accent-500 px-6 py-4 text-center shadow-glow sm:-right-6">
+          <p class="font-display text-3xl font-extrabold leading-none text-ink-900">
+            {{site.about.experienceBadge.value}}
+          </p>
+          <p class="mt-1 text-[11px] font-bold uppercase tracking-wider text-ink-800">
+            {{site.about.experienceBadge.label}}
+          </p>
+        </div>
+      </div>
+
+      {{!-- Copy + tabs --}}
+      <div class="reveal pt-10 sm:pt-0">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-brand-600"></span>
+          {{site.about.eyebrow}}
+        </p>
+        <h2 class="h2">
+          {{site.about.title}}
+          <span class="block text-brand-600">{{site.about.titleAccent}}</span>
+        </h2>
+        <p class="lead mt-5">{{site.about.copy}}</p>
+
+        {{!-- Without JS the tabs cannot switch, so stack every panel instead of hiding two --}}
+        <noscript>
+          <style>
+            [data-panel] {
+              display: block !important;
+            }
+          </style>
+        </noscript>
+
+        <div class="mt-8 border-b border-ink-100">
+          <div class="flex gap-7 overflow-x-auto" role="tablist" aria-label="What we stand for">
+            {{#each site.about.tabs}}
+              <button
+                type="button"
+                class="tab-btn"
+                role="tab"
+                id="tab-{{this.id}}"
+                aria-controls="panel-{{this.id}}"
+                aria-selected="{{#if @first}}true{{else}}false{{/if}}"
+                data-tab="{{this.id}}"
+              >
+                {{this.label}}
+              </button>
+            {{/each}}
+          </div>
+        </div>
+
+        {{#each site.about.tabs}}
+          <div
+            id="panel-{{this.id}}"
+            role="tabpanel"
+            aria-labelledby="tab-{{this.id}}"
+            data-panel="{{this.id}}"
+            class="pt-6 {{#unless @first}}hidden{{/unless}}"
+          >
+            <h3 class="text-lg font-bold text-ink-900">{{this.heading}}</h3>
+            <p class="mt-2 text-sm leading-7 text-ink-400">{{this.body}}</p>
+            <ul class="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+              {{#each this.bullets}}
+                <li class="flex items-start gap-2.5 text-sm font-semibold text-ink-700">
+                  <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent-100 text-accent-700">
+                    {{{icon "check" "h-3 w-3"}}}
+                  </span>
+                  {{this}}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/each}}
+
+        <div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+          <a href="#request" class="btn-secondary">
+            Request a Consultation
+            {{{icon "arrow-right" "h-4 w-4"}}}
+          </a>
+          <a
+            href="{{site.company.phoneHref}}"
+            class="flex items-center gap-3 text-sm font-bold text-ink-800 transition-colors hover:text-brand-600"
+          >
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-brand-50 text-brand-600">
+              {{{icon "phone" "h-4 w-4"}}}
+            </span>
+            <span class="flex flex-col leading-tight">
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-ink-400">Talk to an engineer</span>
+              {{site.company.phone}}
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,122 @@
+<span id="top" aria-hidden="true"></span>
+
+{{> top-bar}}
+{{> header}}
+
+<main id="main" class="bg-[#04070D]">
+
+  {{!--
+    One solar system for the whole page. The sky — stars, nebulae, shooting
+    stars — is painted once here and spans the hero, the portfolio book, the
+    process panel and the technology mosaic. The sun and every ring belong to a
+    single system rendered inside the stack section, so the sun stays anchored
+    to its heading while its outer rings arc up across everything above.
+  --}}
+  {{!--
+    overflow-clip, not overflow-hidden: the outer orbit rings deliberately
+    overflow this wrapper, and `hidden` would make it a scroll container the
+    browser scrolls internally when jumping to #stack — leaving the page unable
+    to return to the top. `clip` crops the same way without that.
+  --}}
+  <div class="cosmos relative isolate overflow-clip">
+    {{> space-backdrop showStars=true showShooting=true tall=true}}
+
+  {{!-- ------------------------------------------------------------ hero --}}
+  <section class="relative pb-24 pt-[132px] lg:pb-32 lg:pt-[172px]">
+    <div class="container relative text-center">
+      <p class="eyebrow-on-dark">
+        <span class="h-px w-8 bg-accent-500"></span>
+        {{page.hero.eyebrow}}
+      </p>
+
+      <h1 class="font-display text-[clamp(2.5rem,9vw,5.5rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
+        {{page.hero.titleLead}}
+        <span class="text-brand-400">{{page.hero.titleAccent}}</span>
+        <span class="block text-accent-500">{{page.hero.titleTail}}</span>
+      </h1>
+
+      <p class="mx-auto mt-7 max-w-2xl text-base leading-7 text-ink-200 sm:text-[17px]">
+        {{page.hero.copy}}
+      </p>
+
+      <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="{{page.hero.primaryCta.href}}" class="btn-primary">
+          {{page.hero.primaryCta.label}}
+          {{{icon "arrow-right" "h-4 w-4"}}}
+        </a>
+        <a href="{{page.hero.secondaryCta.href}}" class="btn-outline">
+          {{page.hero.secondaryCta.label}}
+        </a>
+      </div>
+
+      <ul class="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+        {{#each page.hero.promises}}
+          <li class="flex items-center gap-2.5 text-sm font-semibold text-ink-200">
+            <span class="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/5 text-accent-400">
+              {{{icon this.icon "h-4 w-4"}}}
+            </span>
+            {{this.label}}
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </section>
+
+  {{!-- --------------------------------- what we build, as a flip-through book --}}
+  {{> flip-book}}
+
+  {{!-- ----------------------------------------------------------- process
+    A vanilla paper panel floating on the starfield rather than a full-bleed
+    band, so the same sky continues either side of it.                     --}}
+  <section class="relative py-16 lg:py-20">
+    <div class="container">
+      <div class="reveal rounded-[2.5rem] bg-[#FAF7EF] px-6 py-14 shadow-lift sm:px-10 lg:px-14">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="eyebrow justify-center">
+            <span class="h-px w-8 bg-brand-600"></span>
+            {{page.process.eyebrow}}
+          </p>
+          <h2 class="h2">
+            {{page.process.title}}
+            <span class="block text-brand-600">{{page.process.titleAccent}}</span>
+          </h2>
+          <p class="lead mt-5">{{page.process.copy}}</p>
+        </div>
+
+        <ol class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {{#each page.process.steps}}
+            <li class="relative rounded-2xl border border-ink-100 bg-white p-6 shadow-soft">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-ink-900 font-display text-sm font-extrabold text-accent-400">
+                {{inc @index}}
+              </span>
+              <h3 class="mt-5 text-base font-bold text-ink-900">{{this.title}}</h3>
+              <p class="mt-2 text-[13px] leading-6 text-ink-400">{{this.body}}</p>
+            </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {{!-- -------------------------------------------------- what we build with --}}
+  {{> tech-stack}}
+  </div>
+  {{!-- end of the shared cosmos --}}
+
+  {{!-- --------------------------------------------------------- conversion --}}
+  <section class="relative bg-white pb-20 pt-24 lg:pb-24">
+    <div class="container">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <h2 class="h2">
+          {{page.ctaBand.title}}
+          <span class="block text-brand-600">{{page.ctaBand.titleAccent}}</span>
+        </h2>
+        <p class="lead mt-5">{{page.ctaBand.copy}}</p>
+      </div>
+    </div>
+
+    <div class="mt-12">{{> request-bar}}</div>
+  </section>
+</main>
+
+{{> footer}}

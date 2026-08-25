@@ -1,0 +1,82 @@
+<footer id="contact" class="bg-ink-900 pt-16 text-ink-300">
+  <div class="container">
+    <div class="grid gap-10 pb-14 md:grid-cols-2 lg:grid-cols-12">
+
+      <div class="lg:col-span-4">
+        {{> logo tone="dark"}}
+        <p class="mt-5 max-w-sm text-sm leading-6 text-ink-300">{{site.footer.blurb}}</p>
+        <a href="#request" class="btn-primary mt-6">
+          Start a Project
+          {{{icon "arrow-right" "h-4 w-4"}}}
+        </a>
+      </div>
+
+      {{#each site.footer.columns}}
+        <nav class="lg:col-span-2" aria-label="{{this.title}}">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-white">{{this.title}}</h3>
+          <ul class="mt-5 space-y-3">
+            {{#each this.links}}
+              <li>
+                <a
+                  href="{{this.href}}"
+                  class="group inline-flex items-center gap-2 text-sm text-ink-300 transition-colors hover:text-accent-400"
+                >
+                  <span class="h-px w-0 bg-accent-400 transition-all duration-300 group-hover:w-3"></span>
+                  {{this.label}}
+                </a>
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
+      {{/each}}
+
+      <div class="lg:col-span-4">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-white">Get in touch</h3>
+        <ul class="mt-5 space-y-4 text-sm">
+          <li class="flex items-start gap-3">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/5 text-accent-400">
+              {{{icon "phone" "h-4 w-4"}}}
+            </span>
+            <span>
+              <a href="{{site.company.phoneHref}}" class="font-bold text-white hover:text-accent-400">
+                {{site.company.phone}}
+              </a>
+              <span class="mt-0.5 block text-xs text-ink-400">{{site.company.businessHours}}</span>
+            </span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/5 text-accent-400">
+              {{{icon "alert-triangle" "h-4 w-4"}}}
+            </span>
+            <span>
+              <a href="{{site.company.emergencyPhoneHref}}" class="font-bold text-white hover:text-accent-400">
+                {{site.company.emergencyPhone}}
+              </a>
+              <span class="mt-0.5 block text-xs text-ink-400">{{site.company.supportHours}}</span>
+            </span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/5 text-accent-400">
+              {{{icon "mail" "h-4 w-4"}}}
+            </span>
+            <a href="mailto:{{site.company.email}}" class="pt-2 hover:text-accent-400">{{site.company.email}}</a>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/5 text-accent-400">
+              {{{icon "map-pin" "h-4 w-4"}}}
+            </span>
+            <span class="pt-2">{{site.company.address}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-7 text-xs text-ink-400 sm:flex-row">
+      <p>&copy; {{year}} {{site.company.legalName}}. All rights reserved.</p>
+      <p class="flex items-center gap-2">
+        {{{icon "shield-check" "h-4 w-4 text-accent-500"}}}
+        Genuine hardware · Licensed software · Warranty-backed installations
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,31 @@
+{{!--
+  Brand lockup: the RK mark from the official artwork (public/img/logo-mark.png,
+  cropped from public/img/logo.png) beside a live-text wordmark, so the type stays
+  crisp at every size. Pass tone="dark" on dark surfaces: {{> logo tone="dark"}}
+--}}
+<a
+  href="/"
+  class="group inline-flex shrink-0 items-center gap-3"
+  aria-label="{{site.company.legalName}} — home"
+>
+  <img
+    src="/img/logo-mark.png"
+    alt=""
+    aria-hidden="true"
+    width="307"
+    height="190"
+    class="h-12 w-auto shrink-0 transition-transform duration-300 group-hover:scale-105 sm:h-14"
+  />
+
+  <span class="flex flex-col leading-none">
+    <span
+      class="font-display text-[17px] font-extrabold uppercase leading-none tracking-tight sm:text-[19px]
+             {{#ifEquals tone "dark"}}text-white{{else}}text-brand-600{{/ifEquals}}"
+    >
+      {{site.company.name}} Trading
+    </span>
+    <span class="mt-1 text-[10px] font-bold uppercase leading-none tracking-[0.06em] text-accent-500 sm:text-[11px]">
+      &amp; Consultancy Services
+    </span>
+  </span>
+</a>

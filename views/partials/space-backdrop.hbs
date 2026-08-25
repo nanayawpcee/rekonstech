@@ -1,0 +1,48 @@
+{{!--
+  Deep-space backdrop, ported from the reference Galaxy component to plain CSS.
+  Stars are generated server-side from a fixed seed, so the sky is there on first
+  paint and identical on every request.
+
+  Sky only:    {{> space-backdrop showStars=true showShooting=true tall=true}}
+  Bodies only: {{> space-backdrop orbits=solarSystem cy="150px" showSun=true bare=true}}
+--}}
+<div
+  class="space {{#if plain}}space--plain{{/if}} {{#if tall}}space--tall{{/if}} {{#if bare}}space--bare{{/if}}"
+  aria-hidden="true"
+>
+  {{#if showStars}}
+    {{#each @root.stars}}
+      <span
+        class="star"
+        style="left:{{this.x}}%;top:{{this.y}}%;width:{{this.size}}px;height:{{this.size}}px;--o:{{this.opacity}};--dur:{{this.duration}}s;--delay:{{this.delay}}s"
+      ></span>
+    {{/each}}
+
+    <span class="nebula" style="left:8%;top:12%;width:420px;height:320px;--dx:60px;--dy:-30px;--dur:46s;background:radial-gradient(circle, rgba(26,117,188,0.22), transparent 70%)"></span>
+    <span class="nebula" style="left:66%;top:58%;width:520px;height:380px;--dx:-80px;--dy:40px;--dur:58s;background:radial-gradient(circle, rgba(102,209,16,0.12), transparent 70%)"></span>
+    <span class="nebula" style="left:58%;top:4%;width:340px;height:260px;--dx:50px;--dy:-25px;--dur:52s;background:radial-gradient(circle, rgba(211,213,6,0.08), transparent 70%)"></span>
+  {{/if}}
+
+  {{#if showSun}}
+    <span class="sun" style="--cy:{{cy}}"></span>
+  {{/if}}
+
+  {{#each orbits}}
+    <div
+      class="orbit {{#if this.reverse}}orbit--reverse{{/if}} {{#if this.still}}orbit--still{{/if}}"
+      style="width:{{this.size}}px;height:{{this.size}}px;--dur:{{this.duration}}s;--cy:{{../cy}}"
+    >
+      {{#each this.bodies}}
+        <span
+          class="orbit-body"
+          style="width:{{this.size}}px;height:{{this.size}}px;margin-left:{{this.offset}}px;margin-top:{{this.offset}}px;background:{{this.color}};box-shadow:0 0 {{this.glow}}px {{this.color}}, 0 0 {{this.glow}}px {{this.color}};transform:rotate({{this.deg}}deg);transform-origin:50% {{this.originY}}px"
+        ></span>
+      {{/each}}
+    </div>
+  {{/each}}
+
+  {{#if showShooting}}
+    <span class="shooting" style="top:18%;left:-12%;--tilt:14deg;--dur:9s;--delay:4s"></span>
+    <span class="shooting" style="top:64%;left:-12%;--tilt:-10deg;--dur:13s;--delay:11s"></span>
+  {{/if}}
+</div>

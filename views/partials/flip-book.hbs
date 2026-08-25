@@ -1,0 +1,74 @@
+{{!--
+  Software Solutions portfolio, presented as a flip-book.
+
+  Desktop: a tilted 3D book — each sheet holds a front and back face and rotates
+  around the spine. Phones: the exact same markup, flattened by CSS into a stack
+  of paper pages you simply scroll through.
+--}}
+{{!-- Transparent: the page's shared starfield shows through behind the book. --}}
+<section id="portfolio-book" class="relative py-20 lg:py-24">
+
+  <div class="container relative">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <p class="eyebrow-on-dark justify-center">
+        <span class="h-px w-8 bg-accent-500"></span>
+        {{book.eyebrow}}
+      </p>
+      <h2 class="h2 text-white">
+        {{book.title}}
+        <span class="block text-accent-500">{{book.titleAccent}}</span>
+      </h2>
+      <p class="lead mt-5 text-ink-300">{{book.copy}}</p>
+    </div>
+
+    <div class="bk-stage" id="flip-book">
+      <div class="bk-scaler">
+        <div class="bk-shift">
+          <div class="bk-tilt">
+            <div class="bk-book">
+              <span class="bk-deck" aria-hidden="true"></span>
+
+              {{#each book.sheets}}
+                <div class="bk-sheet" data-sheet="{{@index}}">
+                  <div class="bk-face bk-face--front">{{> book-page this.front}}</div>
+                  <div class="bk-face bk-face--back">{{> book-page this.back}}</div>
+                </div>
+              {{/each}}
+
+              <button type="button" class="bk-zone bk-zone--prev" data-book-prev aria-label="Previous page"></button>
+              <button type="button" class="bk-zone bk-zone--next" data-book-next aria-label="Next page"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{!-- Controls (desktop only — the phone layout is a plain scrollable stack) --}}
+    <nav class="bk-rail" aria-label="Portfolio pages">
+      <button type="button" class="bk-arrow" data-book-prev aria-label="Previous page">
+        {{{icon "arrow-right" "h-4 w-4 rotate-180"}}}
+      </button>
+
+      <div class="bk-dots">
+        {{#each book.labels}}
+          <button
+            type="button"
+            class="bk-dot"
+            data-book-goto="{{@index}}"
+            data-label="{{this}}"
+            aria-label="{{this}}"
+          ></button>
+        {{/each}}
+      </div>
+
+      <span class="bk-counter" data-book-counter aria-live="polite"></span>
+
+      <button type="button" class="bk-arrow" data-book-next aria-label="Next page">
+        {{{icon "arrow-right" "h-4 w-4"}}}
+      </button>
+    </nav>
+
+    <p class="bk-hint hidden md:block">{{book.hint}}</p>
+    <p class="bk-hint md:hidden">{{book.hintMobile}}</p>
+  </div>
+</section>

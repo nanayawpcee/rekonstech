@@ -1,0 +1,968 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header offset for in-page anchors */
+    scroll-padding-top: 7rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-white font-sans text-[15px] leading-relaxed text-ink-500 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-extrabold tracking-tight text-ink-900;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent-500 ring-offset-2 ring-offset-white;
+  }
+
+  /* Native select arrow is replaced by our own chevron */
+  select {
+    @apply appearance-none bg-none;
+  }
+}
+
+@layer components {
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .eyebrow {
+    @apply mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-brand-600;
+  }
+
+  .eyebrow-on-dark {
+    @apply mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-accent-400;
+  }
+
+  .h1 {
+    @apply text-[32px] leading-[1.06] sm:text-5xl lg:text-[3.5rem];
+  }
+
+  .h2 {
+    @apply text-3xl leading-[1.12] sm:text-4xl lg:text-[2.75rem];
+  }
+
+  .lead {
+    @apply text-base leading-7 text-ink-400 sm:text-[17px];
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold
+           transition duration-200 ease-out focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent-500 text-ink-900 shadow-glow hover:-translate-y-0.5 hover:bg-accent-400 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply btn bg-brand-600 text-white shadow-soft hover:-translate-y-0.5 hover:bg-brand-500 active:translate-y-0;
+  }
+
+  .btn-outline {
+    @apply btn border border-white/35 bg-white/5 text-white backdrop-blur hover:border-white/70 hover:bg-white/15;
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink-200 bg-white text-ink-800 hover:border-ink-300 hover:bg-ink-50;
+  }
+
+  .field {
+    @apply h-[52px] w-full rounded-full border border-ink-200 bg-white px-5 text-sm text-ink-800
+           placeholder:text-ink-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/25;
+  }
+
+  .card {
+    @apply rounded-3xl border border-ink-100 bg-white p-7 shadow-soft transition duration-300;
+  }
+
+  .nav-link {
+    @apply relative text-sm font-semibold text-ink-700 transition-colors hover:text-brand-600
+           after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:rounded-full
+           after:bg-accent-500 after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  .tab-btn {
+    @apply relative -mb-px whitespace-nowrap border-b-2 border-transparent pb-3 text-sm font-bold
+           text-ink-400 transition-colors hover:text-ink-700;
+  }
+
+  .tab-btn[aria-selected='true'] {
+    @apply border-brand-600 text-brand-600;
+  }
+}
+
+/* ==========================================================================
+   Deep-space backdrop — Software Solutions page
+   Starfield, drifting nebulae, orbiting bodies and a "sun" above the tech grid.
+   Every animation is decorative and disabled under prefers-reduced-motion.
+   ========================================================================== */
+@layer components {
+  .space {
+    /* clip, not hidden — see the wrapper in software-solutions.hbs: `hidden`
+       turns an overflowing box into a scroll container the browser can scroll
+       behind your back. */
+    @apply pointer-events-none absolute inset-0 overflow-clip;
+    background: radial-gradient(1400px 900px at 50% 12%, #0e2647 0%, #071429 55%, #04070d 100%);
+  }
+
+  /* Near-black variant so the technology tiles keep their contrast. */
+  .space--plain {
+    background: radial-gradient(900px 600px at 50% 14%, #0a1526 0%, #060c16 55%, #04070d 100%);
+  }
+
+  /* One sky spanning several stacked sections: a glow over the hero, a second
+     further down where the sun sits, and deep space between them. */
+  .space--tall {
+    background:
+      radial-gradient(1200px 780px at 50% 2%, #103055 0%, transparent 62%),
+      radial-gradient(1000px 700px at 50% 78%, #0a1c33 0%, transparent 66%),
+      linear-gradient(180deg, #071429 0%, #04070d 34%, #050d1a 74%, #04070d 100%);
+  }
+
+  /* Celestial bodies only — sits over a sky that is already painted. Nothing is
+     clipped here: the outer rings are meant to reach far beyond this section,
+     and the page wrapper does the clipping instead. */
+  .space--bare {
+    background: none;
+    overflow: visible;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #dcecfa;
+    opacity: var(--o, 0.5);
+    animation: twinkle var(--dur, 4s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  .nebula {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    mix-blend-mode: screen;
+    animation: drift var(--dur, 50s) ease-in-out infinite;
+  }
+
+  .orbit {
+    position: absolute;
+    left: 50%;
+    top: var(--cy, 50%);
+    border: 1px solid rgba(120, 165, 210, 0.13);
+    border-radius: 50%;
+    animation: orbit-spin var(--dur, 90s) linear infinite;
+  }
+
+  .orbit--reverse {
+    animation-name: orbit-spin-reverse;
+  }
+
+  /* Page-spanning rings: far too large to animate, so they simply sit there. */
+  .orbit--still {
+    animation: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit-body {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    border-radius: 50%;
+  }
+
+  .sun {
+    position: absolute;
+    left: 50%;
+    top: var(--cy, 50%);
+    height: 92px;
+    width: 92px;
+    margin: -46px 0 0 -46px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 32%, #ffe9a3 0%, #f5c518 42%, #e8a209 100%);
+    box-shadow:
+      0 0 60px rgba(245, 197, 24, 0.55),
+      0 0 140px rgba(245, 197, 24, 0.25);
+    animation: pulse-sun 7s ease-in-out infinite;
+  }
+
+  .shooting {
+    position: absolute;
+    height: 2px;
+    width: 130px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, rgba(220, 236, 250, 0), #eaf4ff 85%, #fff);
+    animation: shoot var(--dur, 1.7s) ease-in var(--delay, 3s) infinite;
+    opacity: 0;
+  }
+
+  /* ---------------------------------------------------- technology grid */
+  .tech-tile {
+    @apply relative grid aspect-square place-items-center bg-[#0E1A2C] transition-colors duration-300;
+  }
+
+  .tech-tile:hover,
+  .tech-tile.is-active {
+    @apply bg-[#1B2C47];
+  }
+
+  .tech-tile svg {
+    height: 34px;
+    width: 34px;
+    fill: #7387A3;
+    transition:
+      fill 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .tech-tile:hover svg,
+  .tech-tile.is-active svg {
+    fill: var(--tech, #fff);
+    transform: scale(1.08);
+  }
+
+  .tech-word {
+    @apply font-display text-sm font-extrabold lowercase tracking-tight transition-colors duration-300;
+    color: #7387A3;
+  }
+
+  .tech-tile:hover .tech-word,
+  .tech-tile.is-active .tech-word {
+    color: var(--tech, #fff);
+  }
+
+  .tech-tile[hidden] {
+    display: none;
+  }
+}
+
+/* Phones: the spotlight stays the same card, but it lifts out of the grid flow
+   and slides to sit directly beside whichever tile you tapped — mid-mosaic or
+   near the bottom — instead of staying pinned to the top and out of view. */
+@media (max-width: 767px) {
+  .tech-spotlight {
+    position: absolute;
+    z-index: 20;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 18px 40px -14px rgb(0 0 0 / 0.75);
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+    transition:
+      top 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      background-color 0.3s ease;
+  }
+
+  .tech-spotlight.is-live {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  /* The idle prompt is the desktop cell's job; on a phone the tiles fill the
+     grid until something is tapped. */
+  .tech-spotlight [data-spotlight-idle] {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Flip-book — Software Solutions portfolio
+   Desktop: a tilted 3D book of sheets rotating around the spine.
+   Phones (< md): the same markup flattened into a stack of paper pages.
+   ========================================================================== */
+@layer components {
+  .bk-stage {
+    @apply relative mt-12 flex items-center justify-center;
+    perspective: 2400px;
+    perspective-origin: 50% 42%;
+    height: calc(660px * var(--bk-scale, 1));
+  }
+
+  .bk-scaler {
+    transform: scale(var(--bk-scale, 1));
+    transform-style: preserve-3d;
+  }
+
+  .bk-shift {
+    transform: translateX(var(--bk-shift, 0));
+    transition: transform 0.9s cubic-bezier(0.4, 0.1, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+
+  .bk-tilt {
+    transform: rotateX(14deg) rotateZ(-4deg) rotateY(-2deg);
+    transform-style: preserve-3d;
+  }
+
+  .bk-book {
+    position: relative;
+    height: 620px;
+    width: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  /* Stacked page edges peeking out under the block */
+  .bk-deck {
+    position: absolute;
+    inset: 0;
+    border-radius: 4px 10px 10px 4px;
+  }
+
+  .bk-deck::before,
+  .bk-deck::after {
+    content: '';
+    position: absolute;
+    border-radius: 3px;
+  }
+
+  .bk-deck::before {
+    inset: 6px -8px -8px 8px;
+    background: linear-gradient(#e9e4d6, #cfc8b4);
+    box-shadow: 0 40px 90px rgb(0 0 0 / 0.6);
+  }
+
+  .bk-deck::after {
+    inset: 3px -4px -4px 4px;
+    background: linear-gradient(#f3efe3, #ddd6c4);
+  }
+
+  .bk-sheet {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform 1.05s cubic-bezier(0.45, 0.05, 0.25, 1);
+  }
+
+  /* Paint order before JS runs: first sheet (the cover) on top. */
+  .bk-sheet:nth-child(2) { z-index: 6; }
+  .bk-sheet:nth-child(3) { z-index: 5; }
+  .bk-sheet:nth-child(4) { z-index: 4; }
+  .bk-sheet:nth-child(5) { z-index: 3; }
+  .bk-sheet:nth-child(6) { z-index: 2; }
+  .bk-sheet:nth-child(7) { z-index: 1; }
+
+  .bk-face {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: #faf7ef;
+  }
+
+  .bk-face--front {
+    border-radius: 2px 8px 8px 2px;
+    box-shadow: inset 14px 0 24px -18px rgb(60 45 20 / 0.5);
+  }
+
+  .bk-face--back {
+    transform: rotateY(180deg);
+    border-radius: 8px 2px 2px 8px;
+    box-shadow: inset -14px 0 24px -18px rgb(60 45 20 / 0.5);
+  }
+
+  /* Shadow that sweeps across a page while it turns */
+  .bk-face::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .bk-face--front::after {
+    background: linear-gradient(to right, rgb(9 25 43 / 0.35), transparent 45%);
+  }
+
+  .bk-face--back::after {
+    background: linear-gradient(to left, rgb(9 25 43 / 0.35), transparent 45%);
+  }
+
+  .bk-sheet.is-turning .bk-face::after {
+    opacity: 1;
+  }
+
+  .bk-page {
+    @apply absolute inset-0 flex flex-col;
+    padding: 44px 46px 38px;
+  }
+
+  .bk-paper {
+    background:
+      radial-gradient(circle at 20% 15%, rgb(255 255 255 / 0.7), transparent 40%),
+      linear-gradient(180deg, #faf7ef 0%, #f0ebdd 100%);
+  }
+
+  .bk-page--cover {
+    color: #fff;
+    background:
+      radial-gradient(700px 500px at 85% -10%, #2183c6 0%, transparent 55%),
+      linear-gradient(160deg, #175f98 0%, #0d2140 70%);
+  }
+
+  .bk-page--cta {
+    background: linear-gradient(165deg, #0d2140 0%, #050f1f 100%);
+  }
+
+  .bk-page--back {
+    @apply items-center justify-center text-center;
+    background: linear-gradient(160deg, #0d2140 0%, #050f1f 100%);
+  }
+
+  .bk-eyebrow {
+    @apply mb-5 flex items-center gap-2.5 font-mono text-[10.5px] font-bold uppercase tracking-[0.22em];
+  }
+
+  .bk-tick {
+    @apply inline-block h-0.5 w-6 bg-current;
+  }
+
+  .bk-folio {
+    @apply mt-auto flex items-center justify-between border-t border-ink-200/60 pt-4
+           font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink-400;
+  }
+
+  .bk-folio--dark {
+    @apply border-white/15 text-ink-400;
+  }
+
+  /* Interface mockups printed into the pages */
+  .bk-mock {
+    /* shrink-0: as a flex child it must keep its height, or the tighter phone
+       page would compress it and clip the interface inside. */
+    @apply mt-5 shrink-0 overflow-hidden rounded-lg border border-ink-200 bg-white;
+    box-shadow: 0 8px 20px -12px rgb(8 24 47 / 0.45);
+  }
+
+  .bk-mock-chrome {
+    @apply flex items-center gap-1 border-b border-ink-100 bg-ink-50 px-2 py-1.5;
+  }
+
+  .bk-mock-dot {
+    @apply h-1.5 w-1.5 rounded-full bg-ink-200;
+  }
+
+  .bk-toc {
+    @apply flex w-full items-center gap-3 py-2.5 text-left transition-colors;
+  }
+
+  .bk-toc:hover .bk-toc-title {
+    @apply text-brand-600;
+  }
+
+  .bk-toc-title {
+    @apply font-display text-[14px] font-extrabold text-ink-800 transition-colors;
+  }
+
+  .bk-toc-dots {
+    @apply mt-2 flex-1 border-b border-dotted border-ink-300;
+  }
+
+  /* Click targets over the outer thirds of each page */
+  .bk-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 40;
+    width: 12%;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .bk-zone--prev {
+    left: 0;
+  }
+
+  .bk-zone--next {
+    right: 0;
+  }
+
+  .bk-zone--prev:hover {
+    background: linear-gradient(to right, rgb(102 209 16 / 0.12), transparent);
+  }
+
+  .bk-zone--next:hover {
+    background: linear-gradient(to left, rgb(102 209 16 / 0.12), transparent);
+  }
+
+  .bk-rail {
+    @apply mx-auto mt-10 flex w-fit items-center gap-4 rounded-full border border-white/15
+           bg-white/[0.06] px-3 py-2 backdrop-blur;
+  }
+
+  .bk-arrow {
+    @apply grid h-9 w-9 place-items-center rounded-full border border-white/25 text-ink-200
+           transition-colors hover:border-accent-500 hover:bg-accent-500 hover:text-ink-900
+           disabled:cursor-default disabled:opacity-25 disabled:hover:border-white/25
+           disabled:hover:bg-transparent disabled:hover:text-ink-200;
+  }
+
+  .bk-dots {
+    @apply flex items-center gap-2;
+  }
+
+  .bk-dot {
+    @apply relative h-2 w-2 rounded-full bg-white/30 transition-all duration-300;
+  }
+
+  .bk-dot.is-active {
+    @apply scale-150 bg-accent-500;
+  }
+
+  .bk-dot:hover::after {
+    content: attr(data-label);
+    @apply absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-accent-500
+           px-2 py-1 font-mono text-[9px] uppercase tracking-[0.1em] text-ink-900;
+  }
+
+  .bk-hint {
+    @apply mt-5 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-ink-500;
+  }
+}
+
+/* Phones: no 3D book. The pages become a physical pile of documents — the
+   current page on top, the next few peeking out beneath at slight angles. */
+@media (max-width: 767px) {
+  .bk-stage {
+    display: block;
+    height: auto;
+    perspective: none;
+    margin-top: 2.5rem;
+  }
+
+  .bk-scaler,
+  .bk-shift,
+  .bk-tilt {
+    transform: none !important;
+    transform-style: flat;
+  }
+
+  .bk-book {
+    position: relative;
+    height: min(82vh, 620px);
+    width: 100%;
+    transform-style: flat;
+    /* Room for the pile's edges and rotation */
+    margin-bottom: 46px;
+  }
+
+  .bk-deck,
+  .bk-zone {
+    display: none;
+  }
+
+  /* Sheets stop being boxes so their faces pile up directly in the book. */
+  .bk-sheet {
+    display: contents;
+  }
+
+  .bk-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    transform-origin: 50% 100%;
+    box-shadow:
+      0 2px 4px rgb(0 0 0 / 0.35),
+      0 20px 45px -18px rgb(0 0 0 / 0.75);
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.35s ease;
+  }
+
+  .bk-face::after {
+    display: none;
+  }
+
+  /* Depth in the pile: 0 is the sheet you are reading. */
+  .bk-face[data-depth='0'] {
+    z-index: 30;
+    transform: none;
+  }
+
+  .bk-face[data-depth='1'] {
+    z-index: 29;
+    transform: translate(4px, 10px) rotate(1.4deg) scale(0.985);
+  }
+
+  .bk-face[data-depth='2'] {
+    z-index: 28;
+    transform: translate(-5px, 19px) rotate(-1.6deg) scale(0.972);
+  }
+
+  .bk-face[data-depth='3'] {
+    z-index: 27;
+    transform: translate(3px, 27px) rotate(2.2deg) scale(0.96);
+  }
+
+  /* Everything deeper hides behind the pile; read pages lift away upwards. */
+  .bk-face[data-depth='deep'] {
+    z-index: 26;
+    opacity: 0;
+    transform: translateY(32px) scale(0.95);
+    pointer-events: none;
+  }
+
+  .bk-face[data-depth='past'] {
+    z-index: 31;
+    opacity: 0;
+    transform: translateY(-48px) rotate(-5deg) scale(1.02);
+    pointer-events: none;
+  }
+
+  .bk-page {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    padding: 28px 24px 24px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bk-rail {
+    @apply mt-8;
+  }
+
+  .bk-dots {
+    display: none;
+  }
+}
+
+/* The page counter only makes sense in the phone pile. */
+.bk-counter {
+  @apply font-mono text-[11px] uppercase tracking-[0.16em] text-ink-300;
+}
+
+@media (min-width: 768px) {
+  .bk-counter {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Security Systems — photo-led hero
+   A gradient stage with camera photographs floating over it. The photos have
+   plain backgrounds, so a radial feather-mask melts their edges into the
+   gradient instead of showing a hard rectangle.
+   ========================================================================== */
+@layer components {
+  .sec-stage {
+    @apply relative overflow-hidden rounded-[2.5rem];
+    background:
+      radial-gradient(900px 620px at 82% 8%, rgba(42, 144, 232, 0.55) 0%, transparent 62%),
+      radial-gradient(700px 520px at 12% 92%, rgba(102, 209, 16, 0.18) 0%, transparent 60%),
+      linear-gradient(155deg, #123a63 0%, #0c2748 45%, #081726 100%);
+  }
+
+  .sec-cam {
+    @apply pointer-events-none absolute select-none;
+    -webkit-mask-image: radial-gradient(closest-side at 50% 50%, #000 52%, transparent 96%);
+    mask-image: radial-gradient(closest-side at 50% 50%, #000 52%, transparent 96%);
+    filter: drop-shadow(0 30px 50px rgb(0 0 0 / 0.55));
+    animation: sec-float 14s ease-in-out infinite;
+  }
+
+  .sec-cam--alt {
+    animation-duration: 18s;
+    animation-direction: reverse;
+  }
+
+  .sec-orb {
+    @apply pointer-events-none absolute rounded-full;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.85), rgba(125, 187, 228, 0.45) 42%,
+        rgba(26, 117, 188, 0.15) 70%, transparent 78%);
+    animation: sec-float 11s ease-in-out infinite;
+  }
+
+  .sec-glass {
+    @apply rounded-[1.75rem] border border-white/15 bg-white/[0.07] backdrop-blur-md;
+  }
+}
+
+/* ==========================================================================
+   Networking — live topology map
+   ========================================================================== */
+@layer components {
+  .net-stage {
+    background:
+      radial-gradient(880px 600px at 78% 6%, rgba(42, 144, 232, 0.42) 0%, transparent 62%),
+      radial-gradient(680px 500px at 8% 96%, rgba(102, 209, 16, 0.16) 0%, transparent 62%),
+      linear-gradient(155deg, #0f3357 0%, #0b2440 48%, #081726 100%);
+  }
+
+  .net-map {
+    @apply h-full w-full;
+  }
+
+  .net-label {
+    @apply font-mono;
+    fill: #7387a3;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-anchor: middle;
+  }
+
+  .net-links path {
+    stroke-dasharray: 6 8;
+    animation: net-flow 2.4s linear infinite;
+  }
+
+  .net-packet {
+    fill: #66d110;
+    filter: url(#net-glow);
+    offset-rotate: 0deg;
+    animation: net-travel 3.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+
+  /* Return traffic runs the other way, so the link reads as two-way. */
+  .net-packet--up {
+    fill: #7dbbe4;
+    animation-direction: reverse;
+  }
+
+  .net-halo {
+    fill: none;
+    stroke: #2a90e8;
+    stroke-opacity: 0.25;
+    stroke-dasharray: 3 7;
+    animation: net-spin 30s linear infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .net-pulse {
+    fill: none;
+    stroke: #2a90e8;
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: net-ping 3.4s ease-out infinite;
+  }
+
+  .net-pulse--b {
+    animation-delay: 1.7s;
+  }
+
+  .net-wave {
+    animation: net-wave 1.9s ease-out infinite;
+  }
+}
+
+@keyframes net-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@keyframes net-travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes net-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes net-ping {
+  0% {
+    transform: scale(0.55);
+    stroke-opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.25);
+    stroke-opacity: 0;
+  }
+}
+
+@keyframes net-wave {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes sec-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0) rotate(1.5deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: var(--o, 0.5);
+  }
+  50% {
+    opacity: calc(var(--o, 0.5) * 0.25);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(var(--dx, 60px), var(--dy, -30px));
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-reverse {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+@keyframes pulse-sun {
+  0%,
+  100% {
+    box-shadow:
+      0 0 60px rgba(245, 197, 24, 0.55),
+      0 0 140px rgba(245, 197, 24, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 78px rgba(245, 197, 24, 0.7),
+      0 0 180px rgba(245, 197, 24, 0.32);
+  }
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateX(0) rotate(var(--tilt, 14deg));
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  22% {
+    transform: translateX(125vw) rotate(var(--tilt, 14deg));
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(125vw) rotate(var(--tilt, 14deg));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star,
+  .nebula,
+  .orbit,
+  .sun {
+    animation: none !important;
+  }
+
+  .orbit {
+    transform: translate(-50%, -50%);
+  }
+
+  .shooting {
+    display: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /*
+   * The header only becomes sticky when JS can swap it to its solid state on
+   * scroll — otherwise white nav text would ride over white page content.
+   */
+  .js #site-header {
+    position: sticky;
+    top: 0;
+  }
+
+  /* Progressive scroll reveal — elements start hidden only when JS is available */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

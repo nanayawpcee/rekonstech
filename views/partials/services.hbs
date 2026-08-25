@@ -1,0 +1,114 @@
+<span id="portfolio" aria-hidden="true"></span>
+<section id="services" class="section relative overflow-hidden bg-white">
+  <div class="pointer-events-none absolute -right-32 top-32 -z-10 h-[28rem] w-[28rem] rounded-full bg-accent-100/50 blur-3xl"></div>
+
+  <div class="container">
+    <div class="reveal flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div class="max-w-2xl">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-brand-600"></span>
+          {{site.services.eyebrow}}
+        </p>
+        <h2 class="h2">
+          {{site.services.title}}
+          <span class="block text-brand-600">{{site.services.titleAccent}}</span>
+        </h2>
+        <p class="lead mt-5">{{site.services.copy}}</p>
+      </div>
+      <a href="#request" class="btn-ghost shrink-0">
+        Request a Service
+        {{{icon "arrow-right" "h-4 w-4 text-brand-600"}}}
+      </a>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-6">
+      {{#each site.services.categories}}
+        <article
+          class="reveal group flex flex-col rounded-3xl p-7 shadow-soft transition duration-300 hover:-translate-y-1.5 hover:shadow-lift lg:col-span-2
+                 {{#if this.featured}}border border-ink-800 bg-ink-900{{else}}border border-ink-100 bg-white hover:border-brand-200{{/if}}"
+        >
+          <div class="flex items-start justify-between gap-4">
+            <span
+              class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl transition-colors duration-300
+                     {{#if this.featured}}bg-accent-500 text-ink-900{{else}}bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white{{/if}}"
+            >
+              {{{icon this.icon "h-7 w-7"}}}
+            </span>
+            <span class="font-display text-4xl font-extrabold leading-none {{#if this.featured}}text-white/10{{else}}text-ink-100{{/if}}">
+              0{{inc @index}}
+            </span>
+          </div>
+
+          <h3 class="mt-6 text-xl {{#if this.featured}}text-white{{/if}}">{{this.title}}</h3>
+          <p class="mt-2.5 text-sm leading-6 {{#if this.featured}}text-ink-200{{else}}text-ink-400{{/if}}">
+            {{this.summary}}
+          </p>
+
+          <ul class="mt-6 flex-1 space-y-4 border-t pt-6 {{#if this.featured}}border-white/10{{else}}border-ink-100{{/if}}">
+            {{#each this.items}}
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg
+                         {{#if ../featured}}bg-white/10 text-accent-400{{else}}bg-ink-50 text-brand-600{{/if}}"
+                >
+                  {{{icon this.icon "h-4 w-4"}}}
+                </span>
+                <div>
+                  <p class="text-sm font-bold {{#if ../featured}}text-white{{else}}text-ink-800{{/if}}">
+                    {{this.title}}
+                  </p>
+                  <p class="mt-0.5 text-[13px] leading-5 {{#if ../featured}}text-ink-300{{else}}text-ink-400{{/if}}">
+                    {{this.description}}
+                  </p>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+
+          <a
+            href="{{#if this.detailHref}}{{this.detailHref}}{{else}}#request{{/if}}"
+            {{#unless this.detailHref}}data-service="{{this.slug}}"{{/unless}}
+            class="mt-7 inline-flex items-center gap-2 text-sm font-bold transition-colors
+                   {{#if this.featured}}text-accent-400 hover:text-accent-300{{else}}text-brand-600 hover:text-brand-700{{/if}}"
+          >
+            {{#if this.detailHref}}Explore this service{{else}}Request this service{{/if}}
+            <span class="transition-transform duration-300 group-hover:translate-x-1">
+              {{{icon "arrow-right" "h-4 w-4"}}}
+            </span>
+          </a>
+        </article>
+      {{/each}}
+
+      {{!-- Sixth cell keeps the grid square and gives undecided visitors a route in --}}
+      <article
+        class="reveal flex flex-col justify-between rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 p-7 text-white shadow-lift md:col-span-2 lg:col-span-2"
+      >
+        <div>
+          <span class="grid h-14 w-14 place-items-center rounded-2xl bg-white/15 text-white">
+            {{{icon "life-buoy" "h-7 w-7"}}}
+          </span>
+          <h3 class="mt-6 text-xl text-white">Not sure what you need?</h3>
+          <p class="mt-2.5 text-sm leading-6 text-brand-50/90">
+            Tell us the problem in plain language. Our consultants scope the work, recommend an
+            approach and quote it in writing — free of charge.
+          </p>
+          <ul class="mt-6 space-y-2.5 border-t border-white/15 pt-6 text-sm font-semibold">
+            <li class="flex items-center gap-2.5">
+              {{{icon "check" "h-4 w-4 text-accent-400"}}} Free site survey
+            </li>
+            <li class="flex items-center gap-2.5">
+              {{{icon "check" "h-4 w-4 text-accent-400"}}} Same-day callback
+            </li>
+            <li class="flex items-center gap-2.5">
+              {{{icon "check" "h-4 w-4 text-accent-400"}}} No obligation
+            </li>
+          </ul>
+        </div>
+        <a href="#request" class="btn-primary mt-8 w-full">
+          Talk to a Consultant
+          {{{icon "arrow-right" "h-4 w-4"}}}
+        </a>
+      </article>
+    </div>
+  </div>
+</section>

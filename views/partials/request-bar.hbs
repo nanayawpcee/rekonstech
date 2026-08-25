@@ -1,0 +1,102 @@
+<section id="request" class="relative z-20 -mt-8 lg:-mt-14">
+  <div class="container">
+    <div class="reveal rounded-[2rem] border border-ink-100 bg-gradient-to-br from-brand-50 via-white to-accent-50 p-6 shadow-lift lg:p-8">
+
+      {{#if submitted}}
+        <div class="mb-5 flex items-start gap-3 rounded-2xl border border-accent-300 bg-accent-50 p-4 text-sm font-semibold text-accent-800">
+          {{{icon "check-circle" "h-5 w-5 shrink-0 text-accent-600"}}}
+          <span>Request received. A rekonstech consultant will call you back shortly.</span>
+        </div>
+      {{/if}}
+
+      {{#if formError}}
+        <div class="mb-5 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">
+          {{{icon "alert-triangle" "h-5 w-5 shrink-0 text-red-500"}}}
+          <span>{{formError}}</span>
+        </div>
+      {{/if}}
+
+      <div class="grid gap-7 lg:grid-cols-12 lg:items-center lg:gap-8">
+        <div class="lg:col-span-4">
+          <h2 class="text-2xl leading-tight sm:text-[26px]">
+            {{site.requestBar.title}}
+            <span class="block text-brand-600">{{site.requestBar.subtitle}}</span>
+          </h2>
+          <p class="mt-2 text-sm text-ink-400">{{site.requestBar.note}}</p>
+        </div>
+
+        <form
+          id="request-form"
+          class="lg:col-span-8"
+          action="/api/service-requests"
+          method="post"
+          novalidate
+        >
+          <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <div>
+              <label for="fullName" class="sr-only">Full name</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                class="field"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="phone" class="sr-only">Phone number</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                class="field"
+                placeholder="Phone number"
+                autocomplete="tel"
+                required
+              />
+            </div>
+
+            <div class="relative">
+              <label for="serviceCategory" class="sr-only">Service category</label>
+              <select id="serviceCategory" name="serviceCategory" class="field pr-11 text-ink-800" required>
+                <option value="" disabled {{#unless @root.presetCategory}}selected{{/unless}}>
+                  Select a service
+                </option>
+                {{#each serviceCategoryOptions}}
+                  <option
+                    value="{{this.value}}"
+                    {{#ifEquals this.value @root.presetCategory}}selected{{/ifEquals}}
+                  >{{this.label}}</option>
+                {{/each}}
+              </select>
+              <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-400">
+                {{{icon "chevron-down" "h-4 w-4"}}}
+              </span>
+            </div>
+
+            <button type="submit" class="btn-secondary w-full" data-submit>
+              <span data-submit-label>{{site.requestBar.submitLabel}}</span>
+              {{{icon "send" "h-4 w-4"}}}
+            </button>
+          </div>
+
+          {{!-- Honeypot: hidden from people, tempting to bots --}}
+          <div class="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            <label for="company">Company (leave blank)</label>
+            <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <p
+            id="request-status"
+            role="status"
+            aria-live="polite"
+            class="mt-3 hidden text-sm font-semibold"
+          ></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

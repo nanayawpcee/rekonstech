@@ -1,0 +1,124 @@
+{{!--
+  "What We Build With" — solar backdrop (sun + orbiting planets) behind an
+  oversized heading, a category filter, and a mosaic of brand marks whose
+  details surface in the spotlight cell. Logos are inline SVG from simple-icons.
+--}}
+<section id="stack" class="relative pb-20 pt-[250px] lg:pb-28 lg:pt-[310px]">
+  {{!--
+    The page's only solar system: one sun with rings that reach far beyond this
+    section and up through everything above it. The sky itself is painted once
+    by the page wrapper. cy is in px (not %) so the sun clears the heading
+    whatever the section height.
+  --}}
+  {{> space-backdrop orbits=solarSystem cy="150px" showSun=true bare=true}}
+
+  <div class="container relative">
+    <div class="relative pb-8 text-center">
+      {{!-- Set as an HTML tag: brackets in accent, the words as ghost display type --}}
+      <h2 class="font-display text-[clamp(2.75rem,10vw,7rem)] font-extrabold leading-[0.94] tracking-tight text-white/[0.14]">
+        <span class="text-accent-500/70">&lt;</span>{{page.stack.titleLead}}
+        <span class="text-white/25">{{page.stack.titleAccent}}</span>
+        <span class="block">
+          {{page.stack.titleTail}}<span class="text-accent-500/70">&nbsp;/&gt;</span>
+        </span>
+      </h2>
+      <p class="mx-auto mt-6 max-w-xl text-sm leading-7 text-ink-300 sm:text-base">
+        {{page.stack.copy}}
+      </p>
+    </div>
+
+    {{!-- Category filter --}}
+    <div class="flex justify-center">
+      <div
+        class="flex max-w-full gap-1 overflow-x-auto rounded-full border border-white/10 bg-white/[0.04] p-1.5 backdrop-blur"
+        role="tablist"
+        aria-label="Filter technologies by category"
+      >
+        {{#each techFilters}}
+          <button
+            type="button"
+            role="tab"
+            data-filter="{{this.value}}"
+            aria-selected="{{#if @first}}true{{else}}false{{/if}}"
+            class="whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold text-ink-300 transition-colors
+                   hover:text-white aria-selected:bg-brand-600 aria-selected:text-white"
+          >
+            {{this.label}}
+          </button>
+        {{/each}}
+      </div>
+    </div>
+
+    {{!-- Mosaic --}}
+    <div
+      id="tech-grid"
+      class="relative mx-auto mt-8 grid max-w-6xl grid-cols-4 gap-[3px] overflow-hidden rounded-2xl bg-[#060C16] sm:grid-cols-6 lg:grid-cols-8"
+    >
+      {{!--
+        Desktop: the big first cell of the mosaic.
+        Phones: CSS lifts this out of the grid into a sheet pinned to the bottom
+        of the screen, so the details stay in view however far you have scrolled.
+      --}}
+      <article
+        id="tech-spotlight"
+        class="tech-spotlight col-span-4 row-span-2 flex flex-col items-center justify-center gap-2
+               bg-[#0B1424] p-6 text-center transition-colors duration-300 sm:col-span-3 lg:col-span-3"
+        aria-live="polite"
+      >
+        <div data-spotlight-idle class="flex flex-col items-center gap-2">
+          <h3 class="font-display text-lg font-bold text-white">{{page.stack.idleTitle}}</h3>
+          <p class="max-w-[26ch] text-[13px] leading-6 text-ink-400">{{page.stack.idleCopy}}</p>
+        </div>
+
+        <div
+          data-spotlight-live
+          class="hidden w-full flex-row items-center gap-3.5 text-left md:w-auto md:flex-col md:gap-3 md:text-center"
+        >
+          <span data-spot-icon class="grid h-12 w-12 shrink-0 place-items-center md:h-14 md:w-14"></span>
+          <div class="min-w-0 flex-1">
+            <h3 data-spot-name class="font-display text-base font-extrabold text-ink-900 md:text-xl"></h3>
+            <p
+              data-spot-blurb
+              class="line-clamp-3 text-[13px] leading-5 text-ink-500 md:line-clamp-none md:max-w-[32ch] md:text-sm md:leading-6"
+            ></p>
+          </div>
+          <button
+            type="button"
+            data-spot-close
+            class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink-50 text-ink-400
+                   transition-colors hover:bg-ink-100 hover:text-ink-700 md:hidden"
+            aria-label="Close details"
+          >
+            {{{icon "x" "h-4 w-4"}}}
+          </button>
+        </div>
+      </article>
+
+      {{#each techStack}}
+        <button
+          type="button"
+          class="tech-tile"
+          style="--tech:{{this.color}}"
+          data-tech
+          data-category="{{this.category}}"
+          data-name="{{this.name}}"
+          data-blurb="{{this.blurb}}"
+          data-color="{{this.color}}"
+          data-brand="{{this.brandHex}}"
+          data-on-brand="{{this.onBrand}}"
+          aria-label="{{this.name}} — {{this.category}}"
+        >
+          {{#if this.path}}
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="{{this.path}}" /></svg>
+          {{else}}
+            <span class="tech-word">{{this.wordmark}}</span>
+          {{/if}}
+        </button>
+      {{/each}}
+    </div>
+
+    <p class="mt-6 text-center text-xs text-ink-500">
+      {{techStack.length}} technologies we build, deploy and maintain with · tap a tile on mobile
+    </p>
+  </div>
+</section>

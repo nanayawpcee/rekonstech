@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{pageTitle}}</title>
+    <meta name="description" content="{{metaDescription}}" />
+    <meta name="theme-color" content="#08182F" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{pageTitle}}" />
+    <meta property="og:description" content="{{metaDescription}}" />
+    {{!-- Absolute, because og:image is fetched by scrapers with no page context --}}
+    <meta property="og:image" content="{{site.siteUrl}}{{site.hero.image.src}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/img/favicon-512.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/img/favicon-512.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <script>
+      // Enables JS-only styling (scroll reveal) without a flash for no-JS users.
+      document.documentElement.classList.add('js');
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "{{site.company.legalName}}",
+        "description": "{{metaDescription}}",
+        "telephone": "{{site.company.phone}}",
+        "email": "{{site.company.email}}",
+        "address": { "@type": "PostalAddress", "addressLocality": "{{site.company.address}}" },
+        "openingHours": "Mo-Sa 08:00-18:00",
+        "areaServed": "GH"
+      }
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-white">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink-900 focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-white"
+    >
+      Skip to main content
+    </a>
+
+    {{{body}}}
+
+    <script src="/js/site.js" defer></script>
+    {{#each pageScripts}}<script src="{{this}}" defer></script>{{/each}}
+  </body>
+</html>

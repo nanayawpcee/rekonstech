@@ -1,0 +1,215 @@
+{{!--
+  One printed page. `kind` selects the layout; sizes are fixed in px because the
+  whole book is scaled as a unit (and CSS flattens it to a paper stack on phones).
+--}}
+
+{{#ifEquals kind "cover"}}
+  <div class="bk-page bk-page--cover">
+    <div class="flex items-center justify-between font-mono text-[10px] tracking-[0.22em] text-brand-100">
+      <span>{{kicker}}</span>
+      <span>{{issue}}</span>
+    </div>
+
+    <img src="/img/logo-mark.png" alt="" class="mx-auto mt-10 h-[74px] w-auto drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]" />
+
+    <h3 class="mt-9 font-display text-[46px] font-extrabold uppercase leading-[0.92] tracking-tight text-white">
+      {{titleTop}}<br /><span class="text-accent-500">{{titleAccent}}</span>
+    </h3>
+
+    <p class="mt-4 max-w-[34ch] text-[13px] font-medium leading-6 text-brand-100">{{sub}}</p>
+
+    <ul class="mt-auto space-y-2 pt-8">
+      {{#each @root.book.labels}}
+        {{#unless @first}}
+          <li class="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-brand-200">
+            <span class="h-1 w-1 rounded-full bg-accent-500"></span>
+            {{this}}
+          </li>
+        {{/unless}}
+      {{/each}}
+    </ul>
+
+    <div class="mt-8 flex items-center justify-between border-t border-white/15 pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-brand-200">
+      <span>{{@root.site.company.name}} · {{@root.site.company.address}}</span>
+      <span>Open →</span>
+    </div>
+  </div>
+{{/ifEquals}}
+
+{{#ifEquals kind "intro"}}
+  <div class="bk-page bk-paper">
+    <p class="bk-eyebrow text-brand-600"><span class="bk-tick"></span>{{eyebrow}}</p>
+    <h3 class="font-display text-[38px] font-extrabold leading-[0.98] tracking-tight text-ink-900">
+      {{heading}}<br /><span class="text-brand-600">{{headingAccent}}</span>
+    </h3>
+    <p class="mt-5 max-w-[42ch] text-[13px] leading-[1.75] text-ink-500">{{body}}</p>
+
+    <ul class="mt-6 space-y-3">
+      {{#each points}}
+        <li class="flex items-start gap-2.5 text-[13px] font-semibold leading-6 text-ink-700">
+          <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent-100 text-accent-700">
+            {{{icon "check" "h-3 w-3"}}}
+          </span>
+          {{this}}
+        </li>
+      {{/each}}
+    </ul>
+
+    {{> book-folio}}
+  </div>
+{{/ifEquals}}
+
+{{#ifEquals kind "contents"}}
+  <div class="bk-page bk-paper">
+    <p class="bk-eyebrow text-brand-600"><span class="bk-tick"></span>{{eyebrow}}</p>
+    <h3 class="font-display text-[38px] font-extrabold leading-[0.98] tracking-tight text-ink-900">{{heading}}</h3>
+
+    <ul class="mt-8 space-y-1">
+      {{#each contents}}
+        <li>
+          <button type="button" class="bk-toc" data-goto="{{@index}}">
+            <span class="font-mono text-[11px] tracking-[0.14em] text-accent-600">{{this.no}}</span>
+            <span class="bk-toc-title">{{this.title}}</span>
+            <span class="bk-toc-dots"></span>
+            <span class="font-mono text-[11px] text-ink-400">{{this.page}}</span>
+          </button>
+        </li>
+      {{/each}}
+    </ul>
+
+    <p class="mt-8 border-l-2 border-accent-500 pl-4 text-[12px] italic leading-6 text-ink-400">
+      Tap a line to jump straight to that spread.
+    </p>
+
+    {{> book-folio}}
+  </div>
+{{/ifEquals}}
+
+{{#ifEquals kind "section-left"}}
+  <div class="bk-page bk-paper">
+    <div class="flex items-baseline gap-3">
+      <span class="font-display text-[64px] font-extrabold leading-none text-ink-100">{{num}}</span>
+      <span class="bk-eyebrow mb-0 text-accent-600"><span class="bk-tick"></span>{{verb}}</span>
+    </div>
+
+    <h3 class="mt-4 font-display text-[38px] font-extrabold leading-[0.98] tracking-tight text-ink-900">
+      {{heading}}<br /><span class="text-brand-600">{{headingAccent}}</span>
+    </h3>
+
+    <p class="mt-5 max-w-[42ch] text-[13px] leading-[1.75] text-ink-500">{{body}}</p>
+
+    <blockquote class="mt-6 border-l-2 border-accent-500 pl-4 font-display text-[16px] font-bold leading-[1.4] text-ink-800">
+      {{pull}}
+    </blockquote>
+
+    {{#if mockup}}{{> book-mockup kind=mockup}}{{/if}}
+
+    {{#if meta}}
+      <p class="mt-auto flex items-center gap-2 pt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-brand-600">
+        {{{icon "clock" "h-3.5 w-3.5"}}}
+        {{meta}}
+      </p>
+    {{/if}}
+
+    {{> book-folio}}
+  </div>
+{{/ifEquals}}
+
+{{#ifEquals kind "section-right"}}
+  <div class="bk-page bk-paper">
+    <p class="bk-eyebrow text-brand-600"><span class="bk-tick"></span>{{eyebrow}}</p>
+
+    <ul class="space-y-5">
+      {{#each services}}
+        <li class="flex gap-3.5">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600">
+            {{{icon this.icon "h-5 w-5"}}}
+          </span>
+          <div>
+            <p class="font-display text-[15px] font-extrabold text-ink-900">{{this.title}}</p>
+            <p class="mt-1 text-[12.5px] leading-[1.65] text-ink-500">{{this.desc}}</p>
+            {{#if this.chips}}
+              <div class="mt-2 flex flex-wrap gap-1.5">
+                {{#each this.chips}}
+                  <span class="rounded-full bg-ink-50 px-2.5 py-1 font-mono text-[9.5px] uppercase tracking-[0.12em] text-ink-500">
+                    {{this}}
+                  </span>
+                {{/each}}
+              </div>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+
+    {{#if note}}
+      <p class="mt-auto border-t border-dotted border-ink-300 pt-4 text-[11.5px] italic leading-6 text-ink-400">
+        {{note}}
+      </p>
+    {{/if}}
+
+    {{> book-folio}}
+  </div>
+{{/ifEquals}}
+
+{{#ifEquals kind "cta-left"}}
+  <div class="bk-page bk-page--cta">
+    <p class="bk-eyebrow text-accent-500"><span class="bk-tick"></span>{{eyebrow}}</p>
+    <h3 class="font-display text-[38px] font-extrabold leading-[0.98] tracking-tight text-white">
+      {{heading}}<br /><span class="text-accent-500">{{headingAccent}}</span>
+    </h3>
+    <p class="mt-5 max-w-[40ch] text-[13px] leading-[1.75] text-ink-200">{{body}}</p>
+    {{> book-folio tone="dark"}}
+  </div>
+{{/ifEquals}}
+
+{{#ifEquals kind "cta-right"}}
+  <div class="bk-page bk-paper">
+    <p class="bk-eyebrow text-brand-600"><span class="bk-tick"></span>{{eyebrow}}</p>
+    <h3 class="font-display text-[30px] font-extrabold leading-[1.02] tracking-tight text-ink-900">{{heading}}</h3>
+
+    <ul class="mt-6 divide-y divide-ink-100 border-y border-ink-100">
+      <li class="flex items-center justify-between gap-3 py-3">
+        <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">Email</span>
+        <span class="text-[13px] font-bold text-ink-800">{{@root.site.company.email}}</span>
+      </li>
+      <li class="flex items-center justify-between gap-3 py-3">
+        <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">Phone</span>
+        <span class="text-[13px] font-bold text-ink-800">{{@root.site.company.phone}}</span>
+      </li>
+      <li class="flex items-center justify-between gap-3 py-3">
+        <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">Office</span>
+        <span class="text-[13px] font-bold text-ink-800">{{@root.site.company.address}}</span>
+      </li>
+      <li class="flex items-center justify-between gap-3 py-3">
+        <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">Hours</span>
+        <span class="text-[13px] font-bold text-ink-800">{{@root.site.company.businessHours}}</span>
+      </li>
+    </ul>
+
+    {{#if cta}}
+      <a href="{{cta.href}}" class="btn-primary mt-7 w-full !py-3 !text-[13px]">
+        {{cta.label}}
+        {{{icon "arrow-right" "h-4 w-4"}}}
+      </a>
+    {{/if}}
+
+    <p class="mt-4 text-[11.5px] leading-6 text-ink-400">
+      Serving businesses, hotels, schools and hospitals nationwide.
+    </p>
+
+    {{> book-folio}}
+  </div>
+{{/ifEquals}}
+
+{{#ifEquals kind "back"}}
+  <div class="bk-page bk-page--back">
+    <img src="/img/logo-mark.png" alt="" class="h-14 w-auto opacity-90" />
+    <span class="mt-5 block h-0.5 w-14 bg-accent-500"></span>
+    <p class="mt-5 font-display text-[15px] font-extrabold text-white">{{@root.site.company.legalName}}</p>
+    <p class="mt-1.5 text-[11.5px] text-ink-300">{{sub}}</p>
+    <p class="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400">
+      © {{year}} · {{@root.site.company.address}}
+    </p>
+  </div>
+{{/ifEquals}}
