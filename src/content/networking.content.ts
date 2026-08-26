@@ -4,6 +4,13 @@
  */
 
 export const networking = {
+
+  /** Fixed section rail (xl and up). */
+  rail: [
+    { icon: 'network', href: '#top', label: 'Overview' },
+    { icon: 'wifi', href: '#services', label: 'Network services' },
+    { icon: 'life-buoy', href: '#request', label: 'Book a survey' },
+  ],
   meta: {
     title: 'Networking & Internet Services | Rekonstech Consulting and Trading Services',
     description:

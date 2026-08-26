@@ -2,8 +2,13 @@
 Sticky header. Sits transparent over the dark hero, then swaps to a solid
 white bar once the page scrolls (site.js toggles `.is-stuck`).
 --}}
-<header id="site-header"
-  class="relative z-50 -mb-[88px] transition-all duration-300 [&.is-stuck]:bg-white/95 [&.is-stuck]:shadow-soft [&.is-stuck]:backdrop-blur">
+{{!--
+  data-solid marks pages whose hero is light: the header must start in its solid
+  state instead of white-on-white. The class is also baked in so the no-JS
+  rendering is correct, and site.js keeps it pinned on.
+--}}
+<header id="site-header" {{#if lightHeader}}data-solid="true"{{/if}}
+  class="relative z-50 -mb-[88px] transition-all duration-300 [&.is-stuck]:bg-white/95 [&.is-stuck]:shadow-soft [&.is-stuck]:backdrop-blur {{#if lightHeader}}is-stuck{{/if}}">
   <div class="container flex h-[88px] items-center justify-between gap-4">
     <span class="[.is-stuck_&]:hidden">{{> logo tone="dark"}}</span>
     <span class="hidden [.is-stuck_&]:inline-flex">{{> logo}}</span>

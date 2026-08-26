@@ -1,0 +1,201 @@
+<span id="top" aria-hidden="true"></span>
+
+{{> top-bar}}
+{{> header}}
+
+<main id="main" class="bg-[#080D13]">
+
+  {{!-- ------------------------------------------------------------- hero --}}
+  <section class="relative px-4 pb-16 pt-[104px] sm:px-6 lg:pb-24 lg:pt-[120px]">
+    <div class="con-stage relative isolate mx-auto max-w-[1400px] overflow-clip rounded-[2.5rem] px-6 py-14 sm:px-10 lg:px-14 lg:py-16">
+      <img
+        src="{{page.hero.image.src}}"
+        alt="{{page.hero.image.alt}}"
+        class="absolute inset-0 -z-10 h-full w-full object-cover object-[64%_center]"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div
+        class="absolute inset-0 -z-10"
+        style="background:linear-gradient(90deg,#071522 0%,rgba(7,21,34,0.94) 34%,rgba(7,21,34,0.64) 58%,rgba(7,21,34,0.32) 100%)"
+      ></div>
+      <div
+        class="absolute inset-0 -z-10"
+        style="background:linear-gradient(180deg,rgba(7,21,34,0.55) 0%,transparent 26%,transparent 68%,rgba(7,21,34,0.62) 100%)"
+      ></div>
+
+      <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+        <div class="relative">
+          <p class="eyebrow-on-dark">{{page.hero.eyebrow}}</p>
+
+          <h1 class="h1 text-white">
+            {{page.hero.titleLead}}
+            <span class="block text-accent-400">{{page.hero.titleAccent}}</span>
+          </h1>
+
+          <p class="mt-6 max-w-xl text-[15px] leading-7 text-ink-100">{{page.hero.copy}}</p>
+
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a href="{{page.hero.primaryCta.href}}" class="btn-primary">
+              {{page.hero.primaryCta.label}}
+              {{{icon "arrow-right" "h-4 w-4"}}}
+            </a>
+            <a href="{{page.hero.secondaryCta.href}}" class="btn-outline">
+              {{page.hero.secondaryCta.label}}
+            </a>
+          </div>
+
+          <ul class="mt-10 flex flex-wrap gap-x-7 gap-y-3">
+            {{#each page.hero.promises}}
+              <li class="flex items-center gap-2.5 text-sm font-semibold text-white">
+                <span class="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-accent-400">
+                  {{{icon this.icon "h-4 w-4"}}}
+                </span>
+                {{this.label}}
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        {{!-- Engagement roadmap --}}
+        <div class="relative">
+          <div class="rounded-[2rem] border border-white/10 bg-[#071522]/72 p-5 shadow-lift backdrop-blur-md sm:p-7">
+            <p class="mb-5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">
+              {{page.roadmap.label}}
+            </p>
+
+            <ol class="relative space-y-4 border-l border-white/12 pl-6">
+              {{#each page.roadmap.phases}}
+                <li class="relative">
+                  <span
+                    class="absolute -left-[31px] top-1 grid h-5 w-5 place-items-center rounded-full border
+                           {{#ifEquals this.state 'done'}}border-accent-500 bg-accent-500 text-ink-900{{/ifEquals}}
+                           {{#ifEquals this.state 'active'}}border-accent-500 bg-[#071522] text-accent-400{{/ifEquals}}
+                           {{#ifEquals this.state 'next'}}border-white/25 bg-[#071522] text-ink-400{{/ifEquals}}"
+                  >
+                    {{#ifEquals this.state 'done'}}{{{icon "check" "h-3 w-3"}}}{{else}}
+                      <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+                    {{/ifEquals}}
+                  </span>
+
+                  <div class="flex items-baseline gap-2.5">
+                    <span class="font-mono text-[10px] tracking-[0.14em] text-accent-500">{{this.no}}</span>
+                    <h3 class="text-[15px] text-white">{{this.title}}</h3>
+                  </div>
+                  <p class="mt-1 text-[12.5px] leading-5 text-ink-300">{{this.body}}</p>
+                </li>
+              {{/each}}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- --------------------------------------------------------- services --}}
+  <section id="services" class="relative bg-white py-20 lg:py-24">
+    <div class="container">
+      <p class="eyebrow">{{page.services.eyebrow}}</p>
+      <h2 class="reveal font-display text-[clamp(2.5rem,7vw,4.5rem)] font-extrabold uppercase leading-none tracking-tight text-ink-900">
+        {{page.services.title}}
+      </h2>
+      <p class="lead reveal mt-5 max-w-2xl">{{page.services.copy}}</p>
+
+      <div class="mt-12 grid gap-6 lg:grid-cols-3">
+        {{#each page.services.items}}
+          <article class="reveal group flex flex-col overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-lift">
+            <div class="relative h-48 overflow-hidden">
+              <img
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                src="{{this.image.src}}"
+                alt="{{this.image.alt}}"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/20 to-transparent"></div>
+              <span class="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-xl bg-white/15 text-white backdrop-blur">
+                {{{icon this.icon "h-5 w-5"}}}
+              </span>
+              <h3 class="absolute inset-x-4 bottom-3 text-lg leading-tight text-white">{{this.title}}</h3>
+            </div>
+
+            <div class="flex flex-1 flex-col p-7">
+              <p class="text-sm leading-6 text-ink-400">{{this.summary}}</p>
+
+              <ul class="mt-5 flex-1 space-y-2.5 border-t border-ink-100 pt-5">
+                {{#each this.features}}
+                  <li class="flex items-start gap-2.5 text-[13px] leading-5 text-ink-700">
+                    <span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-accent-100 text-accent-700">
+                      {{{icon "check" "h-2.5 w-2.5"}}}
+                    </span>
+                    {{this}}
+                  </li>
+                {{/each}}
+              </ul>
+
+              <p class="mt-6 flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand-600">
+                {{{icon "clock" "h-3.5 w-3.5"}}}
+                {{this.outcome}}
+              </p>
+            </div>
+          </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  {{!-- ------------------------------------------------------- principles --}}
+  <section class="relative overflow-hidden bg-ink-950 py-20 lg:py-24">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_520px_at_50%_0%,rgba(26,117,188,0.22),transparent_65%)]"></div>
+
+    <div class="container relative">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <p class="eyebrow-on-dark justify-center">{{page.principles.eyebrow}}</p>
+        <h2 class="h2 text-white">
+          {{page.principles.title}}
+          <span class="block text-accent-500">{{page.principles.titleAccent}}</span>
+        </h2>
+        <p class="lead mt-5 text-ink-300">{{page.principles.copy}}</p>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {{#each page.principles.items}}
+          <article class="reveal rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur transition-colors hover:border-accent-500/40">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-white/5 text-accent-400">
+              {{{icon this.icon "h-5 w-5"}}}
+            </span>
+            <h3 class="mt-5 text-base text-white">{{this.title}}</h3>
+            <p class="mt-2 text-[13px] leading-6 text-ink-300">{{this.body}}</p>
+          </article>
+        {{/each}}
+      </div>
+
+      <dl class="reveal mt-12 grid gap-6 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 sm:grid-cols-3">
+        {{#each page.metrics.items}}
+          <div class="text-center">
+            <dd class="font-display text-4xl font-extrabold leading-none text-accent-500">{{this.value}}</dd>
+            <dt class="mt-2 text-xs font-semibold uppercase tracking-wider text-ink-300">{{this.label}}</dt>
+          </div>
+        {{/each}}
+      </dl>
+    </div>
+  </section>
+
+  {{!-- ------------------------------------------------------- conversion --}}
+  <section class="relative bg-white pb-20 pt-24 lg:pb-24">
+    <div class="container">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <h2 class="h2">
+          {{page.ctaBand.title}}
+          <span class="block text-brand-600">{{page.ctaBand.titleAccent}}</span>
+        </h2>
+        <p class="lead mt-5">{{page.ctaBand.copy}}</p>
+      </div>
+    </div>
+
+    <div class="mt-12">{{> request-bar}}</div>
+  </section>
+</main>
+
+{{> side-rail}}
+{{> footer}}

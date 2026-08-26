@@ -1,0 +1,90 @@
+{{!--
+  Catalogue with a quote basket. Nothing is charged here: items are collected
+  and submitted through the normal service-request endpoint as one itemised
+  enquiry, which is how B2B kit-outs actually get priced.
+--}}
+<section id="catalogue" class="relative bg-ink-50/60 py-20 lg:py-24">
+  <div class="container">
+    <div class="reveal flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="eyebrow">{{catalogue.meta.eyebrow}}</p>
+        <h2 class="max-w-md font-display text-3xl font-extrabold leading-tight tracking-tight text-ink-900 sm:text-4xl">
+          {{catalogue.meta.title}}
+          <span class="text-brand-600">{{catalogue.meta.titleAccent}}</span>
+        </h2>
+        <span class="mt-4 block h-1 w-12 rounded-full bg-accent-500"></span>
+      </div>
+      <p class="max-w-sm text-sm leading-6 text-ink-400">{{catalogue.meta.copy}}</p>
+    </div>
+
+    {{!-- Category filter --}}
+    <div class="reveal mt-10 flex flex-wrap gap-2">
+      {{#each catalogue.filters}}
+        <button
+          type="button"
+          data-cat-filter="{{this.value}}"
+          aria-selected="{{#if @first}}true{{else}}false{{/if}}"
+          class="rounded-full border border-ink-200 bg-white px-5 py-2 text-sm font-semibold text-ink-500
+                 transition-colors hover:border-brand-300 hover:text-brand-600
+                 aria-selected:border-brand-600 aria-selected:bg-brand-600 aria-selected:text-white"
+        >
+          {{this.label}}
+        </button>
+      {{/each}}
+    </div>
+
+    <div id="catalogue-grid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {{#each catalogue.items}}
+        <article
+          class="reveal group flex flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift"
+          data-product
+          data-category="{{this.category}}"
+          data-sku="{{this.sku}}"
+          data-name="{{this.name}}"
+          data-price="{{this.price}}"
+          data-price-label="{{this.priceLabel}}"
+        >
+          <div class="bg-ink-50 p-4">
+            <img
+              class="h-36 w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              src="{{this.image.src}}"
+              alt="{{this.image.alt}}"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div class="flex flex-1 flex-col p-5">
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-400">{{this.category}}</p>
+            <h3 class="mt-1.5 text-[15px] leading-tight">{{this.name}}</h3>
+            <p class="mt-1 text-[12.5px] leading-5 text-ink-400">{{this.spec}}</p>
+
+            <div class="mt-4 flex items-end justify-between border-t border-ink-100 pt-4">
+              <div>
+                <p class="font-display text-lg font-extrabold leading-none text-ink-900">{{this.priceLabel}}</p>
+                <p class="mt-1 flex items-center gap-1.5 text-[11px] text-ink-400">
+                  {{{icon "clock" "h-3 w-3"}}}
+                  {{this.lead}}
+                </p>
+              </div>
+              <button
+                type="button"
+                data-add-to-quote
+                class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-accent-500 text-ink-900
+                       transition-transform duration-300 hover:scale-110"
+                aria-label="Add {{this.name}} to your quote"
+              >
+                {{{icon "arrow-right" "h-4 w-4"}}}
+              </button>
+            </div>
+          </div>
+        </article>
+      {{/each}}
+    </div>
+
+    <p class="mt-6 flex items-center gap-2 text-xs text-ink-400">
+      {{{icon "file-check" "h-3.5 w-3.5 text-brand-600"}}}
+      {{catalogue.meta.priceNote}}
+    </p>
+  </div>
+</section>

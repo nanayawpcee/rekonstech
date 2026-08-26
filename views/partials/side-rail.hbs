@@ -1,0 +1,24 @@
+{{!--
+  Fixed section rail for the service pages. Rendered outside <main> on purpose:
+  `position: fixed` resolves against a transformed ancestor rather than the
+  viewport, and several of these pages transform their backdrops.
+
+  Large screens only — below xl there is no room beside the content, and the
+  page anchors are reachable by scrolling anyway.
+--}}
+{{#if page.rail}}
+  <nav class="side-rail" aria-label="On this page">
+    {{#each page.rail}}
+      <a
+        href="{{this.href}}"
+        class="side-rail-link"
+        data-rail-link
+        aria-current="{{#if @first}}true{{else}}false{{/if}}"
+      >
+        <span class="sr-only">{{this.label}}</span>
+        {{{icon this.icon "h-[18px] w-[18px]"}}}
+        <span class="side-rail-tip" aria-hidden="true">{{this.label}}</span>
+      </a>
+    {{/each}}
+  </nav>
+{{/if}}

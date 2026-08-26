@@ -83,6 +83,14 @@
             </button>
           </div>
 
+          {{!-- Populated by the quote basket, when the page has one --}}
+          <input type="hidden" name="basket" data-basket-field value="" />
+          <p
+            data-basket-note
+            hidden
+            class="mt-3 flex items-center gap-2 text-[12.5px] font-semibold text-brand-700"
+          ></p>
+
           {{!-- Honeypot: hidden from people, tempting to bots --}}
           <div class="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
             <label for="company">Company (leave blank)</label>

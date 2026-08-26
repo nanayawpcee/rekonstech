@@ -447,9 +447,6 @@
     @apply mb-5 flex items-center gap-2.5 font-mono text-[10.5px] font-bold uppercase tracking-[0.22em];
   }
 
-  .bk-tick {
-    @apply inline-block h-0.5 w-6 bg-current;
-  }
 
   .bk-folio {
     @apply mt-auto flex items-center justify-between border-t border-ink-200/60 pt-4
@@ -719,6 +716,156 @@
    Networking — live topology map
    ========================================================================== */
 @layer components {
+  /* ------------------------------------------- Sales & Supply, product page */
+  .sup-hero {
+    background: linear-gradient(165deg, #f4f8fd 0%, #eaf2fb 48%, #e3edf9 100%);
+  }
+
+  /* Soft brand disc the hardware floats against */
+  .sup-orb {
+    position: absolute;
+    top: 8%;
+    right: 6%;
+    z-index: -1;
+    height: 30rem;
+    width: 30rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 35% 30%, rgba(42, 144, 232, 0.28), rgba(26, 117, 188, 0.1) 60%, transparent 72%);
+  }
+
+  .sup-dots {
+    position: absolute;
+    bottom: 14%;
+    right: 4%;
+    z-index: -1;
+    height: 7rem;
+    width: 9rem;
+    background-image: radial-gradient(rgba(26, 117, 188, 0.35) 1.5px, transparent 1.5px);
+    background-size: 14px 14px;
+  }
+
+  /* ------------------------------------------------- fixed section rail */
+  .side-rail {
+    @apply fixed left-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-1
+           rounded-full border border-ink-100/70 bg-white/90 p-2 shadow-lift backdrop-blur xl:flex;
+  }
+
+  .side-rail-link {
+    @apply relative grid h-10 w-10 place-items-center rounded-full text-ink-400 transition-colors
+           hover:bg-ink-900 hover:text-accent-400;
+  }
+
+  .side-rail-link[aria-current='true'] {
+    @apply bg-brand-600 text-white;
+  }
+
+  .side-rail-tip {
+    @apply pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-lg bg-ink-900
+           px-2.5 py-1.5 text-[11px] font-semibold text-white shadow-soft;
+  }
+
+  .side-rail-link:hover .side-rail-tip,
+  .side-rail-link:focus-visible .side-rail-tip {
+    @apply block;
+  }
+
+  /*
+   * Floating product shots. The photographs are on white studio backgrounds:
+   * multiply blends that white into the stage so only the product reads, and
+   * the radial mask feathers the frame edge so no rectangle shows through.
+   * Cutting them out programmatically left white shadow blobs — these are
+   * silver products on white, too close in value to separate cleanly.
+   */
+  .product-float {
+    mix-blend-mode: multiply;
+    /* farthest-side, not closest-side: the ellipse then fits the whole box, so
+       tall portraits are feathered at their edges instead of being cropped to
+       a circle the width of the image. */
+    -webkit-mask-image: radial-gradient(farthest-side at 50% 50%, #000 74%, transparent 100%);
+    mask-image: radial-gradient(farthest-side at 50% 50%, #000 74%, transparent 100%);
+  }
+
+  /* Sources already on pure white need no feathering — multiply alone erases
+     the background exactly, and no mask keeps the subject's edges crisp. */
+  .product-float--clean {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* For a subject the photographer cropped at the frame edge: without this the
+     crop reads as a hard rectangle sitting on the stage. */
+  .product-float--fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 76%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 76%, transparent 100%);
+  }
+
+  /* ---------------------------------------------------------- quote basket */
+  .qb-toggle {
+    @apply fixed bottom-5 right-5 z-40 inline-flex items-center gap-2.5 rounded-full bg-ink-900 px-5 py-3.5
+           text-sm font-bold text-white shadow-lift transition-transform hover:scale-105;
+  }
+
+  .qb-count {
+    @apply grid h-6 min-w-[1.5rem] place-items-center rounded-full bg-accent-500 px-1.5 font-mono text-xs text-ink-900;
+  }
+
+  .qb-scrim {
+    @apply fixed inset-0 z-40 bg-ink-950/50 backdrop-blur-sm;
+  }
+
+  .qb-drawer {
+    @apply fixed bottom-0 right-0 top-0 z-50 flex w-full max-w-[380px] flex-col bg-white shadow-lift;
+  }
+
+  /*
+   * A class that sets `display` outranks the user-agent's `[hidden] {display:none}`,
+   * so these elements need it spelled out or the drawer renders open on load.
+   */
+  .qb-drawer[hidden],
+  .qb-toggle[hidden],
+  .qb-line[hidden] {
+    display: none;
+  }
+
+  .qb-lines {
+    @apply flex-1 overflow-y-auto;
+  }
+
+  .qb-line {
+    @apply flex items-center gap-3 border-b border-ink-100 px-6 py-4;
+  }
+
+  .qb-step {
+    @apply grid h-7 w-7 place-items-center rounded-full bg-ink-50 text-sm font-bold text-ink-700
+           transition-colors hover:bg-ink-900 hover:text-white;
+  }
+
+  /* Pill CTA with its own arrow badge */
+  .pill-cta {
+    @apply inline-flex items-center justify-between gap-4 rounded-full bg-accent-500 py-2 pl-6 pr-2
+           text-sm font-bold text-ink-900 transition-colors duration-200 hover:bg-accent-400;
+  }
+
+  .pill-cta-badge {
+    @apply grid h-10 w-10 shrink-0 place-items-center rounded-full bg-ink-900 text-accent-400;
+  }
+
+  /* Sales & Supply — warmer, workshop-lit stage */
+  .sup-stage {
+    background:
+      radial-gradient(880px 600px at 76% 8%, rgba(42, 144, 232, 0.34) 0%, transparent 62%),
+      radial-gradient(640px 480px at 10% 94%, rgba(211, 213, 6, 0.12) 0%, transparent 60%),
+      linear-gradient(155deg, #0d2b45 0%, #0a1f33 48%, #06101b 100%);
+  }
+
+  /* Consultancy — cooler, boardroom stage */
+  .con-stage {
+    background:
+      radial-gradient(900px 620px at 74% 10%, rgba(26, 117, 188, 0.38) 0%, transparent 62%),
+      radial-gradient(620px 460px at 8% 92%, rgba(102, 209, 16, 0.12) 0%, transparent 60%),
+      linear-gradient(155deg, #0e3050 0%, #0a2138 46%, #071522 100%);
+  }
+
   .net-stage {
     background:
       radial-gradient(880px 600px at 78% 6%, rgba(42, 144, 232, 0.42) 0%, transparent 62%),

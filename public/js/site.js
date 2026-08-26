@@ -8,11 +8,43 @@
   /* ---------------------------------------------------------------- header */
   var header = document.getElementById('site-header');
   if (header) {
+    // Pages with a light hero mark the header solid; it must never revert to
+    // its transparent state, or the nav would be white on a white background.
+    var alwaysSolid = header.dataset.solid === 'true';
     var applyStuckState = function () {
-      header.classList.toggle('is-stuck', window.scrollY > 24);
+      header.classList.toggle('is-stuck', alwaysSolid || window.scrollY > 24);
     };
     applyStuckState();
     window.addEventListener('scroll', applyStuckState, { passive: true });
+  }
+
+  /* ------------------------------------------------------ side rail spy */
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll('[data-rail-link]'));
+  if (railLinks.length) {
+    var railTargets = [];
+    railLinks.forEach(function (link) {
+      var id = link.getAttribute('href') || '';
+      if (id.charAt(0) !== '#') return;
+      var target = document.querySelector(id);
+      if (target) railTargets.push({ link: link, target: target });
+    });
+
+    // Position-based rather than an IntersectionObserver: some of these anchors
+    // are zero-height marker spans (#top), which never "intersect" usefully.
+    var syncRail = function () {
+      var line = window.scrollY + window.innerHeight * 0.35;
+      var activeIndex = 0;
+      railTargets.forEach(function (entry, index) {
+        if (entry.target.getBoundingClientRect().top + window.scrollY <= line) activeIndex = index;
+      });
+      railTargets.forEach(function (entry, index) {
+        entry.link.setAttribute('aria-current', String(index === activeIndex));
+      });
+    };
+
+    syncRail();
+    window.addEventListener('scroll', syncRail, { passive: true });
+    window.addEventListener('resize', syncRail);
   }
 
   /* --------------------------------------------------------- mobile menu */

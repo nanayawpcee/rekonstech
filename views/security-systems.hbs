@@ -5,19 +5,15 @@
 
 <main id="main" class="bg-[#080D13]">
 
-  {{!-- ------------------------------------------------------------- hero
-    A gradient stage with real camera photography floating over it, a light
-    trail linking the two units, and the headline on a glass panel.        --}}
+  {{!-- hero
+  A gradient stage with real camera photography floating over it, a light
+  trail linking the two units, and the headline on a glass panel. --}}
   <section class="relative px-4 pb-16 pt-[104px] sm:px-6 lg:pb-24 lg:pt-[120px]">
     <div class="sec-stage mx-auto min-h-[540px] max-w-[1400px] px-6 py-14 sm:px-10 lg:min-h-[640px] lg:px-14 lg:py-20">
 
       {{!-- Light trail --}}
-      <svg
-        class="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 1400 640"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
+      <svg class="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1400 640" preserveAspectRatio="none"
+        aria-hidden="true">
         <defs>
           <linearGradient id="sec-trail" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stop-color="#66D110" stop-opacity="0" />
@@ -29,39 +25,20 @@
             <feGaussianBlur stdDeviation="7" />
           </filter>
         </defs>
-        <path
-          d="M60 470 C 320 560, 470 300, 700 360 C 930 420, 1050 220, 1340 180"
-          fill="none"
-          stroke="url(#sec-trail)"
-          stroke-width="10"
-          stroke-linecap="round"
-          filter="url(#sec-trail-glow)"
-          opacity="0.85"
-        />
-        <path
-          d="M60 470 C 320 560, 470 300, 700 360 C 930 420, 1050 220, 1340 180"
-          fill="none"
-          stroke="url(#sec-trail)"
-          stroke-width="2.5"
-          stroke-linecap="round"
-        />
+        <path d="M60 470 C 320 560, 470 300, 700 360 C 930 420, 1050 220, 1340 180" fill="none" stroke="url(#sec-trail)"
+          stroke-width="10" stroke-linecap="round" filter="url(#sec-trail-glow)" opacity="0.85" />
+        <path d="M60 470 C 320 560, 470 300, 700 360 C 930 420, 1050 220, 1340 180" fill="none" stroke="url(#sec-trail)"
+          stroke-width="2.5" stroke-linecap="round" />
       </svg>
 
       {{!-- Floating cameras --}}
-      <img
-        class="sec-cam right-[-4%] top-[-6%] w-[54%] max-w-[620px] lg:right-[-2%] lg:top-[-10%]"
-        src="{{page.hero.cameras.primary.src}}"
-        alt="{{page.hero.cameras.primary.alt}}"
-        loading="eager"
-        decoding="async"
-      />
+      <img class="sec-cam right-[-4%] top-[-6%] w-[54%] max-w-[620px] lg:right-[-2%] lg:top-[-10%]"
+        src="{{page.hero.cameras.primary.src}}" alt="{{page.hero.cameras.primary.alt}}" loading="eager"
+        decoding="async" />
       <img
         class="sec-cam sec-cam--alt bottom-[-16%] left-[-13%] hidden w-[34%] max-w-[360px] md:block lg:bottom-[-14%] lg:left-[-7%]"
-        src="{{page.hero.cameras.secondary.src}}"
-        alt="{{page.hero.cameras.secondary.alt}}"
-        loading="lazy"
-        decoding="async"
-      />
+        src="{{page.hero.cameras.secondary.src}}" alt="{{page.hero.cameras.secondary.alt}}" loading="lazy"
+        decoding="async" />
 
       {{!-- Glossy orbs --}}
       <span class="sec-orb left-[46%] top-[8%] h-16 w-16 opacity-70 [animation-delay:-3s]"></span>
@@ -98,21 +75,23 @@
     {{!-- Outside the stage, so the corner camera never sits over the text --}}
     <ul class="mx-auto mt-8 flex max-w-[1400px] flex-wrap justify-center gap-x-8 gap-y-3 lg:justify-start lg:pl-14">
       {{#each page.hero.promises}}
-        <li class="flex items-center gap-2.5 text-sm font-semibold text-white">
-          <span class="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-accent-400">
-            {{{icon this.icon "h-4 w-4"}}}
-          </span>
-          {{this.label}}
-        </li>
+      <li class="flex items-center gap-2.5 text-sm font-semibold text-white">
+        <span
+          class="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-accent-400">
+          {{{icon this.icon "h-4 w-4"}}}
+        </span>
+        {{this.label}}
+      </li>
       {{/each}}
     </ul>
   </section>
 
-  {{!-- -------------------------------------------------------------- about --}}
+  {{!-- about --}}
   <section class="relative bg-white py-20 lg:py-24">
     <div class="container">
       <p class="eyebrow">{{page.about.eyebrow}}</p>
-      <h2 class="reveal font-display text-[clamp(2.5rem,7vw,4.5rem)] font-extrabold uppercase leading-none tracking-tight text-ink-900">
+      <h2
+        class="reveal font-display text-[clamp(2.5rem,7vw,4.5rem)] font-extrabold uppercase leading-none tracking-tight text-ink-900">
         {{page.about.title}}
       </h2>
 
@@ -120,36 +99,32 @@
         <div class="flex flex-col justify-between">
           <div class="space-y-4">
             {{#each page.about.copy}}
-              <p class="text-sm leading-7 text-ink-500">{{this}}</p>
+            <p class="text-sm leading-7 text-ink-500">{{this}}</p>
             {{/each}}
           </div>
 
           <dl class="mt-8 flex gap-12">
             {{#each page.about.stats}}
-              <div>
-                <dd class="font-display text-4xl font-extrabold leading-none text-brand-600">{{this.value}}</dd>
-                <dt class="mt-2 text-xs font-bold uppercase tracking-wider text-ink-400">{{this.label}}</dt>
-              </div>
+            <div>
+              <dd class="font-display text-4xl font-extrabold leading-none text-brand-600">{{this.value}}</dd>
+              <dt class="mt-2 text-xs font-bold uppercase tracking-wider text-ink-400">{{this.label}}</dt>
+            </div>
             {{/each}}
           </dl>
         </div>
 
-        <img
-          class="h-64 w-full rounded-[1.5rem] object-cover lg:h-full"
-          src="{{page.about.image.src}}"
-          alt="{{page.about.image.alt}}"
-          loading="lazy"
-          decoding="async"
-        />
+        <img class="h-64 w-full rounded-[1.5rem] object-cover lg:h-full" src="{{page.about.image.src}}"
+          alt="{{page.about.image.alt}}" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
 
-  {{!-- ---------------------------------------------------------- systems --}}
+  {{!-- systems --}}
   <section id="systems" class="relative bg-white pb-20 lg:pb-24">
     <div class="container">
       <p class="eyebrow">{{page.systems.eyebrow}}</p>
-      <h2 class="reveal font-display text-[clamp(2.5rem,7vw,4.5rem)] font-extrabold uppercase leading-none tracking-tight text-ink-900">
+      <h2
+        class="reveal font-display text-[clamp(2.5rem,7vw,4.5rem)] font-extrabold uppercase leading-none tracking-tight text-ink-900">
         OUR SERVICES
       </h2>
       <p class="lead reveal mt-5 max-w-2xl">{{page.systems.copy}}</p>
@@ -157,55 +132,54 @@
       {{!-- Photo-led cards: image on top, detail underneath --}}
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {{#each page.systems.items}}
-          <article class="reveal group flex flex-col overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-lift">
-            <div class="relative h-44 overflow-hidden">
-              <img
-                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                src="{{this.image.src}}"
-                alt="{{this.image.alt}}"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/10 to-transparent"></div>
-              <span class="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-xl bg-white/15 text-white backdrop-blur">
-                {{{icon this.icon "h-5 w-5"}}}
-              </span>
-              <h3 class="absolute inset-x-4 bottom-3 text-base leading-tight text-white">{{this.title}}</h3>
-            </div>
+        <article
+          class="reveal group flex flex-col overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-lift">
+          <div class="relative h-44 overflow-hidden">
+            <img class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              src="{{this.image.src}}" alt="{{this.image.alt}}" loading="lazy" decoding="async" />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/10 to-transparent"></div>
+            <span
+              class="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-xl bg-white/15 text-white backdrop-blur">
+              {{{icon this.icon "h-5 w-5"}}}
+            </span>
+            <h3 class="absolute inset-x-4 bottom-3 text-base leading-tight text-white">{{this.title}}</h3>
+          </div>
 
-            <div class="flex flex-1 flex-col p-6">
-              <p class="text-sm leading-6 text-ink-400">{{this.summary}}</p>
+          <div class="flex flex-1 flex-col p-6">
+            <p class="text-sm leading-6 text-ink-400">{{this.summary}}</p>
 
-              <ul class="mt-5 flex-1 space-y-2.5 border-t border-ink-100 pt-5">
-                {{#each this.features}}
-                  <li class="flex items-start gap-2.5 text-[13px] leading-5 text-ink-700">
-                    <span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-accent-100 text-accent-700">
-                      {{{icon "check" "h-2.5 w-2.5"}}}
-                    </span>
-                    {{this}}
-                  </li>
-                {{/each}}
-              </ul>
+            <ul class="mt-5 flex-1 space-y-2.5 border-t border-ink-100 pt-5">
+              {{#each this.features}}
+              <li class="flex items-start gap-2.5 text-[13px] leading-5 text-ink-700">
+                <span
+                  class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-accent-100 text-accent-700">
+                  {{{icon "check" "h-2.5 w-2.5"}}}
+                </span>
+                {{this}}
+              </li>
+              {{/each}}
+            </ul>
 
-              <p class="mt-6 flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand-600">
-                {{{icon "clock" "h-3.5 w-3.5"}}}
-                {{this.outcome}}
-              </p>
-            </div>
-          </article>
+            <p class="mt-6 flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand-600">
+              {{{icon "clock" "h-3.5 w-3.5"}}}
+              {{this.outcome}}
+            </p>
+          </div>
+        </article>
         {{/each}}
       </div>
     </div>
   </section>
 
-  {{!-- --------------------------------------------------------- coverage --}}
+  {{!-- coverage --}}
   <section class="relative overflow-hidden bg-ink-950 py-20 lg:py-24">
-    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(800px_500px_at_50%_0%,rgba(26,117,188,0.20),transparent_65%)]"></div>
+    <div
+      class="pointer-events-none absolute inset-0 bg-[radial-gradient(800px_500px_at_50%_0%,rgba(26,117,188,0.20),transparent_65%)]">
+    </div>
 
     <div class="container relative">
       <div class="reveal mx-auto max-w-2xl text-center">
         <p class="eyebrow-on-dark justify-center">
-          <span class="h-px w-8 bg-accent-500"></span>
           {{page.coverage.eyebrow}}
         </p>
         <h2 class="h2 text-white">
@@ -217,23 +191,24 @@
 
       <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {{#each page.coverage.places}}
-          <li class="reveal flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur transition-colors hover:border-accent-500/40">
-            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/5 text-accent-400">
-              {{{icon this.icon "h-5 w-5"}}}
-            </span>
-            <span class="text-sm font-bold text-white">{{this.label}}</span>
-          </li>
+        <li
+          class="reveal flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur transition-colors hover:border-accent-500/40">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/5 text-accent-400">
+            {{{icon this.icon "h-5 w-5"}}}
+          </span>
+          <span class="text-sm font-bold text-white">{{this.label}}</span>
+        </li>
         {{/each}}
       </ul>
     </div>
   </section>
 
-  {{!-- ---------------------------------------------------------- process --}}
+  {{!-- process --}}
   <section class="relative bg-ink-50 py-20 lg:py-24">
     <div class="container">
       <div class="reveal mx-auto max-w-2xl text-center">
         <p class="eyebrow justify-center">
-          <span class="h-px w-8 bg-brand-600"></span>
+
           {{page.process.eyebrow}}
         </p>
         <h2 class="h2">
@@ -245,19 +220,20 @@
 
       <ol class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
         {{#each page.process.steps}}
-          <li class="reveal rounded-2xl border border-ink-100 bg-white p-6 shadow-soft">
-            <span class="grid h-11 w-11 place-items-center rounded-full bg-ink-900 font-display text-sm font-extrabold text-accent-400">
-              {{inc @index}}
-            </span>
-            <h3 class="mt-5 text-base font-bold text-ink-900">{{this.title}}</h3>
-            <p class="mt-2 text-[13px] leading-6 text-ink-400">{{this.body}}</p>
-          </li>
+        <li class="reveal rounded-2xl border border-ink-100 bg-white p-6 shadow-soft">
+          <span
+            class="grid h-11 w-11 place-items-center rounded-full bg-ink-900 font-display text-sm font-extrabold text-accent-400">
+            {{inc @index}}
+          </span>
+          <h3 class="mt-5 text-base font-bold text-ink-900">{{this.title}}</h3>
+          <p class="mt-2 text-[13px] leading-6 text-ink-400">{{this.body}}</p>
+        </li>
         {{/each}}
       </ol>
     </div>
   </section>
 
-  {{!-- ------------------------------------------------------- conversion --}}
+  {{!-- conversion --}}
   <section class="relative bg-white pb-20 pt-24 lg:pb-24">
     <div class="container">
       <div class="reveal mx-auto max-w-2xl text-center">
@@ -273,4 +249,5 @@
   </section>
 </main>
 
+{{> side-rail}}
 {{> footer}}

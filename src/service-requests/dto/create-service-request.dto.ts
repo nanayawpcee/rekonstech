@@ -43,6 +43,17 @@ export class CreateServiceRequestDto {
   message?: string;
 
   /**
+   * Itemised quote basket from the Sales & Supply catalogue, as a readable
+   * summary line. Kept as text rather than a nested array so the no-JavaScript
+   * form post and the JSON path carry it identically.
+   */
+  @IsOptional()
+  @Transform(trim)
+  @IsString()
+  @MaxLength(2000)
+  basket?: string;
+
+  /**
    * Honeypot: hidden from humans via CSS, irresistible to naive bots.
    * Any value here means the submission is silently discarded.
    */

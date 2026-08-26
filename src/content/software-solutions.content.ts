@@ -4,6 +4,14 @@
  */
 
 export const softwareSolutions = {
+
+  /** Fixed section rail (xl and up). */
+  rail: [
+    { icon: 'code', href: '#top', label: 'Overview' },
+    { icon: 'file-check', href: '#portfolio-book', label: 'The portfolio' },
+    { icon: 'server', href: '#stack', label: 'Our toolkit' },
+    { icon: 'life-buoy', href: '#request', label: 'Start a project' },
+  ],
   meta: {
     title: 'Software Solutions | rekonstech Consulting and Trading Services',
     description:

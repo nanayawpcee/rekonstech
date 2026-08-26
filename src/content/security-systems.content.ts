@@ -4,6 +4,13 @@
  */
 
 export const securitySystems = {
+
+  /** Fixed section rail (xl and up). */
+  rail: [
+    { icon: 'shield-check', href: '#top', label: 'Overview' },
+    { icon: 'video', href: '#systems', label: 'What we install' },
+    { icon: 'life-buoy', href: '#request', label: 'Book a survey' },
+  ],
   meta: {
     title: 'Security Systems Installation | Rekonstech Consulting and Trading Services',
     description:

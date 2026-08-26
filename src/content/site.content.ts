@@ -263,6 +263,7 @@ export const site = {
         icon: 'package',
         title: 'Sales & Supply',
         summary: 'Genuine hardware and licensed software, sourced and configured before delivery.',
+        detailHref: '/services/sales-supply',
         items: [
           {
             icon: 'server',
@@ -286,6 +287,7 @@ export const site = {
         icon: 'lightbulb',
         title: 'Consultancy Services',
         summary: 'Advisory that turns technology spend into measurable business outcomes.',
+        detailHref: '/services/consultancy',
         items: [
           {
             icon: 'trending-up',
