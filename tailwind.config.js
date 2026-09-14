@@ -65,10 +65,6 @@ module.exports = {
         '4xl': '2rem',
         '5xl': '2.75rem',
       },
-      backgroundImage: {
-        'grid-faint':
-          'linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px)',
-      },
       keyframes: {
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(18px)' },

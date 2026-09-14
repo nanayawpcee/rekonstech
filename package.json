@@ -1,7 +1,7 @@
 {
   "name": "rekonstech-landing",
   "version": "1.0.0",
-  "description": "rekonstech Consulting and Trading Services — high-converting homepage landing page (NestJS + Handlebars + Tailwind CSS)",
+  "description": "rekonstech Consulting and Trading Services \u2014 high-converting homepage landing page (NestJS + Handlebars + Tailwind CSS)",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -12,7 +12,8 @@
     "start": "npm run build:css && nest start",
     "start:dev": "concurrently -n css,nest -c magenta,cyan \"npm:watch:css\" \"nest start --watch\"",
     "start:prod": "node dist/main",
-    "lint": "tsc --noEmit -p tsconfig.json"
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.15",
@@ -38,5 +39,8 @@
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

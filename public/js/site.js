@@ -47,6 +47,66 @@
     window.addEventListener('resize', syncRail);
   }
 
+  /* ------------------------------------------------- "Services" nav menu */
+  // Desktop: :hover/:focus-within in the CSS already open this with no JS at
+  // all. This only adds the parts CSS can't do — a click/tap toggle (so it
+  // also works with a mouse click and not just hover) and closing it again on
+  // outside-click, Escape, or the pointer/focus genuinely leaving.
+  var navDrops = Array.prototype.slice.call(document.querySelectorAll('[data-nav-drop]'));
+
+  navDrops.forEach(function (drop) {
+    var trigger = drop.querySelector('[data-nav-drop-trigger]');
+    if (!trigger) return;
+
+    function setDropOpen(open) {
+      drop.classList.toggle('is-open', open);
+      trigger.setAttribute('aria-expanded', String(open));
+    }
+
+    trigger.addEventListener('click', function () {
+      setDropOpen(!drop.classList.contains('is-open'));
+    });
+
+    drop.addEventListener('mouseleave', function () {
+      setDropOpen(false);
+    });
+
+    // Closes once Tab moves focus past the last link, since a lingering
+    // `.is-open` class would otherwise keep the panel visible with nothing
+    // in it focused.
+    drop.addEventListener('focusout', function (event) {
+      if (!drop.contains(event.relatedTarget)) setDropOpen(false);
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!drop.contains(event.target)) setDropOpen(false);
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape' || !drop.classList.contains('is-open')) return;
+      setDropOpen(false);
+      trigger.focus();
+    });
+  });
+
+  /* Mobile: no hover, so tapping the row expands an inline list instead. */
+  var mobileDrop = document.querySelector('[data-nav-drop-mobile]');
+  var mobileDropTrigger = mobileDrop && mobileDrop.querySelector('[data-nav-drop-mobile-trigger]');
+  var mobileDropPanel = mobileDrop && mobileDrop.querySelector('[data-nav-drop-mobile-panel]');
+
+  function setMobileDropOpen(open) {
+    if (!mobileDrop) return;
+    mobileDrop.classList.toggle('is-open', open); // rotates the chevron
+    mobileDropPanel.classList.toggle('hidden', !open);
+    mobileDropTrigger.setAttribute('aria-expanded', String(open));
+  }
+
+  if (mobileDropTrigger && mobileDropPanel) {
+    mobileDropTrigger.addEventListener('click', function () {
+      setMobileDropOpen(mobileDropPanel.classList.contains('hidden'));
+    });
+  }
+
   /* --------------------------------------------------------- mobile menu */
   var toggle = document.getElementById('menu-toggle');
   var menu = document.getElementById('mobile-menu');
@@ -56,6 +116,8 @@
     menu.classList.toggle('hidden', !open);
     menu.setAttribute('data-open', String(open));
     toggle.setAttribute('aria-expanded', String(open));
+    // So the accordion doesn't reopen already-expanded next time the menu does.
+    if (!open) setMobileDropOpen(false);
   }
 
   if (toggle && menu) {

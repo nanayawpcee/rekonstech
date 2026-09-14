@@ -1,11 +1,3 @@
-/**
- * The technology grid on the Software Solutions page.
- *
- * Brand marks come from `simple-icons` (single-path, 24x24) so every logo is
- * accurate and inline — no icon CDN, no hotlinked images. A handful of marks
- * were withdrawn from that package for trademark reasons; those render as a
- * wordmark tile instead, which the source design does for AWS and NGINX too.
- */
 import * as simpleIcons from 'simple-icons';
 
 export const TECH_CATEGORIES = [

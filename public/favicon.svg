@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Rekonstech">
+  <!--
+    Simplified from the logo mark. The full mark's four concentric arcs merge
+    into a smudge below about 32px, so this keeps only the two boldest arcs and
+    the chartreuse bar — the elements that still read at 16px in a browser tab.
+  -->
+  <rect width="64" height="64" rx="14" fill="#08182F" />
+  <g fill="none" stroke-linecap="round">
+    <path d="M41 14 A18 18 0 1 0 41 50" stroke="#2A90E8" stroke-width="7" />
+    <path d="M41 25 A7 7 0 1 0 41 39" stroke="#7DBBE4" stroke-width="6" />
+  </g>
+  <rect x="45" y="14" width="7.5" height="36" rx="3.75" fill="#D3D506" />
+</svg>

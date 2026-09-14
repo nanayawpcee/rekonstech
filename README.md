@@ -176,6 +176,67 @@ Responsive at 375 / 768 / 1024 / 1440+, with no horizontal overflow at any width
 
 ---
 
+## Deploying to Vercel
+
+The project is configured for Vercel out of the box. Import the repository and
+deploy — [`vercel.json`](vercel.json) supplies the build command, the static
+root and the function config, so there is nothing to set in the dashboard.
+
+**Set one environment variable before launch:**
+
+| Variable | Why |
+|---|---|
+| `SERVICE_REQUEST_WEBHOOK_URL` | Where quote requests are delivered. Any endpoint accepting a JSON POST — Zapier, Make, Formspree, n8n, your own inbox service. |
+
+Without it, enquiries are only written to the function logs. See *Where requests
+go* below.
+
+### How it fits together
+
+- **`api/index.ts`** is the serverless entry. It boots Nest once per warm
+  instance behind an Express adapter and caches the promise, so concurrent
+  requests during a cold start share one initialisation.
+- It imports from **`dist/`, not `src/`**. Vercel compiles this directory with
+  esbuild, which does not support `emitDecoratorMetadata` — and Nest's
+  constructor injection depends on that metadata. `npm run build` compiles the
+  app with tsc, leaving esbuild only this thin adapter. Do not "simplify" the
+  import to `../src`: DI will fail at runtime, not at build time.
+- **Static assets are served by the CDN**, not the function: `outputDirectory`
+  is `public`, so `/css`, `/js` and `/img` are matched on the filesystem before
+  the rewrite sends anything else to the function.
+- **`views/**` is bundled with the function** via `includeFiles`, because the
+  templates are read from disk at runtime rather than imported.
+- `resolveProjectRoot()` in [`src/bootstrap.ts`](src/bootstrap.ts) probes for the
+  views directory instead of assuming a layout, so the same code runs under
+  `npm start`, on Vercel, and from any working directory.
+
+### Where requests go
+
+Serverless filesystems are read-only apart from an ephemeral `/tmp`, so the
+JSONL file used in development is not a durable sink in production. The service
+picks one at boot:
+
+1. `SERVICE_REQUEST_WEBHOOK_URL` if set — POSTs the record as JSON.
+2. Otherwise a local `data/service-requests.jsonl`, when the directory is
+   writable (development).
+3. Otherwise the enquiry is logged **in full**, tagged `UNDELIVERED SERVICE
+   REQUEST`, and a warning at boot says how to fix it. Losing a customer's
+   request is worse than putting their details in an access-controlled log.
+
+A submission never fails because the sink is down — a webhook error is logged
+and the record falls through to the log, so the visitor still gets their
+confirmation.
+
+### Two caveats
+
+- **Rate limiting is per instance.** The throttler keeps its counters in memory,
+  so the 5-per-minute cap applies per warm lambda rather than globally. It still
+  stops casual abuse; for a hard limit, move the throttler to Redis.
+- **Cold starts.** The first request after idle pays the Nest bootstrap. It is a
+  small app, but expect a slower first paint.
+
+---
+
 ## Service request API
 
 `POST /api/service-requests`

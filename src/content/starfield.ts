@@ -1,11 +1,3 @@
-/**
- * Deterministic starfield for the space backdrop.
- *
- * Generated on the server from a fixed seed rather than in the browser, so the
- * sky renders with the first paint, costs no JavaScript, and looks identical on
- * every request (no re-shuffle between page loads).
- */
-
 export interface Star {
   x: number;
   y: number;

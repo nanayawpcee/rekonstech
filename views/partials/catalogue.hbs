@@ -33,7 +33,11 @@
       {{/each}}
     </div>
 
-    <div id="catalogue-grid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      id="catalogue-grid"
+      class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+      data-show-pricing="{{catalogue.meta.showPricing}}"
+    >
       {{#each catalogue.items}}
         <article
           class="reveal group flex flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift"
@@ -59,14 +63,21 @@
             <h3 class="mt-1.5 text-[15px] leading-tight">{{this.name}}</h3>
             <p class="mt-1 text-[12.5px] leading-5 text-ink-400">{{this.spec}}</p>
 
-            <div class="mt-4 flex items-end justify-between border-t border-ink-100 pt-4">
-              <div>
-                <p class="font-display text-lg font-extrabold leading-none text-ink-900">{{this.priceLabel}}</p>
-                <p class="mt-1 flex items-center gap-1.5 text-[11px] text-ink-400">
-                  {{{icon "clock" "h-3 w-3"}}}
+            <div class="mt-4 flex items-center justify-between border-t border-ink-100 pt-4">
+              {{#if @root.catalogue.meta.showPricing}}
+                <div>
+                  <p class="font-display text-lg font-extrabold leading-none text-ink-900">{{this.priceLabel}}</p>
+                  <p class="mt-1 flex items-center gap-1.5 text-[11px] text-ink-400">
+                    {{{icon "clock" "h-3 w-3"}}}
+                    {{this.lead}}
+                  </p>
+                </div>
+              {{else}}
+                <p class="flex items-center gap-1.5 text-[11.5px] font-semibold text-ink-500">
+                  {{{icon "clock" "h-3.5 w-3.5 text-brand-600"}}}
                   {{this.lead}}
                 </p>
-              </div>
+              {{/if}}
               <button
                 type="button"
                 data-add-to-quote
@@ -84,7 +95,7 @@
 
     <p class="mt-6 flex items-center gap-2 text-xs text-ink-400">
       {{{icon "file-check" "h-3.5 w-3.5 text-brand-600"}}}
-      {{catalogue.meta.priceNote}}
+      {{#if catalogue.meta.showPricing}}{{catalogue.meta.priceNote}}{{else}}{{catalogue.meta.noPriceNote}}{{/if}}
     </p>
   </div>
 </section>

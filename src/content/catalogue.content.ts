@@ -1,15 +1,3 @@
-/**
- * Product catalogue for the Sales & Supply page.
- *
- * This is the data source behind CatalogueService. It is deliberately a plain
- * typed array so the page works with no database; when products need to be
- * editable by staff, swap the service's implementation for a repository and
- * nothing else on the page has to change.
- *
- * TODO: prices are indicative placeholders. Replace with real figures — the UI
- * states that they are confirmed on quotation, so they must stay honest.
- */
-
 export const CATALOGUE_CATEGORIES = [
   "Laptops",
   "Desktops",
@@ -25,7 +13,6 @@ export interface CatalogueItem {
   name: string;
   category: CatalogueCategory;
   spec: string;
-  /** Whole Ghana cedis. Formatted for display by `priceLabel`. */
   price: number;
   lead: string;
   image: { src: string; alt: string };
@@ -161,4 +148,13 @@ export const catalogueMeta = {
   titleAccent: "as you browse",
   copy: "Add what you need and send it over as one itemised enquiry. Nothing is charged here — we confirm stock, final pricing and lead times in writing.",
   priceNote: "Indicative prices, excluding VAT. Confirmed on quotation.",
+  /**
+   * The `price` field above is a placeholder — real figures are coming from
+   * Sanity. Until that's wired up, this is the one switch that hides every
+   * price and the basket's running total across the catalogue, the product
+   * cards and the quote drawer, without touching any of that markup or logic.
+   * Flip it to `true` once CatalogueService is reading real prices.
+   */
+  showPricing: false,
+  noPriceNote: "Full specifications below. Pricing, stock and lead times are confirmed when we quote your request.",
 };

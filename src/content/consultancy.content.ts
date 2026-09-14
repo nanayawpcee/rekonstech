@@ -31,8 +31,10 @@ export const consultancy = {
       { icon: 'shield-check', label: 'Vendor-neutral recommendations' },
     ],
     image: {
-      src: 'https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?auto=format&fit=crop&w=1800&q=72',
-      alt: 'Consultant presenting to a client team in a boardroom',
+      // Our own photo, not a stock shot — swap only if the team wants a
+      // different one. See public/img/consultancy-hero.jpg for the source crop.
+      src: '/img/consultancy-hero.jpg',
+      alt: 'A Rekonstech consultant reviewing a client system on a tablet with a colleague',
     },
   },
 
@@ -88,8 +90,10 @@ export const consultancy = {
         icon: 'graduation-cap',
         title: 'Training & Capacity Building',
         image: {
-          src: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=72',
-          alt: 'Staff taking notes during a hands-on training session',
+          // Same photo as the hero — a real Rekonstech consultant walking a
+          // colleague through a device, which is exactly what this card is about.
+          src: '/img/consultancy-hero.jpg',
+          alt: 'A Rekonstech consultant walking a colleague through a hands-on session on a tablet',
         },
         summary: 'Hands-on sessions so new systems get adopted rather than quietly abandoned.',
         features: [

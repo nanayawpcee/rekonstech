@@ -4,10 +4,7 @@ import { renderIcon } from '../content/icons';
 export function registerHbsHelpers(): void {
   const { handlebars } = hbs;
 
-  /**
-   * {{{icon "shield-check"}}} or {{{icon "shield-check" "h-5 w-5 text-accent-500"}}}
-   * Returns a SafeString so the SVG is not HTML-escaped.
-   */
+ 
   handlebars.registerHelper('icon', (name: string, className?: unknown) => {
     const classes = typeof className === 'string' ? className : 'h-6 w-6';
     return new handlebars.SafeString(renderIcon(name, classes));

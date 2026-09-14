@@ -26,17 +26,12 @@
           class="reveal group flex flex-col rounded-3xl p-7 shadow-soft transition duration-300 hover:-translate-y-1.5 hover:shadow-lift lg:col-span-2
                  {{#if this.featured}}border border-ink-800 bg-ink-900{{else}}border border-ink-100 bg-white hover:border-brand-200{{/if}}"
         >
-          <div class="flex items-start justify-between gap-4">
-            <span
-              class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl transition-colors duration-300
-                     {{#if this.featured}}bg-accent-500 text-ink-900{{else}}bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white{{/if}}"
-            >
-              {{{icon this.icon "h-7 w-7"}}}
-            </span>
-            <span class="font-display text-4xl font-extrabold leading-none {{#if this.featured}}text-white/10{{else}}text-ink-100{{/if}}">
-              0{{inc @index}}
-            </span>
-          </div>
+          <span
+            class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl transition-colors duration-300
+                   {{#if this.featured}}bg-accent-500 text-ink-900{{else}}bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white{{/if}}"
+          >
+            {{{icon this.icon "h-7 w-7"}}}
+          </span>
 
           <h3 class="mt-6 text-xl {{#if this.featured}}text-white{{/if}}">{{this.title}}</h3>
           <p class="mt-2.5 text-sm leading-6 {{#if this.featured}}text-ink-200{{else}}text-ink-400{{/if}}">

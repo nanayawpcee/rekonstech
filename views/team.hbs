@@ -9,15 +9,11 @@
   <section class="relative px-4 pb-16 pt-[104px] sm:px-6 lg:pb-24 lg:pt-[120px]">
     <div class="con-stage relative isolate mx-auto max-w-[1400px] overflow-clip rounded-[2.5rem] px-6 py-14 sm:px-10 lg:px-14 lg:py-16">
       {{!--
-        Mobile: the two-column grid below collapses to one stacked column, so
-        this stage grows very tall (headline + copy + CTAs + the full roadmap
-        card, one under the other). An `inset-0 h-full` photo forced to cover
-        that height got squeezed to an unrecognisable vertical sliver — the
-        photo effectively vanished behind the crop and the gradient meant for
-        a wide desktop card. Below `lg:` the photo is instead a normal-height
-        banner at the top of the stage, and the content is pushed below it
-        with matching top padding, so the photo is shown intact rather than
-        stretched to fit content it was never composed for.
+        Same fixed-height mobile banner / full-bleed desktop split used on the
+        Consultancy and Networking heroes — an `inset-0 h-full` photo forced
+        to cover the tall single-column mobile layout gets crushed to an
+        unrecognisable sliver, so below `lg:` this is a normal-height banner
+        instead, with the content pushed below it by matching top padding.
       --}}
       <img
         src="{{page.hero.image.src}}"
@@ -75,54 +71,41 @@
           </ul>
         </div>
 
-        {{!-- Engagement roadmap --}}
+        {{!-- Quick facts --}}
         <div class="relative">
           <div class="rounded-[2rem] border border-white/10 bg-[#071522]/72 p-5 shadow-lift backdrop-blur-md sm:p-7">
             <p class="mb-5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">
-              {{page.roadmap.label}}
+              Who you'll actually work with
             </p>
 
-            <ol class="relative space-y-4 border-l border-white/12 pl-6">
-              {{#each page.roadmap.phases}}
-                <li class="relative">
-                  <span
-                    class="absolute -left-[31px] top-1 grid h-5 w-5 place-items-center rounded-full border
-                           {{#ifEquals this.state 'done'}}border-accent-500 bg-accent-500 text-ink-900{{/ifEquals}}
-                           {{#ifEquals this.state 'active'}}border-accent-500 bg-[#071522] text-accent-400{{/ifEquals}}
-                           {{#ifEquals this.state 'next'}}border-white/25 bg-[#071522] text-ink-400{{/ifEquals}}"
-                  >
-                    {{#ifEquals this.state 'done'}}{{{icon "check" "h-3 w-3"}}}{{else}}
-                      <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
-                    {{/ifEquals}}
-                  </span>
-
-                  <div class="flex items-baseline gap-2.5">
-                    <span class="font-mono text-[10px] tracking-[0.14em] text-accent-500">{{this.no}}</span>
-                    <h3 class="text-[15px] text-white">{{this.title}}</h3>
-                  </div>
-                  <p class="mt-1 text-[12.5px] leading-5 text-ink-300">{{this.body}}</p>
-                </li>
+            <dl class="space-y-5">
+              {{#each page.hero.highlights}}
+                <div class="flex items-baseline gap-3 border-b border-white/10 pb-4 last:border-0 last:pb-0">
+                  <dd class="font-display text-3xl font-extrabold leading-none text-accent-500">{{this.value}}</dd>
+                  <dt class="text-[13px] leading-5 text-ink-300">{{this.label}}</dt>
+                </div>
               {{/each}}
-            </ol>
+            </dl>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  {{!-- --------------------------------------------------------- services --}}
-  <section id="services" class="relative bg-white py-20 lg:py-24">
+  {{!-- ----------------------------------------------------------- members --}}
+  <section id="members" class="relative bg-white py-20 lg:py-24">
     <div class="container">
-      <p class="eyebrow">{{page.services.eyebrow}}</p>
+      <p class="eyebrow">{{page.members.eyebrow}}</p>
       <h2 class="reveal font-display text-[clamp(2.5rem,7vw,4.5rem)] font-extrabold uppercase leading-none tracking-tight text-ink-900">
-        {{page.services.title}}
+        {{page.members.title}}
+        <span class="block text-brand-600">{{page.members.titleAccent}}</span>
       </h2>
-      <p class="lead reveal mt-5 max-w-2xl">{{page.services.copy}}</p>
+      <p class="lead reveal mt-5 max-w-2xl">{{page.members.copy}}</p>
 
-      <div class="mt-12 grid gap-6 lg:grid-cols-3">
-        {{#each page.services.items}}
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {{#each page.members.items}}
           <article class="reveal group flex flex-col overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-lift">
-            <div class="relative h-48 overflow-hidden">
+            <div class="relative h-56 overflow-hidden">
               <img
                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 src="{{this.image.src}}"
@@ -130,31 +113,16 @@
                 loading="lazy"
                 decoding="async"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/20 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/10 to-transparent"></div>
               <span class="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-xl bg-white/15 text-white backdrop-blur">
                 {{{icon this.icon "h-5 w-5"}}}
               </span>
-              <h3 class="absolute inset-x-4 bottom-3 text-lg leading-tight text-white">{{this.title}}</h3>
             </div>
 
-            <div class="flex flex-1 flex-col p-7">
-              <p class="text-sm leading-6 text-ink-400">{{this.summary}}</p>
-
-              <ul class="mt-5 flex-1 space-y-2.5 border-t border-ink-100 pt-5">
-                {{#each this.features}}
-                  <li class="flex items-start gap-2.5 text-[13px] leading-5 text-ink-700">
-                    <span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-accent-100 text-accent-700">
-                      {{{icon "check" "h-2.5 w-2.5"}}}
-                    </span>
-                    {{this}}
-                  </li>
-                {{/each}}
-              </ul>
-
-              <p class="mt-6 flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand-600">
-                {{{icon "clock" "h-3.5 w-3.5"}}}
-                {{this.outcome}}
-              </p>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-lg leading-tight text-ink-900">{{this.name}}</h3>
+              <p class="mt-1 text-[12.5px] font-bold uppercase tracking-wider text-brand-600">{{this.role}}</p>
+              <p class="mt-3 text-sm leading-6 text-ink-400">{{this.bio}}</p>
             </div>
           </article>
         {{/each}}
@@ -162,7 +130,7 @@
     </div>
   </section>
 
-  {{!-- ------------------------------------------------------- principles --}}
+  {{!-- ------------------------------------------------------ how we work --}}
   <section class="relative overflow-hidden bg-ink-950 py-20 lg:py-24">
     <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_520px_at_50%_0%,rgba(26,117,188,0.22),transparent_65%)]"></div>
 
@@ -187,15 +155,6 @@
           </article>
         {{/each}}
       </div>
-
-      <dl class="reveal mt-12 grid gap-6 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 sm:grid-cols-3">
-        {{#each page.metrics.items}}
-          <div class="text-center">
-            <dd class="font-display text-4xl font-extrabold leading-none text-accent-500">{{this.value}}</dd>
-            <dt class="mt-2 text-xs font-semibold uppercase tracking-wider text-ink-300">{{this.label}}</dt>
-          </div>
-        {{/each}}
-      </dl>
     </div>
   </section>
 

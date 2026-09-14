@@ -9,6 +9,7 @@ export class HomeController {
     return {
       site,
       serviceCategoryOptions,
+      isHome: true,
       pageTitle: `${site.company.legalName} | IT Solutions, Security Systems & Networking`,
       metaDescription: site.hero.copy,
       // Populated only for the no-JavaScript form round-trip.

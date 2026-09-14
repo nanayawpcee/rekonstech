@@ -11,6 +11,10 @@
 
   var STORAGE_KEY = 'rk-quote-basket';
   var CURRENCY = 'GH₵';
+  // Catalogue prices are placeholders until Sanity supplies real ones — see
+  // catalogueMeta.showPricing in src/content/catalogue.content.ts, the single
+  // switch that also hides price on the cards and in the drawer's markup.
+  var SHOW_PRICING = grid.dataset.showPricing === 'true';
 
   var drawer = root.querySelector('#qb-drawer');
   var scrim = root.querySelector('.qb-scrim');
@@ -62,9 +66,10 @@
   function summarise(items) {
     if (!items.length) return '';
     var lines = items.map(function (line) {
-      return line.qty + ' x ' + line.name + ' (' + line.sku + ') @ ' + money(line.price);
+      var entry = line.qty + ' x ' + line.name + ' (' + line.sku + ')';
+      return SHOW_PRICING ? entry + ' @ ' + money(line.price) : entry;
     });
-    return lines.join('; ') + ' — indicative total ' + money(totalOf(items));
+    return SHOW_PRICING ? lines.join('; ') + ' — indicative total ' + money(totalOf(items)) : lines.join('; ');
   }
 
   /* ---------------------------------------------------------------- render */
@@ -80,11 +85,14 @@
       var name = document.createElement('p');
       name.className = 'truncate text-[13px] font-bold text-ink-900';
       name.textContent = line.name;
-      var price = document.createElement('p');
-      price.className = 'mt-0.5 font-mono text-[11px] text-ink-400';
-      price.textContent = money(line.price) + ' each';
       info.appendChild(name);
-      info.appendChild(price);
+
+      if (SHOW_PRICING) {
+        var price = document.createElement('p');
+        price.className = 'mt-0.5 font-mono text-[11px] text-ink-400';
+        price.textContent = money(line.price) + ' each';
+        info.appendChild(price);
+      }
 
       var controls = document.createElement('div');
       controls.className = 'flex items-center gap-1.5';
@@ -116,7 +124,8 @@
 
     var count = countOf(basket);
     countEl.textContent = String(count);
-    totalEl.textContent = money(totalOf(basket));
+    // totalEl only exists in the DOM when catalogueMeta.showPricing is true.
+    if (totalEl) totalEl.textContent = money(totalOf(basket));
     emptyEl.hidden = basket.length > 0;
     subtitleEl.textContent = count
       ? count + (count === 1 ? ' item' : ' items') + ' collected'

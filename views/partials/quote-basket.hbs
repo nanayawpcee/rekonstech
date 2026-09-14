@@ -35,11 +35,15 @@
     </p>
 
     <footer class="mt-auto border-t border-ink-100 px-6 py-5">
-      <div class="flex items-baseline justify-between">
-        <span class="text-xs font-semibold uppercase tracking-wider text-ink-400">Indicative total</span>
-        <span class="font-display text-xl font-extrabold text-ink-900" data-qb-total>{{catalogue.meta.currency}} 0</span>
-      </div>
-      <p class="mt-1.5 text-[11px] leading-5 text-ink-400">{{catalogue.meta.priceNote}}</p>
+      {{#if catalogue.meta.showPricing}}
+        <div class="flex items-baseline justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-ink-400">Indicative total</span>
+          <span class="font-display text-xl font-extrabold text-ink-900" data-qb-total>{{catalogue.meta.currency}} 0</span>
+        </div>
+        <p class="mt-1.5 text-[11px] leading-5 text-ink-400">{{catalogue.meta.priceNote}}</p>
+      {{else}}
+        <p class="text-[11.5px] leading-5 text-ink-400">{{catalogue.meta.noPriceNote}}</p>
+      {{/if}}
 
       <a href="#request" class="pill-cta mt-5 w-full whitespace-nowrap !pl-5 !text-[13px]" data-qb-send>
         Send as enquiry

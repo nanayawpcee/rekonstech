@@ -9,23 +9,36 @@
   <section class="relative px-4 pb-16 pt-[104px] sm:px-6 lg:pb-24 lg:pt-[120px]">
     <div
       class="net-stage relative isolate mx-auto max-w-[1400px] overflow-clip rounded-[2.5rem] px-6 py-14 sm:px-10 lg:px-14 lg:py-16">
-      {{!-- Real site photography behind the stage; gradients keep the copy legible --}}
-      <img src="{{page.hero.image.src}}" alt="{{page.hero.image.alt}}"
-        class="absolute inset-0 -z-10 h-full w-full object-cover object-[68%_center]" fetchpriority="high"
-        decoding="async" />
       {{!--
-      Explicit stops rather than Tailwind's three-stop gradients: the copy
-      needs a solid bed on the left, but the photograph has to stay visible
-      across the right two-fifths instead of being flattened to black.
+        Mobile: the grid below stacks into one column, so the stage grows very
+        tall (headline + copy + CTAs + the full topology card, one under the
+        other). An `inset-0 h-full` photo forced to cover that height got
+        squeezed to an unrecognisable vertical sliver. Below `lg:` the photo is
+        instead a normal-height banner at the top, and the content is pushed
+        below it with matching top padding — see the identical fix and note on
+        the Consultancy page's hero (views/consultancy.hbs) for the full story.
       --}}
-      <div class="absolute inset-0 -z-10"
+      <img src="{{page.hero.image.src}}" alt="{{page.hero.image.alt}}"
+        class="absolute inset-x-0 top-0 -z-10 h-[220px] w-full object-cover object-[68%_25%]
+               sm:h-[280px] lg:inset-0 lg:h-full lg:object-[68%_center]" fetchpriority="high"
+        decoding="async" />
+      {{!-- Mobile-only: fades the banner into the stage's own background below it --}}
+      <div class="absolute inset-x-0 top-0 -z-10 h-[220px] sm:h-[280px] lg:hidden"
+        style="background:linear-gradient(180deg,rgba(6,19,31,0.05) 0%,rgba(6,19,31,0.35) 78%,#081726 100%)">
+      </div>
+      {{!--
+      Desktop-only: explicit stops rather than Tailwind's three-stop gradients —
+      the copy needs a solid bed on the left, but the photograph has to stay
+      visible across the right two-fifths instead of being flattened to black.
+      --}}
+      <div class="absolute inset-0 -z-10 hidden lg:block"
         style="background:linear-gradient(90deg,#06131F 0%,rgba(6,19,31,0.94) 34%,rgba(6,19,31,0.62) 58%,rgba(6,19,31,0.28) 100%)">
       </div>
-      <div class="absolute inset-0 -z-10"
+      <div class="absolute inset-0 -z-10 hidden lg:block"
         style="background:linear-gradient(180deg,rgba(6,19,31,0.55) 0%,transparent 26%,transparent 68%,rgba(6,19,31,0.62) 100%)">
       </div>
 
-      <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+      <div class="grid items-center gap-12 pt-[196px] sm:pt-[248px] lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-0">
 
         <div class="relative">
           <p class="eyebrow-on-dark">

@@ -1,8 +1,3 @@
-/**
- * Copy for the Software Solutions page (/services/software-solutions).
- * Same principle as site.content.ts — edit here, never in the markup.
- */
-
 export const softwareSolutions = {
 
   /** Fixed section rail (xl and up). */
@@ -66,8 +61,6 @@ export const softwareSolutions = {
 
   stack: {
     eyebrow: 'Our Toolkit',
-    // Rendered as an HTML tag — the angle brackets are added by the template so
-    // they can be coloured like syntax, rather than baked into the words.
     titleLead: 'What We',
     titleAccent: 'Build',
     titleTail: 'With',

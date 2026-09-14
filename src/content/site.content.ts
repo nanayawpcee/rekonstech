@@ -72,8 +72,8 @@ export const site = {
   nav: <NavLink[]>[
     { label: 'Home', href: '/#top' },
     { label: 'About Us', href: '/#about' },
+    { label: 'Our Team', href: '/team' },
     { label: 'Services', href: '/#services' },
-  
     { label: 'Contact', href: '/#contact' },
   ],
 

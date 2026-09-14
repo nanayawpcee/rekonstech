@@ -1,7 +1,3 @@
-/**
- * Minimal ambient types for `hbs` (the package ships none).
- * Only the surface we actually use at bootstrap is declared.
- */
 declare module 'hbs' {
   interface SafeStringConstructor {
     new (str: string): { toString(): string };
