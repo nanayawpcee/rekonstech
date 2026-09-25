@@ -1,6 +1,6 @@
 /**
  * Copy for the Sales & Supply page (/services/sales-supply).
- * Same principle as site.content.ts — edit here, never in the markup.
+ * Same principle as site.content.ts: edit here, never in the markup.
  */
 
 export const salesSupply = {
@@ -40,7 +40,7 @@ export const salesSupply = {
     { icon: 'life-buoy', href: '#request', label: 'Request a quote' },
   ],
 
-  /** Illustrative quotation panel in the hero — deliberately shows no prices. */
+  /** Illustrative quotation panel in the hero; deliberately shows no prices. */
   quote: {
     label: 'Sample quotation',
     reference: 'RQ-0248',
@@ -56,7 +56,7 @@ export const salesSupply = {
   services: {
     eyebrow: 'What We Supply',
     title: 'SALES & SUPPLY',
-    copy: 'Three supply lines, one accountable partner so nobody is chasing three vendors when a machine arrives faulty.',
+    copy: 'Three supply lines, one accountable partner, so nobody is chasing three vendors when a machine arrives faulty.',
     items: [
       {
         icon: 'server',
@@ -101,7 +101,7 @@ export const salesSupply = {
         features: [
           'Genuine licences with documentation you can audit',
           'Renewal calendar so nothing lapses quietly',
-          'Right-sized seat counts・No shelfware',
+          'Right-sized seat counts, no shelfware',
           'Purchase records kept for your finance team',
         ],
         outcome: 'Licences issued within 48 hours',
@@ -178,7 +178,7 @@ export const salesSupply = {
       alt: 'Rekonstech engineers reviewing an equipment list on site',
     },
     statement:
-      'We only supply what we would be willing to install ourselves・Genuine, warrantied, and configured before it ever reaches your desk.',
+      'We only supply what we would be willing to install ourselves: genuine, warrantied, and configured before it ever reaches your desk.',
     attribution: 'Rekonstech · Supply desk',
     cta: {
       title: 'Need to kit out a team?',
@@ -191,6 +191,6 @@ export const salesSupply = {
   ctaBand: {
     title: 'Need to kit out a team?',
     titleAccent: 'Send us the headcount.',
-    copy: 'Tell us how many people, what they do and your budget. You get an itemised quotation with specifications and lead times・No obligation.',
+    copy: 'Tell us how many people, what they do and your budget. You get an itemised quotation with specifications and lead times, no obligation.',
   },
 };
