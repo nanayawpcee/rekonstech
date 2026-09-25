@@ -22,8 +22,6 @@ export class SalesSupplyController {
       serviceCategoryOptions,
       // Pre-selects "Sales & Supply" in the shared request form.
       presetCategory: 'sales-supply',
-      // Light product-page hero — the header needs its solid treatment.
-      lightHeader: true,
       pageTitle: salesSupply.meta.title,
       metaDescription: salesSupply.meta.description,
       submitted: submitted === '1',

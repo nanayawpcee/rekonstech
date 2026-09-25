@@ -10,15 +10,15 @@ export const softwareSolutions = {
   meta: {
     title: 'Software Solutions | rekonstech Consulting and Trading Services',
     description:
-      'Custom web applications, SME website design and ongoing maintenance from rekonstech — scoped in plain language, built to modern standards, and supported long after launch.',
+      'Custom web applications, SME website design and ongoing maintenance from rekonstech; scoped in plain language, built to modern standards, and supported long after launch.',
   },
 
   hero: {
     eyebrow: 'Software Solutions',
-    titleLead: 'Design,',
+    titleLead: 'Design',
     titleAccent: 'Build',
     titleTail: '& Maintain',
-    copy: 'We build the web applications and business websites that growing enterprises actually run on — then we keep them fast, secure and current long after handover.',
+    copy: 'We build the web applications and business websites that growing enterprises actually run on; then we keep them fast, secure and current long after handover.',
     primaryCta: { label: 'Start a Project', href: '#request' },
     secondaryCta: { label: 'See Our Stack', href: '#stack' },
     promises: [
@@ -71,7 +71,7 @@ export const softwareSolutions = {
 
   ctaBand: {
     title: 'Have a system in mind?',
-    titleAccent: 'Let us scope it — free.',
+    titleAccent: 'Let us scope it; free.',
     copy: 'Describe the problem in plain language. We will tell you what it takes to build, what it costs to run, and whether software is even the right answer.',
   },
 };

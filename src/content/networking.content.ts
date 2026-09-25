@@ -22,7 +22,7 @@ export const networking = {
     titleLead: 'A network you',
     titleAccent: 'never think about',
     titleTail: 'because it just works',
-    copy: 'We design the topology, run the cabling, configure the hardware and document the lot — so coverage reaches every room and the connection holds when the building is full.',
+    copy: 'We design the topology, run the cabling, configure the hardware and document the lot so that coverage reaches every room and the connection holds when the building is full.',
     primaryCta: { label: 'Book a Site Survey', href: '#request' },
     secondaryCta: { label: 'See What We Do', href: '#services' },
     promises: [
@@ -30,9 +30,10 @@ export const networking = {
       { icon: 'lock', label: 'Segmented and secured by default' },
       { icon: 'file-check', label: 'Documented and labelled at handover' },
     ],
-    image: {
-      src: 'https://images.unsplash.com/photo-1581092919535-7146ff1a590b?auto=format&fit=crop&w=1800&q=72',
-      alt: 'Rekonstech engineer patching cabling into a network rack',
+    video: {
+      src: '/video/networking-hero.mp4',
+      poster: '/img/networking-hero-poster.jpg',
+      alt: 'A glowing cable connects into an enterprise network switch in a server rack, with a translucent holographic data panel materialising above it',
     },
     galleryLabel: 'On site this month',
     gallery: [
@@ -79,7 +80,7 @@ export const networking = {
           src: 'https://images.unsplash.com/photo-1691435828932-911a7801adfb?auto=format&fit=crop&w=800&q=72',
           alt: 'Router and switch stack with status lights in a comms cabinet',
         },
-        summary: 'Provisioned and tuned for the building — offices, hotels, schools and hospitals.',
+        summary: 'Provisioned and tuned for the building・Offices, hotels, schools and hospitals.',
         features: [
           'ISP selection and failover so one outage is not a shutdown',
           'Guest portals with fair-use limits for hospitality',
@@ -116,7 +117,7 @@ export const networking = {
       {
         icon: 'briefcase',
         title: 'Businesses',
-        body: 'Segmented office networks with room to add desks without re-cabling.',
+        body: 'Segmented office networks with room to add desks without recabling.',
       },
       {
         icon: 'users',

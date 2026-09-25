@@ -14,7 +14,7 @@ export const consultancy = {
   meta: {
     title: 'Consultancy Services | Rekonstech Consulting and Trading Services',
     description:
-      'IT consultancy and digital transformation advisory, compliance guidance, and staff training — practical roadmaps your team can actually deliver, from an advisor with no product to push.',
+      'IT consultancy and digital transformation advisory, compliance guidance, and staff training・Practical roadmaps your team can actually deliver, from an advisor with no product to push.',
   },
 
   hero: {
@@ -22,7 +22,7 @@ export const consultancy = {
     titleLead: 'Advice first.',
     titleAccent: 'Technology second.',
     titleTail: '',
-    copy: 'We sit on your side of the table — mapping where you are, what is worth changing and in what order. Sometimes the honest answer is that you do not need to buy anything.',
+    copy: 'We sit on your side of the table, mapping where you are, what is worth changing and in what order. Sometimes the honest answer is that you do not need to buy anything.',
     primaryCta: { label: 'Book a Consultation', href: '#request' },
     secondaryCta: { label: 'How We Advise', href: '#services' },
     promises: [

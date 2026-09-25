@@ -118,7 +118,7 @@
 
 /* ==========================================================================
    Deep-space backdrop — Software Solutions page
-   Starfield, drifting nebulae, orbiting bodies and a "sun" above the tech grid.
+   Starfield, drifting nebulae and shooting stars behind the page's hero video.
    Every animation is decorative and disabled under prefers-reduced-motion.
    ========================================================================== */
 @layer components {
@@ -135,21 +135,13 @@
     background: radial-gradient(900px 600px at 50% 14%, #0a1526 0%, #060c16 55%, #04070d 100%);
   }
 
-  /* One sky spanning several stacked sections: a glow over the hero, a second
-     further down where the sun sits, and deep space between them. */
+  /* One sky spanning several stacked sections: soft blue glow accents only —
+     transparent everywhere else so the fixed Earth video shows through as the
+     actual backdrop instead of being painted over. */
   .space--tall {
     background:
-      radial-gradient(1200px 780px at 50% 2%, #103055 0%, transparent 62%),
-      radial-gradient(1000px 700px at 50% 78%, #0a1c33 0%, transparent 66%),
-      linear-gradient(180deg, #071429 0%, #04070d 34%, #050d1a 74%, #04070d 100%);
-  }
-
-  /* Celestial bodies only — sits over a sky that is already painted. Nothing is
-     clipped here: the outer rings are meant to reach far beyond this section,
-     and the page wrapper does the clipping instead. */
-  .space--bare {
-    background: none;
-    overflow: visible;
+      radial-gradient(1200px 780px at 50% 2%, rgba(16, 48, 85, 0.55) 0%, transparent 62%),
+      radial-gradient(1000px 700px at 50% 78%, rgba(10, 28, 51, 0.45) 0%, transparent 66%);
   }
 
   .star {
@@ -167,47 +159,6 @@
     filter: blur(60px);
     mix-blend-mode: screen;
     animation: drift var(--dur, 50s) ease-in-out infinite;
-  }
-
-  .orbit {
-    position: absolute;
-    left: 50%;
-    top: var(--cy, 50%);
-    border: 1px solid rgba(120, 165, 210, 0.13);
-    border-radius: 50%;
-    animation: orbit-spin var(--dur, 90s) linear infinite;
-  }
-
-  .orbit--reverse {
-    animation-name: orbit-spin-reverse;
-  }
-
-  /* Page-spanning rings: far too large to animate, so they simply sit there. */
-  .orbit--still {
-    animation: none;
-    transform: translate(-50%, -50%);
-  }
-
-  .orbit-body {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    border-radius: 50%;
-  }
-
-  .sun {
-    position: absolute;
-    left: 50%;
-    top: var(--cy, 50%);
-    height: 92px;
-    width: 92px;
-    margin: -46px 0 0 -46px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 34% 32%, #ffe9a3 0%, #f5c518 42%, #e8a209 100%);
-    box-shadow:
-      0 0 60px rgba(245, 197, 24, 0.55),
-      0 0 140px rgba(245, 197, 24, 0.25);
-    animation: pulse-sun 7s ease-in-out infinite;
   }
 
   .shooting {
@@ -712,38 +663,7 @@
   }
 }
 
-/* ==========================================================================
-   Networking — live topology map
-   ========================================================================== */
 @layer components {
-  /* ------------------------------------------- Sales & Supply, product page */
-  .sup-hero {
-    background: linear-gradient(165deg, #f4f8fd 0%, #eaf2fb 48%, #e3edf9 100%);
-  }
-
-  /* Soft brand disc the hardware floats against */
-  .sup-orb {
-    position: absolute;
-    top: 8%;
-    right: 6%;
-    z-index: -1;
-    height: 30rem;
-    width: 30rem;
-    border-radius: 9999px;
-    background: radial-gradient(circle at 35% 30%, rgba(42, 144, 232, 0.28), rgba(26, 117, 188, 0.1) 60%, transparent 72%);
-  }
-
-  .sup-dots {
-    position: absolute;
-    bottom: 14%;
-    right: 4%;
-    z-index: -1;
-    height: 7rem;
-    width: 9rem;
-    background-image: radial-gradient(rgba(26, 117, 188, 0.35) 1.5px, transparent 1.5px);
-    background-size: 14px 14px;
-  }
-
   /* --------------------------------------------- primary nav "Services" menu
      Three ways to open the same panel: CSS :hover and :focus-within need no
      JavaScript at all; the `.is-open` class is toggled by site.js so a click
@@ -818,35 +738,6 @@
     @apply block;
   }
 
-  /*
-   * Floating product shots. The photographs are on white studio backgrounds:
-   * multiply blends that white into the stage so only the product reads, and
-   * the radial mask feathers the frame edge so no rectangle shows through.
-   * Cutting them out programmatically left white shadow blobs — these are
-   * silver products on white, too close in value to separate cleanly.
-   */
-  .product-float {
-    mix-blend-mode: multiply;
-    /* farthest-side, not closest-side: the ellipse then fits the whole box, so
-       tall portraits are feathered at their edges instead of being cropped to
-       a circle the width of the image. */
-    -webkit-mask-image: radial-gradient(farthest-side at 50% 50%, #000 74%, transparent 100%);
-    mask-image: radial-gradient(farthest-side at 50% 50%, #000 74%, transparent 100%);
-  }
-
-  /* Sources already on pure white need no feathering — multiply alone erases
-     the background exactly, and no mask keeps the subject's edges crisp. */
-  .product-float--clean {
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
-  /* For a subject the photographer cropped at the frame edge: without this the
-     crop reads as a hard rectangle sitting on the stage. */
-  .product-float--fade-b {
-    -webkit-mask-image: linear-gradient(to bottom, #000 76%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 76%, transparent 100%);
-  }
 
   /* ---------------------------------------------------------- quote basket */
   .qb-toggle {
@@ -915,119 +806,6 @@
       linear-gradient(155deg, #0e3050 0%, #0a2138 46%, #071522 100%);
   }
 
-  .net-stage {
-    background:
-      radial-gradient(880px 600px at 78% 6%, rgba(42, 144, 232, 0.42) 0%, transparent 62%),
-      radial-gradient(680px 500px at 8% 96%, rgba(102, 209, 16, 0.16) 0%, transparent 62%),
-      linear-gradient(155deg, #0f3357 0%, #0b2440 48%, #081726 100%);
-  }
-
-  .net-map {
-    @apply h-full w-full;
-  }
-
-  .net-label {
-    @apply font-mono;
-    fill: #7387a3;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-anchor: middle;
-  }
-
-  .net-links path {
-    stroke-dasharray: 6 8;
-    animation: net-flow 2.4s linear infinite;
-  }
-
-  .net-packet {
-    fill: #66d110;
-    filter: url(#net-glow);
-    offset-rotate: 0deg;
-    animation: net-travel 3.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  }
-
-  /* Return traffic runs the other way, so the link reads as two-way. */
-  .net-packet--up {
-    fill: #7dbbe4;
-    animation-direction: reverse;
-  }
-
-  .net-halo {
-    fill: none;
-    stroke: #2a90e8;
-    stroke-opacity: 0.25;
-    stroke-dasharray: 3 7;
-    animation: net-spin 30s linear infinite;
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  .net-pulse {
-    fill: none;
-    stroke: #2a90e8;
-    stroke-width: 2;
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: net-ping 3.4s ease-out infinite;
-  }
-
-  .net-pulse--b {
-    animation-delay: 1.7s;
-  }
-
-  .net-wave {
-    animation: net-wave 1.9s ease-out infinite;
-  }
-}
-
-@keyframes net-flow {
-  to {
-    stroke-dashoffset: -28;
-  }
-}
-
-@keyframes net-travel {
-  0% {
-    offset-distance: 0%;
-    opacity: 0;
-  }
-  12% {
-    opacity: 1;
-  }
-  88% {
-    opacity: 1;
-  }
-  100% {
-    offset-distance: 100%;
-    opacity: 0;
-  }
-}
-
-@keyframes net-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes net-ping {
-  0% {
-    transform: scale(0.55);
-    stroke-opacity: 0.55;
-  }
-  100% {
-    transform: scale(1.25);
-    stroke-opacity: 0;
-  }
-}
-
-@keyframes net-wave {
-  0%,
-  100% {
-    opacity: 0.15;
-  }
-  40% {
-    opacity: 1;
-  }
 }
 
 @keyframes sec-float {
@@ -1060,38 +838,6 @@
   }
 }
 
-@keyframes orbit-spin {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes orbit-spin-reverse {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(-360deg);
-  }
-}
-
-@keyframes pulse-sun {
-  0%,
-  100% {
-    box-shadow:
-      0 0 60px rgba(245, 197, 24, 0.55),
-      0 0 140px rgba(245, 197, 24, 0.25);
-  }
-  50% {
-    box-shadow:
-      0 0 78px rgba(245, 197, 24, 0.7),
-      0 0 180px rgba(245, 197, 24, 0.32);
-  }
-}
-
 @keyframes shoot {
   0% {
     transform: translateX(0) rotate(var(--tilt, 14deg));
@@ -1112,14 +858,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .star,
-  .nebula,
-  .orbit,
-  .sun {
+  .nebula {
     animation: none !important;
-  }
-
-  .orbit {
-    transform: translate(-50%, -50%);
   }
 
   .shooting {

@@ -18,6 +18,91 @@
     window.addEventListener('scroll', applyStuckState, { passive: true });
   }
 
+  /* --------------------------------------------------- autoplaying hero video */
+  // Shared behavior for every autoplaying hero video on the site: skip
+  // autoplay entirely under prefers-reduced-motion, otherwise (re)play once
+  // the video actually scrolls into view. Some mobile browsers won't
+  // autoplay a video that first loads below the fold, so a single play()
+  // call at page load isn't enough for a hero video that isn't the very
+  // first thing on screen.
+  var autoplayVideos = Array.prototype.slice.call(document.querySelectorAll('[data-autoplay-video]'));
+
+  if (prefersReducedMotion) {
+    autoplayVideos.forEach(function (video) {
+      video.removeAttribute('autoplay');
+      video.pause();
+    });
+  } else if ('IntersectionObserver' in window) {
+    var autoplayObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) entry.target.play().catch(function () {});
+        });
+      },
+      { threshold: 0.25 },
+    );
+    autoplayVideos.forEach(function (video) {
+      autoplayObserver.observe(video);
+    });
+  } else {
+    autoplayVideos.forEach(function (video) {
+      video.play().catch(function () {});
+    });
+  }
+
+  var globeVideo = document.querySelector('[data-globe-video]');
+
+  /* --------------------------------- globe -> astronaut backdrop crossfade */
+  // Both backdrops are fixed, full-viewport and stacked in the same spot;
+  // scrolling the tech-stack section up to the top of the viewport dissolves
+  // from one to the other. Driven directly by scroll position (not a
+  // triggered animation), so it stays on even under prefers-reduced-motion.
+  var globeStage = document.querySelector('[data-globe-transition-target]');
+  var stackSection = document.getElementById('stack');
+  var cosmos = document.querySelector('.cosmos');
+
+  if (globeVideo && globeStage && stackSection && cosmos) {
+    var applyBackdropCrossfade = function () {
+      var viewportHeight = window.innerHeight;
+      var stackProgress = 1 - stackSection.getBoundingClientRect().top / viewportHeight;
+      stackProgress = Math.max(0, Math.min(1, stackProgress));
+
+      // `fixed` backdrops aren't clipped by `.cosmos`'s own overflow — they
+      // paint over whatever comes after it. Fade both out over the last
+      // viewport-height of `.cosmos` so nothing bleeds into the plain white
+      // conversion section or the footer once it's scrolled past.
+      var cosmosExit = cosmos.getBoundingClientRect().bottom / viewportHeight;
+      cosmosExit = Math.max(0, Math.min(1, cosmosExit));
+
+      globeVideo.style.opacity = String((1 - stackProgress) * cosmosExit);
+      globeStage.style.opacity = String(stackProgress * cosmosExit);
+    };
+
+    applyBackdropCrossfade();
+    window.addEventListener('scroll', applyBackdropCrossfade, { passive: true });
+    window.addEventListener('resize', applyBackdropCrossfade);
+  }
+
+  /* ------------------------------------------------ fixed hero video exit */
+  // Simpler sibling of the crossfade above, for pages with just one fixed
+  // backdrop video scoped to a single section (no second video to fade into).
+  // Same reason it's needed: `position:fixed` ignores the scope element's own
+  // overflow, so without this the video paints straight through whatever
+  // comes after the section once scrolled past.
+  Array.prototype.slice.call(document.querySelectorAll('[data-fixed-video-scope]')).forEach(function (scope) {
+    var video = scope.querySelector('[data-autoplay-video]');
+    if (!video) return;
+
+    var applyExitFade = function () {
+      var exitProgress = scope.getBoundingClientRect().bottom / window.innerHeight;
+      video.style.opacity = String(Math.max(0, Math.min(1, exitProgress)));
+    };
+
+    applyExitFade();
+    window.addEventListener('scroll', applyExitFade, { passive: true });
+    window.addEventListener('resize', applyExitFade);
+  });
+
   /* ------------------------------------------------------ side rail spy */
   var railLinks = Array.prototype.slice.call(document.querySelectorAll('[data-rail-link]'));
   if (railLinks.length) {

@@ -14,7 +14,7 @@ export const securitySystems = {
   meta: {
     title: 'Security Systems Installation | Rekonstech Consulting and Trading Services',
     description:
-      'CCTV surveillance with remote monitoring, intruder alarms, biometric access control and power backup — surveyed, installed and maintained by Rekonstech.',
+      'CCTV surveillance with remote monitoring, intruder alarms, biometric access control and power backup・Surveyed, installed and maintained by Rekonstech.',
   },
 
   hero: {
@@ -22,7 +22,7 @@ export const securitySystems = {
     titleLead: 'Eyes on your',
     titleAccent: 'premises',
     titleTail: 'around the clock',
-    copy: 'Surveillance, intrusion detection, access control and backup power — specified for your site, installed properly, and watching long after we leave.',
+    copy: 'Surveillance, intrusion detection, access control and backup power specified for your site, installed properly, and watching long after we leave.',
     primaryCta: { label: 'Book a Free Site Survey', href: '#request' },
     secondaryCta: { label: 'See What We Install', href: '#systems' },
     promises: [
@@ -52,7 +52,7 @@ export const securitySystems = {
     title: 'ABOUT US',
     copy: [
       'We have been specifying and installing security systems for Ghanaian businesses, schools, hotels and homes for over a decade. Every job starts with a walk of the site, because no two premises have the same blind spots.',
-      'Our engineers install what the survey calls for — not the biggest package we can sell. Cabling is run tidily, every device is labelled, and you are handed the passwords, the apps and the documentation on the day we finish.',
+      'Our engineers install what the survey calls for and not the biggest package we can sell. Cabling is run tidily, every device is labelled, and you are handed the passwords, the apps and the documentation on the day we finish.',
     ],
     image: {
       src: 'https://images.unsplash.com/photo-1654781393394-df3c9a66d0b5?auto=format&fit=crop&w=1000&q=75',
@@ -184,6 +184,6 @@ export const securitySystems = {
   ctaBand: {
     title: 'Not sure what your site needs?',
     titleAccent: 'The survey is free.',
-    copy: 'We will walk the premises, mark the blind spots and quote the work in writing — whether or not you go ahead with us.',
+    copy: 'We will walk the premises, mark the blind spots and quote the work in writing. Whether or not you go ahead with us.',
   },
 };

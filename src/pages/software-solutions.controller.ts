@@ -2,7 +2,7 @@ import { Controller, Get, Query, Render } from '@nestjs/common';
 import { serviceCategoryOptions, site } from '../content/site.content';
 import { softwareBook } from '../content/software-book.content';
 import { softwareSolutions } from '../content/software-solutions.content';
-import { generateStars, solarSystem } from '../content/starfield';
+import { generateStars } from '../content/starfield';
 import { techFilters, techStack } from '../content/tech-stack';
 
 @Controller('services')
@@ -24,7 +24,6 @@ export class SoftwareSolutionsController {
       techStack,
       techFilters,
       stars: this.stars,
-      solarSystem,
       serviceCategoryOptions,
       // Pre-selects "Software Solutions" in the shared request form.
       presetCategory: 'software-solutions',

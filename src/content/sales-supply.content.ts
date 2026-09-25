@@ -7,7 +7,7 @@ export const salesSupply = {
   meta: {
     title: 'Sales & Supply | Rekonstech Consulting and Trading Services',
     description:
-      'Genuine desktops, laptops and servers, accessories and peripherals, and licensed software procurement — specced for the workload, configured before delivery and warranty-backed.',
+      'Genuine desktops, laptops and servers, accessories and peripherals, and licensed software procurement specced for the workload, configured before delivery and warranty-backed.',
   },
 
   hero: {
@@ -24,34 +24,12 @@ export const salesSupply = {
       { icon: 'wrench', label: 'Configured before delivery' },
       { icon: 'file-check', label: 'Warranty and paperwork included' },
     ],
-    /**
-     * Studio shots on white, floated over the stage as one product cluster.
-     * See `.product-float` — they are blended rather than cut out, so every
-     * entry must stay white-background product photography.
-     *
-     * `layout` is presentational on purpose: keeping the placement here means
-     * the whole composition can be re-arranged in one place instead of hunting
-     * through the markup.
-     */
-    products: [
-      {
-        src: '/img/hero-headphones.jpg',
-        alt: 'Customer wearing over-ear headphones',
-        // Cropped at the frame edge, so it fades out at the bottom rather than
-        // ending in a hard rectangle.
-        layout: 'right-[1%] bottom-0 w-[46%] product-float--fade-b',
-      },
-      {
-        src: '/img/hero-winlaptop.jpg',
-        alt: 'Business laptop running Windows 11',
-        layout: 'left-[0%] top-[14%] w-[50%]',
-      },
-      {
-        src: '/img/hero-macbook.jpg',
-        alt: 'Pro laptop, three-quarter view',
-        layout: 'left-[26%] bottom-0 w-[34%] rotate-3',
-      },
-    ],
+    /** Full-bleed cinematic backdrop: server room into a multi-monitor showroom. */
+    video: {
+      src: '/video/supply-hero.mp4',
+      poster: '/img/supply-hero-poster.jpg',
+      alt: 'Camera glide from a server rack with pulsing status lights into a bright showroom of laptops, monitors, networking gear and a printer',
+    },
   },
 
   /** Slim anchor rail down the left of the hero (large screens only). */
@@ -78,7 +56,7 @@ export const salesSupply = {
   services: {
     eyebrow: 'What We Supply',
     title: 'SALES & SUPPLY',
-    copy: 'Three supply lines, one accountable partner — so nobody is chasing three vendors when a machine arrives faulty.',
+    copy: 'Three supply lines, one accountable partner so nobody is chasing three vendors when a machine arrives faulty.',
     items: [
       {
         icon: 'server',
@@ -123,7 +101,7 @@ export const salesSupply = {
         features: [
           'Genuine licences with documentation you can audit',
           'Renewal calendar so nothing lapses quietly',
-          'Right-sized seat counts — no shelfware',
+          'Right-sized seat counts・No shelfware',
           'Purchase records kept for your finance team',
         ],
         outcome: 'Licences issued within 48 hours',
@@ -200,7 +178,7 @@ export const salesSupply = {
       alt: 'Rekonstech engineers reviewing an equipment list on site',
     },
     statement:
-      'We only supply what we would be willing to install ourselves — genuine, warrantied, and configured before it ever reaches your desk.',
+      'We only supply what we would be willing to install ourselves・Genuine, warrantied, and configured before it ever reaches your desk.',
     attribution: 'Rekonstech · Supply desk',
     cta: {
       title: 'Need to kit out a team?',
@@ -213,6 +191,6 @@ export const salesSupply = {
   ctaBand: {
     title: 'Need to kit out a team?',
     titleAccent: 'Send us the headcount.',
-    copy: 'Tell us how many people, what they do and your budget. You get an itemised quotation with specifications and lead times — no obligation.',
+    copy: 'Tell us how many people, what they do and your budget. You get an itemised quotation with specifications and lead times・No obligation.',
   },
 };

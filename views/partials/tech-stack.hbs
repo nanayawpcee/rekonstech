@@ -1,28 +1,25 @@
 {{!--
-  "What We Build With" — solar backdrop (sun + orbiting planets) behind an
-  oversized heading, a category filter, and a mosaic of brand marks whose
-  details surface in the spotlight cell. Logos are inline SVG from simple-icons.
+  "What We Build With" — an oversized heading, a category filter, and a mosaic
+  of brand marks whose details surface in the spotlight cell, floating on the
+  page's shared starfield. Logos are inline SVG from simple-icons.
 --}}
-<section id="stack" class="relative pb-20 pt-[250px] lg:pb-28 lg:pt-[310px]">
-  {{!--
-    The page's only solar system: one sun with rings that reach far beyond this
-    section and up through everything above it. The sky itself is painted once
-    by the page wrapper. cy is in px (not %) so the sun clears the heading
-    whatever the section height.
-  --}}
-  {{> space-backdrop orbits=solarSystem cy="150px" showSun=true bare=true}}
-
+<section id="stack" class="relative pb-20 pt-20 lg:pb-28 lg:pt-24">
   <div class="container relative">
-    <div class="relative pb-8 text-center">
+    {{!--
+      A frosted glass card, not raw ghost type straight on the photo — the
+      backdrop-blur calms the busy screens/lights behind it so the barely-there
+      text stays readable without turning solid.
+    --}}
+    <div class="relative mx-auto mb-8 max-w-4xl rounded-[2.5rem] border border-white/10 bg-ink-950/55 px-6 py-10 text-center shadow-lift backdrop-blur-xl sm:px-12 sm:py-12">
       {{!-- Set as an HTML tag: brackets in accent, the words as ghost display type --}}
-      <h2 class="font-display text-[clamp(2.75rem,10vw,7rem)] font-extrabold leading-[0.94] tracking-tight text-white/[0.14]">
-        <span class="text-accent-500/70">&lt;</span>{{page.stack.titleLead}}
-        <span class="text-white/25">{{page.stack.titleAccent}}</span>
+      <h2 class="font-display text-[clamp(2.75rem,9vw,6rem)] font-extrabold leading-[0.94] tracking-tight text-white/40">
+        <span class="text-accent-500/80">&lt;</span>{{page.stack.titleLead}}
+        <span class="text-white/60">{{page.stack.titleAccent}}</span>
         <span class="block">
-          {{page.stack.titleTail}}<span class="text-accent-500/70">&nbsp;/&gt;</span>
+          {{page.stack.titleTail}}<span class="text-accent-500/80">&nbsp;/&gt;</span>
         </span>
       </h2>
-      <p class="mx-auto mt-6 max-w-xl text-sm leading-7 text-ink-300 sm:text-base">
+      <p class="mx-auto mt-6 max-w-xl text-sm leading-7 text-ink-100 sm:text-base">
         {{page.stack.copy}}
       </p>
     </div>

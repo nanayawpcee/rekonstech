@@ -29,10 +29,10 @@ const SOURCE: TechSource[] = [
   { slug: 'typescript', name: 'TypeScript', category: 'Frontend', blurb: 'Type-safe code that catches defects before they ever reach your users.' },
   { slug: 'react', name: 'React', category: 'Frontend', blurb: 'Component-driven interfaces for dashboards, portals and complex web apps.' },
   { slug: 'nextdotjs', name: 'Next.js', category: 'Frontend', blurb: 'Server-rendered React for sites that load fast and rank well on search.' },
-  {slug: 'nestjs', name: 'NestJS', category: 'Frontend', blurb: 'Structured, testable APIs — the framework behind this very site.'},
+  {slug: 'nestjs', name: 'NestJS', category: 'Frontend', blurb: 'Structured, testable APIs;  the framework behind this very site.'},
   { slug: 'angular', name: 'Angular', category: 'Frontend', blurb: 'Structured, enterprise-grade front ends for large internal systems.' },
   { slug: 'redux', name: 'Redux', category: 'Frontend', blurb: 'Predictable state management for applications with complex workflows.' },
-  { slug: 'tailwindcss', name: 'Tailwind CSS', category: 'Frontend', blurb: 'Design systems built straight into the markup — consistent and fast to iterate.' },
+  { slug: 'tailwindcss', name: 'Tailwind CSS', category: 'Frontend', blurb: 'Design systems built straight into the markup; consistent and fast to iterate.' },
   { slug: 'sass', name: 'Sass', category: 'Frontend', blurb: 'Maintainable stylesheets for projects with bespoke visual identities.' },
   { slug: 'bootstrap', name: 'Bootstrap', category: 'Frontend', blurb: 'Rapid, dependable layouts when a project needs to ship yesterday.' },
   { slug: 'html5', name: 'HTML5', category: 'Frontend', blurb: 'Semantic, accessible markup that works on every device and screen reader.' },
@@ -41,7 +41,7 @@ const SOURCE: TechSource[] = [
 
   // ----------------------------------------------------------------- Backend
   { slug: 'nodedotjs', name: 'Node.js', category: 'Backend', blurb: 'Fast, event-driven services that scale with your transaction volume.' },
-  { slug: 'nestjs', name: 'NestJS', category: 'Backend', blurb: 'Structured, testable APIs — the framework behind this very site.' },
+  { slug: 'nestjs', name: 'NestJS', category: 'Backend', blurb: 'Structured, testable APIs;  the framework behind this very site.' },
   { slug: 'express', name: 'Express', category: 'Backend', blurb: 'Lightweight HTTP services and integrations, deployed in days not weeks.' },
   { slug: 'php', name: 'PHP', category: 'Backend', blurb: 'Pragmatic server-side development on the stack most hosts already run.' },
   { slug: 'laravel', name: 'Laravel', category: 'Backend', blurb: 'Batteries-included business applications with clean, auditable code.' },
@@ -74,11 +74,11 @@ const SOURCE: TechSource[] = [
   { slug: 'nginx', name: 'NGINX', category: 'DevOps', blurb: 'Hardened reverse proxying, TLS termination and load balancing.' },
   { slug: 'githubactions', name: 'GitHub Actions', category: 'DevOps', blurb: 'Automated tests and deployments triggered on every merge.' },
   { slug: 'linux', name: 'Linux', category: 'DevOps', blurb: 'The servers we provision, harden and maintain for our clients.' },
-  { slug: 'ubuntu', name: 'Ubuntu', category: 'DevOps', blurb: 'Our standard server distribution — long-term support, predictable patching.' },
+  { slug: 'ubuntu', name: 'Ubuntu', category: 'DevOps', blurb: 'Our standard server distribution; long-term support, predictable patching.' },
   { slug: 'git', name: 'Git', category: 'DevOps', blurb: 'Every change tracked, reviewed and reversible. No mystery code.' },
 
   // ----------------------------------------------------------- Collaboration
-  { slug: 'github', name: 'GitHub', category: 'Collaboration', blurb: 'Your code, in your organisation — you own the repository from day one.', color: '#FFFFFF' },
+  { slug: 'github', name: 'GitHub', category: 'Collaboration', blurb: 'Your code, in your organisation; you own the repository from day one.', color: '#FFFFFF' },
   { slug: 'gitlab', name: 'GitLab', category: 'Collaboration', blurb: 'Self-hosted source control for clients with data-residency requirements.' },
   { slug: 'figma', name: 'Figma', category: 'Collaboration', blurb: 'Interface design you can click through and approve before a line is built.' },
   { slug: 'notion', name: 'Notion', category: 'Collaboration', blurb: 'Living documentation and handover notes your team keeps after we leave.', color: '#FFFFFF' },

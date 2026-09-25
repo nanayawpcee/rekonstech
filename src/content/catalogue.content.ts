@@ -146,7 +146,7 @@ export const catalogueMeta = {
   eyebrow: "Catalogue",
   title: "Build your quote",
   titleAccent: "as you browse",
-  copy: "Add what you need and send it over as one itemised enquiry. Nothing is charged here — we confirm stock, final pricing and lead times in writing.",
+  copy: "Add what you need and send it over as one itemised enquiry. Nothing is charged here・We confirm stock, final pricing and lead times in writing.",
   priceNote: "Indicative prices, excluding VAT. Confirmed on quotation.",
   /**
    * The `price` field above is a placeholder — real figures are coming from

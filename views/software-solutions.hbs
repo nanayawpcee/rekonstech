@@ -19,6 +19,39 @@
     to return to the top. `clip` crops the same way without that.
   --}}
   <div class="cosmos relative isolate overflow-clip">
+    {{!--
+      Fixed, not part of the document flow: pinned to the viewport so the real
+      Earth reads as the page's backdrop while every section above scrolls
+      over it. `.cosmos`'s own overflow-clip is what stops it from bleeding
+      past the tech mosaic into the plain white sections below.
+    --}}
+    <video
+      class="fixed inset-0 -z-10 h-full w-full object-cover object-[center_55%]"
+      data-globe-video
+      data-autoplay-video
+      src="/video/earth-globe.mp4"
+      poster="/img/earth-globe-poster.jpg"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+    ></video>
+
+    {{!--
+      Second backdrop, same fixed spot as the globe. Starts invisible — JS
+      dissolves it in as the tech-stack heading nears the top of the viewport,
+      so the no-JS fallback is simply the Earth video staying up the whole
+      page, never this image.
+    --}}
+    <img
+      class="fixed inset-0 -z-10 h-full w-full object-cover object-center opacity-0"
+      data-globe-transition-target
+      src="/img/astronaut-workstation.jpg"
+      alt=""
+      aria-hidden="true"
+    />
+
     {{> space-backdrop showStars=true showShooting=true tall=true}}
 
   {{!-- ------------------------------------------------------------ hero --}}

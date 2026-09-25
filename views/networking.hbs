@@ -5,104 +5,84 @@
 
 <main id="main" class="bg-[#080D13]">
 
-  {{!-- hero --}}
-  <section class="relative px-4 pb-16 pt-[104px] sm:px-6 lg:pb-24 lg:pt-[120px]">
+  {{!--
+    hero — the video is a fixed, full-viewport backdrop (not a contained band
+    scrolling with the page): it stays pinned while this section's own text
+    scrolls over it. `data-fixed-video-scope` drives the exit fade in site.js
+    once this section's bottom passes the viewport top, since `position:fixed`
+    ignores ancestor overflow/clipping entirely — nothing here would otherwise
+    stop the video from painting straight through the white section below.
+  --}}
+  <section class="relative isolate overflow-hidden pb-16 pt-[104px] lg:pb-24 lg:pt-[120px]" data-fixed-video-scope>
+    <video
+      class="fixed inset-0 -z-10 h-full w-full object-cover object-center"
+      data-autoplay-video
+      src="{{page.hero.video.src}}"
+      poster="{{page.hero.video.poster}}"
+      aria-hidden="true"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
     <div
-      class="net-stage relative isolate mx-auto max-w-[1400px] overflow-clip rounded-[2.5rem] px-6 py-14 sm:px-10 lg:px-14 lg:py-16">
-      {{!--
-        Mobile: the grid below stacks into one column, so the stage grows very
-        tall (headline + copy + CTAs + the full topology card, one under the
-        other). An `inset-0 h-full` photo forced to cover that height got
-        squeezed to an unrecognisable vertical sliver. Below `lg:` the photo is
-        instead a normal-height banner at the top, and the content is pushed
-        below it with matching top padding — see the identical fix and note on
-        the Consultancy page's hero (views/consultancy.hbs) for the full story.
-      --}}
-      <img src="{{page.hero.image.src}}" alt="{{page.hero.image.alt}}"
-        class="absolute inset-x-0 top-0 -z-10 h-[220px] w-full object-cover object-[68%_25%]
-               sm:h-[280px] lg:inset-0 lg:h-full lg:object-[68%_center]" fetchpriority="high"
-        decoding="async" />
-      {{!-- Mobile-only: fades the banner into the stage's own background below it --}}
-      <div class="absolute inset-x-0 top-0 -z-10 h-[220px] sm:h-[280px] lg:hidden"
-        style="background:linear-gradient(180deg,rgba(6,19,31,0.05) 0%,rgba(6,19,31,0.35) 78%,#081726 100%)">
-      </div>
-      {{!--
-      Desktop-only: explicit stops rather than Tailwind's three-stop gradients —
-      the copy needs a solid bed on the left, but the photograph has to stay
-      visible across the right two-fifths instead of being flattened to black.
-      --}}
-      <div class="absolute inset-0 -z-10 hidden lg:block"
-        style="background:linear-gradient(90deg,#06131F 0%,rgba(6,19,31,0.94) 34%,rgba(6,19,31,0.62) 58%,rgba(6,19,31,0.28) 100%)">
-      </div>
-      <div class="absolute inset-0 -z-10 hidden lg:block"
-        style="background:linear-gradient(180deg,rgba(6,19,31,0.55) 0%,transparent 26%,transparent 68%,rgba(6,19,31,0.62) 100%)">
-      </div>
+      class="absolute inset-0 -z-10"
+      style="background:linear-gradient(90deg,#06131F 0%,rgba(6,19,31,0.94) 34%,rgba(6,19,31,0.62) 58%,rgba(6,19,31,0.28) 100%)"
+    ></div>
+    <div
+      class="absolute inset-0 -z-10"
+      style="background:linear-gradient(180deg,rgba(6,19,31,0.55) 0%,transparent 26%,transparent 68%,rgba(6,19,31,0.62) 100%)"
+    ></div>
 
-      <div class="grid items-center gap-12 pt-[196px] sm:pt-[248px] lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-0">
+    <div class="container relative">
+      <div class="max-w-2xl">
+        <p class="eyebrow-on-dark">
+          {{page.hero.eyebrow}}
+        </p>
 
-        <div class="relative">
-          <p class="eyebrow-on-dark">
-            {{page.hero.eyebrow}}
-          </p>
+        <h1 class="h1 text-white">
+          {{page.hero.titleLead}}
+          <span class="block text-brand-300">{{page.hero.titleAccent}}</span>
+          {{page.hero.titleTail}}
+        </h1>
 
-          <h1 class="h1 text-white">
-            {{page.hero.titleLead}}
-            <span class="block text-brand-300">{{page.hero.titleAccent}}</span>
-            {{page.hero.titleTail}}
-          </h1>
+        <p class="mt-6 max-w-xl text-[15px] leading-7 text-ink-100">{{page.hero.copy}}</p>
 
-          <p class="mt-6 max-w-xl text-[15px] leading-7 text-ink-100">{{page.hero.copy}}</p>
-
-          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href="{{page.hero.primaryCta.href}}" class="btn-primary">
-              {{page.hero.primaryCta.label}}
-              {{{icon "arrow-right" "h-4 w-4"}}}
-            </a>
-            <a href="{{page.hero.secondaryCta.href}}" class="btn-outline">
-              {{page.hero.secondaryCta.label}}
-            </a>
-          </div>
-
-          <ul class="mt-10 flex flex-wrap gap-x-7 gap-y-3">
-            {{#each page.hero.promises}}
-            <li class="flex items-center gap-2.5 text-sm font-semibold text-white">
-              <span
-                class="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-accent-400">
-                {{{icon this.icon "h-4 w-4"}}}
-              </span>
-              {{this.label}}
-            </li>
-            {{/each}}
-          </ul>
-
-          {{!-- Proof-of-work strip --}}
-          <div class="mt-10 flex items-center gap-4">
-            <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">
-              {{page.hero.galleryLabel}}
-            </span>
-            <div class="flex gap-2.5">
-              {{#each page.hero.gallery}}
-              <img src="{{this.src}}" alt="{{this.alt}}"
-                class="h-14 w-16 rounded-xl border border-white/15 object-cover shadow-soft sm:h-16 sm:w-20"
-                loading="lazy" decoding="async" />
-              {{/each}}
-            </div>
-          </div>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a href="{{page.hero.primaryCta.href}}" class="btn-primary">
+            {{page.hero.primaryCta.label}}
+            {{{icon "arrow-right" "h-4 w-4"}}}
+          </a>
+          <a href="{{page.hero.secondaryCta.href}}" class="btn-outline">
+            {{page.hero.secondaryCta.label}}
+          </a>
         </div>
 
-        {{!-- Live topology --}}
-        <div class="relative">
-          {{!-- Translucent so the photograph reads through the glass --}}
-          <div class="rounded-[2rem] border border-white/10 bg-[#06131F]/62 p-4 shadow-lift backdrop-blur-md sm:p-6">
-            <div
-              class="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">
-              <span>Site topology · live</span>
-              <span class="flex items-center gap-2 text-accent-400">
-                <span class="h-1.5 w-1.5 rounded-full bg-accent-500"></span>
-                All links up
-              </span>
-            </div>
-            <div class="aspect-[6/5]">{{> network-topology}}</div>
+        <ul class="mt-10 flex flex-wrap gap-x-7 gap-y-3">
+          {{#each page.hero.promises}}
+          <li class="flex items-center gap-2.5 text-sm font-semibold text-white">
+            <span
+              class="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-accent-400">
+              {{{icon this.icon "h-4 w-4"}}}
+            </span>
+            {{this.label}}
+          </li>
+          {{/each}}
+        </ul>
+
+        {{!-- Proof-of-work strip --}}
+        <div class="mt-10 flex items-center gap-4">
+          <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">
+            {{page.hero.galleryLabel}}
+          </span>
+          <div class="flex gap-2.5">
+            {{#each page.hero.gallery}}
+            <img src="{{this.src}}" alt="{{this.alt}}"
+              class="relative h-14 w-16 rounded-xl border border-white/15 object-cover shadow-soft
+                     transition-transform duration-300 hover:z-10 hover:scale-[2] hover:shadow-lift
+                     sm:h-16 sm:w-20"
+              loading="lazy" decoding="async" />
+            {{/each}}
           </div>
         </div>
       </div>
