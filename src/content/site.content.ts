@@ -119,7 +119,7 @@ export const site = {
     titleAccent: "for Every Enterprise",
     copy: "Rekonstech Consulting and Trading Services is a full-stack technology partner: we build the software, install the systems, supply the hardware and stay on call long after handover.",
     image: {
-      src: "/img/subject1.png",
+      src: "/img/subject1.jpg",
       alt: "Rekonstech technical team configuring client hardware",
     },
     insetImage: {

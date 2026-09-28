@@ -60,7 +60,7 @@ export const team = {
         role: "Software Engineer",
         bio: "Leads custom builds end to end from data migration to the training session that hands the system over.",
         image: {
-          src: "img/se.png",
+          src: "img/se.jpg",
           alt: "Portrait of Prince Charles Appiah Gyamrah, Software Engineer at Rekonstech",
         },
       },

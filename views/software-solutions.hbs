@@ -39,10 +39,11 @@
     ></video>
 
     {{!--
-      Second backdrop, same fixed spot as the globe. Starts invisible — JS
+      Second backdrop, same fixed spot as the globe. Starts invisible; JS
       dissolves it in as the tech-stack heading nears the top of the viewport,
       so the no-JS fallback is simply the Earth video staying up the whole
-      page, never this image.
+      page, never this image. Lazy-loaded since it's not needed until the
+      user has scrolled most of the way down.
     --}}
     <img
       class="fixed inset-0 -z-10 h-full w-full object-cover object-center opacity-0"
@@ -50,6 +51,8 @@
       src="/img/astronaut-workstation.jpg"
       alt=""
       aria-hidden="true"
+      loading="lazy"
+      decoding="async"
     />
 
     {{> space-backdrop showStars=true showShooting=true tall=true}}
