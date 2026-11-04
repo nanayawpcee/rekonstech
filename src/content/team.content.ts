@@ -70,7 +70,7 @@ export const team = {
         role: "Head of Security & Networking",
         bio: "Designs the CCTV, access-control and network installs, then keeps them covered under a written SLA.",
         image: {
-          src: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=480&q=75",
+          src: "img/hsn.jpg",
           alt: "Portrait of Alexander Segbedzi, Head of Security & Networking at Rekonstech",
         },
       },
