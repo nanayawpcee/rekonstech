@@ -69,7 +69,7 @@
       var entry = line.qty + ' x ' + line.name + ' (' + line.sku + ')';
       return SHOW_PRICING ? entry + ' @ ' + money(line.price) : entry;
     });
-    return SHOW_PRICING ? lines.join('; ') + ' — indicative total ' + money(totalOf(items)) : lines.join('; ');
+    return SHOW_PRICING ? lines.join('; ') + '. Indicative total: ' + money(totalOf(items)) : lines.join('; ');
   }
 
   /* ---------------------------------------------------------------- render */

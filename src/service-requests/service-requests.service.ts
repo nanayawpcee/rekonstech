@@ -32,7 +32,7 @@ export class ServiceRequestsService implements OnModuleInit {
       this.canWriteFile = false;
       this.logger.warn(
         'No writable data directory and no SERVICE_REQUEST_WEBHOOK_URL set. ' +
-          'Submissions will only appear in the logs — set the webhook before launch.',
+          'Submissions will only appear in the logs. Set the webhook before launch.',
       );
     }
   }
@@ -78,7 +78,7 @@ export class ServiceRequestsService implements OnModuleInit {
       }
     }
 
-    this.logger.warn(`UNDELIVERED SERVICE REQUEST — capture manually: ${JSON.stringify(record)}`);
+    this.logger.warn(`UNDELIVERED SERVICE REQUEST, capture manually: ${JSON.stringify(record)}`);
   }
 
   private generateReference(): string {

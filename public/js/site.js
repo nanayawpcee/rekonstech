@@ -404,7 +404,7 @@
         })
         .catch(function () {
           showStatus(
-            'We could not reach the server. Please call us instead — we answer 24/7.',
+            'We could not reach the server. Please call us instead. We answer 24/7.',
             'error',
           );
         })

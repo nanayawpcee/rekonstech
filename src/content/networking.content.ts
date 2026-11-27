@@ -82,7 +82,7 @@ export const networking = {
           src: 'https://images.unsplash.com/photo-1691435828932-911a7801adfb?auto=format&fit=crop&w=800&q=72',
           alt: 'Router and switch stack with status lights in a comms cabinet',
         },
-        summary: 'Provisioned and tuned for the building・Offices, hotels, schools and hospitals.',
+        summary: 'Provisioned and tuned for the building: offices, hotels, schools and hospitals.',
         features: [
           'ISP selection and failover so one outage is not a shutdown',
           'Guest portals with fair-use limits for hospitality',

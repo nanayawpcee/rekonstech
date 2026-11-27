@@ -93,7 +93,7 @@ export const team = {
     eyebrow: "Team at Work",
     title: "ON SITE,",
     titleAccent: "ON CALL, ON TIME",
-    copy: "A look at the wider Rekonstech team behind every engagement・Im,.nstalling, configuring and training, service line by service line.",
+    copy: "A look at the wider Rekonstech team behind every engagement: installing, configuring and training, service line by service line.",
     // TODO: swap for real on-site photos of the Rekonstech team once supplied.
     photos: [
       {
@@ -173,6 +173,6 @@ export const team = {
   ctaBand: {
     title: "Want to work with one of us directly?",
     titleAccent: "Tell us what needs doing.",
-    copy: "Every request is routed to the specialist who owns that area・No call centre in between.",
+    copy: "Every request is routed to the specialist who owns that area. No call centre in between.",
   },
 };

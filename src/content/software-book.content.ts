@@ -106,7 +106,7 @@ const [webAppsLeft, webAppsRight] = spread(
   'Applications',
   'Off-the-shelf tools bend your business to fit them. We build the other way round; portals, dashboards and record systems shaped around the way your team already works.',
   'Built for your workflow, not the other way around.',
-  'Typical delivery; 6 to 14 weeks',
+  'Typical delivery: 6 to 14 weeks',
   'dashboard',
   'What We Deliver',
   [
@@ -140,7 +140,7 @@ const [websitesLeft, websitesRight] = spread(
   '& Development',
   'A website earns its keep or it is decoration. We design for your market, build for speed on mobile data, and wire every page to a measurable enquiry.',
   'Designed to be found. Built to convert.',
-  'Typical delivery — 2 to 5 weeks',
+  'Typical delivery: 2 to 5 weeks',
   'website',
   'What We Build',
   [
@@ -152,7 +152,7 @@ const [websitesLeft, websitesRight] = spread(
     {
       icon: 'trending-up',
       title: 'Search & Performance Ready',
-      desc: 'Semantic structure, fast loads and clean metadata — the groundwork search engines reward.',
+      desc: 'Semantic structure, fast loads and clean metadata: the groundwork search engines reward.',
       chips: ['Responsive', 'SEO-ready', 'Analytics'],
     },
     {
@@ -224,7 +224,7 @@ export const softwareBook = {
     {
       front: {
         kind: 'cover',
-        kicker: 'EST. ACCRA — GHANA',
+        kicker: 'EST. ACCRA, GHANA',
         issue: 'VOL. 01',
         titleTop: 'SOFTWARE',
         titleAccent: 'SOLUTIONS',
@@ -255,7 +255,7 @@ export const softwareBook = {
           { no: '01', title: 'Custom Web Applications', page: '03' },
           { no: '02', title: 'Website Design & Development', page: '05' },
           { no: '03', title: 'Maintenance & Support', page: '07' },
-          { no: '—', title: 'Start a Project', page: '09' },
+          { no: '04', title: 'Start a Project', page: '09' },
         ],
         folio: '02',
         label: 'Contents',
@@ -271,7 +271,7 @@ export const softwareBook = {
         eyebrow: 'Start a Project',
         heading: 'Let us build',
         headingAccent: 'your next chapter.',
-        body: 'Tell us what you are trying to run, replace or automate. We will come back with an approach, a timeline and a written quote — no obligation.',
+        body: 'Tell us what you are trying to run, replace or automate. We will come back with an approach, a timeline and a written quote. No obligation.',
         folio: '09',
         label: 'Start a Project',
       },

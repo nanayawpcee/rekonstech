@@ -35,7 +35,7 @@ export class ServiceRequestsController {
     response.status(HttpStatus.CREATED).json({
       ok: true,
       reference,
-      message: 'Thank you — a rekonstech consultant will call you back shortly.',
+      message: 'Thank you. A Rekonstech consultant will call you back shortly.',
     });
   }
 }

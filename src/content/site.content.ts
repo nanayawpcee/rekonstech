@@ -49,8 +49,8 @@ export interface AboutTab {
 
 export const site = {
   /**
-   * Absolute origin, used to build the og:image URL — social scrapers reject
-   * relative paths. TODO: set the real domain before launch.
+   * Absolute origin, used to build the og:image URL. Social scrapers reject
+   * relative paths.
    */
   siteUrl: "https://rekonstech.com",
 
@@ -66,7 +66,6 @@ export const site = {
     name: "Rekonstech",
     legalName: "Rekonstech Consulting and Trading Services",
     tagline: "Consulting & Trading Services",
-    // TODO: replace placeholder contact details before launch.
     phone: "+233 20 776 0838",
     phoneHref: "tel:+233207760838",
     emergencyPhone: "+233 55 646 8659",
