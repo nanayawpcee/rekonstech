@@ -17,5 +17,7 @@ import { TeamController } from './team.controller';
     TeamController,
   ],
   providers: [CatalogueService],
+  // Shared with the home page's stock strip, so both use one cache.
+  exports: [CatalogueService],
 })
 export class PagesModule {}

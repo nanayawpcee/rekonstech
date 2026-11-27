@@ -1,0 +1,67 @@
+{{!--
+  Home page strip: the first few catalogue products from Sanity, each linking
+  to the full catalogue on the Sales & Supply page. Hidden when there is no
+  stock to show, so an empty dataset never leaves a blank section.
+--}}
+{{#if stock.length}}
+<section id="stock" class="section relative overflow-hidden bg-ink-50/70">
+  <div class="container">
+    <div class="reveal flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div class="max-w-2xl">
+        <p class="eyebrow">{{site.stockStrip.eyebrow}}</p>
+        <h2 class="h2">
+          {{site.stockStrip.title}}
+          <span class="block text-brand-600">{{site.stockStrip.titleAccent}}</span>
+        </h2>
+        <p class="lead mt-5">{{site.stockStrip.copy}}</p>
+      </div>
+      <a href="{{site.stockStrip.cta.href}}" class="btn-ghost shrink-0">
+        {{site.stockStrip.cta.label}}
+        {{{icon "arrow-right" "h-4 w-4 text-brand-600"}}}
+      </a>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {{#each stock}}
+        <a
+          href="{{@root.site.stockStrip.cta.href}}"
+          class="reveal group flex flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift"
+        >
+          <div class="relative bg-ink-50 p-4">
+            <img
+              class="h-40 w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              src="{{this.image.src}}"
+              alt="{{this.image.alt}}"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="cat-condition cat-condition--{{this.condition}}">{{this.conditionLabel}}</span>
+          </div>
+
+          <div class="flex flex-1 flex-col p-5">
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-400">{{this.category}}</p>
+            <h3 class="mt-1.5 text-[15px] leading-tight text-ink-900">{{this.name}}</h3>
+            {{#if this.spec}}<p class="mt-1 text-[12.5px] leading-5 text-ink-400">{{this.spec}}</p>{{/if}}
+
+            <p class="mt-auto flex items-center justify-between gap-3 border-t border-ink-100 pt-4 text-[12px] font-semibold text-brand-600">
+              <span class="flex items-center gap-1.5 text-ink-500">
+                {{#if this.availability}}
+                  {{{icon "clock" "h-3.5 w-3.5 text-brand-600"}}}
+                  {{this.availability}}
+                {{else}}
+                  {{{icon "file-check" "h-3.5 w-3.5 text-brand-600"}}}
+                  Price on request
+                {{/if}}
+              </span>
+              <span class="flex items-center gap-1 transition-transform duration-300 group-hover:translate-x-0.5">
+                View
+                {{{icon "arrow-right" "h-3.5 w-3.5"}}}
+              </span>
+            </p>
+          </div>
+        </a>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}

@@ -65,6 +65,12 @@ export class CatalogueService {
     return { items: items.map(toView), filters: buildFilters(items), meta: catalogueMeta };
   }
 
+  /** The first few products in Studio order, for the home page strip. */
+  async featured(limit: number): Promise<CatalogueItemView[]> {
+    const items = await this.products();
+    return items.slice(0, limit).map(toView);
+  }
+
   private async products(): Promise<CatalogueItem[]> {
     if (!this.projectId) return fallbackCatalogue;
     if (this.cache && Date.now() - this.cache.at < CACHE_MS) return this.cache.items;

@@ -13,7 +13,7 @@ white bar once the page scrolls (site.js toggles `.is-stuck`).
     <span class="[.is-stuck_&]:hidden">{{> logo tone="dark"}}</span>
     <span class="hidden [.is-stuck_&]:inline-flex">{{> logo}}</span>
 
-    <nav class="hidden items-center gap-8 lg:flex" aria-label="Primary">
+    <nav class="hidden items-center gap-5 whitespace-nowrap lg:flex xl:gap-8" aria-label="Primary">
       {{#each site.nav}}
         {{#ifEquals this.label "Services"}}
           {{#if @root.isHome}}
@@ -80,7 +80,7 @@ white bar once the page scrolls (site.js toggles `.is-stuck`).
         </span>
       </a>
 
-      <a href="#request" class="btn-primary hidden md:inline-flex">
+      <a href="#request" class="btn-primary hidden whitespace-nowrap md:inline-flex">
         Get a Free Quote
         {{{icon "arrow-right" "h-4 w-4"}}}
       </a>

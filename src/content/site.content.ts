@@ -81,6 +81,7 @@ export const site = {
     { label: "About Us", href: "/#about" },
     { label: "Our Team", href: "/team" },
     { label: "Services", href: "/#services" },
+    { label: "Catalogue", href: "/services/sales-supply#catalogue" },
     { label: "Contact", href: "/#contact" },
   ],
 
@@ -111,6 +112,15 @@ export const site = {
       { icon: "package", label: "Authorised Reseller" },
       { icon: "life-buoy", label: "SLA-Backed Support" },
     ],
+  },
+
+  /** Home page strip of products pulled from the Sanity catalogue. */
+  stockStrip: {
+    eyebrow: "From Our Catalogue",
+    title: "Equipment",
+    titleAccent: "ready to quote",
+    copy: "New, refurbished and used laptops, desktops, networking gear and accessories. Add what you need to a quote and we will come back with pricing.",
+    cta: { label: "See All Stock", href: "/services/sales-supply#catalogue" },
   },
 
   requestBar: {
