@@ -3,8 +3,11 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 // Default import (not `* as`): hbs exports a class instance whose methods live
 // on the prototype, and `import * as` would drop them via __importStar.
 import hbs from 'hbs';
+import type { NextFunction, Request, Response } from 'express';
 import { existsSync } from 'fs';
+import helmet from 'helmet';
 import { join } from 'path';
+import { site } from './content/site.content';
 import { registerHbsHelpers } from './view/hbs-helpers';
 
 /**
@@ -39,10 +42,64 @@ function registerPartials(dir: string): Promise<void> {
 }
 
 
+/**
+ * SHA-256 of the one inline script in layouts/main.hbs. If that script's text
+ * changes by even a character, regenerate this or the browser will block it:
+ *   printf '%s' "<script body>" | openssl dgst -sha256 -binary | base64
+ */
+const INLINE_JS_FLAG_HASH = "'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw='";
+
+function applySecurityHeaders(app: NestExpressApplication): void {
+  app.disable('x-powered-by');
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", INLINE_JS_FLAG_HASH],
+          // Templates use inline style attributes for gradients and starfield positions.
+          styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+          fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+          imgSrc: ["'self'", 'data:', 'https://images.unsplash.com'],
+          mediaSrc: ["'self'"],
+          connectSrc: ["'self'"],
+          formAction: ["'self'"],
+          frameAncestors: ["'none'"],
+          objectSrc: ["'none'"],
+          baseUri: ["'self'"],
+          // Safari upgrades http://localhost too, which breaks local dev.
+          upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
+        },
+      },
+      referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+    }),
+  );
+}
+
+/**
+ * Exposes canonicalUrl and noindex to every rendered view via res.locals.
+ * Form round-trip URLs (?submitted, ?error) are kept out of the index so they
+ * never compete with the clean page.
+ */
+function applySeoLocals(app: NestExpressApplication): void {
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    // Express routing is case-insensitive, so normalise to the lowercase route.
+    const path = req.path.toLowerCase().replace(/\/+$/, '') || '/';
+    res.locals.canonicalUrl = `${site.siteUrl}${path === '/' ? '/' : path}`;
+    res.locals.noindex = 'submitted' in req.query || 'error' in req.query;
+    next();
+  });
+}
+
 export async function configureApp(app: NestExpressApplication): Promise<void> {
   const projectRoot = resolveProjectRoot();
 
-  
+  // Vercel sits in front of the function; trust its X-Forwarded-For so the
+  // rate limiter sees each visitor's IP instead of the proxy's.
+  app.set('trust proxy', 1);
+  applySecurityHeaders(app);
+  applySeoLocals(app);
+
   app.useStaticAssets(join(projectRoot, 'public'), {
     maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0,
   });

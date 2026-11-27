@@ -6,8 +6,14 @@
     <title>{{pageTitle}}</title>
     <meta name="description" content="{{metaDescription}}" />
     <meta name="theme-color" content="#08182F" />
+    {{!-- canonicalUrl and noindex come from res.locals, set in bootstrap.ts --}}
+    <link rel="canonical" href="{{canonicalUrl}}" />
+    {{#if noindex}}<meta name="robots" content="noindex, follow" />{{/if}}
 
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{canonicalUrl}}" />
+    <meta property="og:site_name" content="{{site.company.name}}" />
+    <meta property="og:locale" content="en_GH" />
     <meta property="og:title" content="{{pageTitle}}" />
     <meta property="og:description" content="{{metaDescription}}" />
     {{!-- Absolute, because og:image is fetched by scrapers with no page context --}}
@@ -35,24 +41,14 @@
     />
     <link rel="stylesheet" href="/css/styles.css" />
 
-    <script>
-      // Enables JS-only styling (scroll reveal) without a flash for no-JS users.
-      document.documentElement.classList.add('js');
-    </script>
+    {{!--
+      Enables JS-only styling (scroll reveal) without a flash for no-JS users.
+      The CSP allows this script by hash (INLINE_JS_FLAG_HASH in bootstrap.ts):
+      editing its text, including whitespace, requires a new hash.
+    --}}
+    <script>document.documentElement.classList.add('js');</script>
 
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "{{site.company.legalName}}",
-        "description": "{{metaDescription}}",
-        "telephone": "{{site.company.phone}}",
-        "email": "{{site.company.email}}",
-        "address": { "@type": "PostalAddress", "addressLocality": "{{site.company.address}}" },
-        "openingHours": "Mo-Sa 08:00-18:00",
-        "areaServed": "GH"
-      }
-    </script>
+    {{structuredData metaDescription}}
   </head>
 
   <body class="min-h-screen bg-white">

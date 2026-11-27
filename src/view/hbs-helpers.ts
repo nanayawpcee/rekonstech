@@ -1,5 +1,6 @@
 import hbs from 'hbs';
 import { renderIcon } from '../content/icons';
+import { buildOrganizationSchema } from '../content/structured-data';
 
 export function registerHbsHelpers(): void {
   const { handlebars } = hbs;
@@ -8,6 +9,23 @@ export function registerHbsHelpers(): void {
   handlebars.registerHelper('icon', (name: string, className?: unknown) => {
     const classes = typeof className === 'string' ? className : 'h-6 w-6';
     return new handlebars.SafeString(renderIcon(name, classes));
+  });
+
+  /**
+   * {{structuredData metaDescription}}: the schema.org JSON-LD block.
+   * Built as an object and serialised so Handlebars' HTML escaping never
+   * leaks &amp; or &quot; into the JSON, and `<` is escaped so content can
+   * never close the script tag early.
+   */
+  handlebars.registerHelper('structuredData', (description: unknown) => {
+    const schema = buildOrganizationSchema(typeof description === 'string' ? description : '');
+    const json = JSON.stringify(schema)
+      .replace(/</g, '\\u003c')
+      .replace(/>/g, '\\u003e')
+      .replace(/&/g, '\\u0026')
+      .replace(/\u2028/g, '\\u2028')
+      .replace(/\u2029/g, '\\u2029');
+    return new handlebars.SafeString(`<script type="application/ld+json">${json}</script>`);
   });
 
   /** {{year}} — keeps the footer copyright current without a redeploy. */
