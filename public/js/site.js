@@ -415,6 +415,44 @@
     });
   }
 
+  /* ------------------------------------------------- send on WhatsApp */
+  // The links already open a chat with a generic greeting. On click, the
+  // message is rebuilt from whatever the visitor has filled in, plus the
+  // quote basket, so the request arrives in WhatsApp ready to act on.
+  function whatsAppMessage() {
+    var lines = ['Hello Rekonstech, I would like to request a service.'];
+    var requestForm = document.getElementById('request-form');
+
+    if (requestForm) {
+      var name = requestForm.querySelector('[name="fullName"]');
+      var phone = requestForm.querySelector('[name="phone"]');
+      var category = requestForm.querySelector('[name="serviceCategory"]');
+      var basket = requestForm.querySelector('[data-basket-field]');
+      var details = [];
+
+      if (name && name.value.trim()) details.push('Name: ' + name.value.trim());
+      if (phone && phone.value.trim()) details.push('Phone: ' + phone.value.trim());
+      if (category && category.value) {
+        details.push('Service: ' + category.options[category.selectedIndex].text.trim());
+      }
+      if (basket && basket.value) {
+        details.push('Items:\n- ' + basket.value.split('; ').join('\n- '));
+      }
+      if (details.length) lines.push('', details.join('\n'));
+    }
+
+    lines.push('', 'Sent from ' + window.location.host + window.location.pathname);
+    return lines.join('\n');
+  }
+
+  document.querySelectorAll('[data-whatsapp-link]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var url = new URL(link.href);
+      url.searchParams.set('text', whatsAppMessage());
+      link.href = url.toString();
+    });
+  });
+
   /* -------------------------------------------- image loading resilience */
   document.querySelectorAll('img').forEach(function (image) {
     image.addEventListener('error', function () {

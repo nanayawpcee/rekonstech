@@ -87,6 +87,11 @@
     @apply btn border border-white/35 bg-white/5 text-white backdrop-blur hover:border-white/70 hover:bg-white/15;
   }
 
+  /* WhatsApp's own green, so the button is recognised at a glance. */
+  .btn-whatsapp {
+    @apply btn bg-[#25D366] text-[#073b1d] shadow-soft hover:-translate-y-0.5 hover:bg-[#3ee07a] active:translate-y-0;
+  }
+
   .btn-ghost {
     @apply btn border border-ink-200 bg-white text-ink-800 hover:border-ink-300 hover:bg-ink-50;
   }

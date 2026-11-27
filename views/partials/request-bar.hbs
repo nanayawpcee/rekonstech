@@ -83,6 +83,24 @@
             </button>
           </div>
 
+          {{!--
+            WhatsApp alternative. Works as a plain link without JavaScript;
+            site.js fills the message from the form and quote basket on click.
+          --}}
+          <div class="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
+            <span class="text-center text-[12.5px] font-semibold text-ink-400 sm:text-right">Prefer WhatsApp?</span>
+            <a
+              href="https://wa.me/{{site.company.whatsapp}}?text=Hello%20Rekonstech%2C%20I%20would%20like%20to%20request%20a%20service."
+              class="btn-whatsapp !h-11 !px-5 !text-[13px]"
+              target="_blank"
+              rel="noopener"
+              data-whatsapp-link
+            >
+              {{{icon "whatsapp" "h-4 w-4"}}}
+              Send on WhatsApp
+            </a>
+          </div>
+
           {{!-- Populated by the quote basket, when the page has one --}}
           <input type="hidden" name="basket" data-basket-field value="" />
           <p

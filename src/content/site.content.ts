@@ -70,6 +70,8 @@ export const site = {
     phoneHref: "tel:+233207760838",
     emergencyPhone: "+233 55 646 8659",
     emergencyPhoneHref: "tel:+233556468659",
+    /** WhatsApp for "Send on WhatsApp": international format, digits only. */
+    whatsapp: "233207760838",
     email: "hello@rekonstech.com",
     supportHours: "24/7 Emergency IT Support",
     address: "Accra, Ghana",
