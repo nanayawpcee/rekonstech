@@ -80,7 +80,7 @@ export const team = {
         role: "Graphic Designer & Supply Specialist",
         bio: "Designs the visual identity for every engagement, then sources and configures the hardware to match.",
         image: {
-          src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=480&q=75",
+          src: "img/gd.jpg",
           alt: "Portrait of David Akariboga, Graphic Designer & Supply Specialist at Rekonstech",
         },
       },
