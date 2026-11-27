@@ -52,7 +52,7 @@ export const site = {
    * Absolute origin, used to build the og:image URL — social scrapers reject
    * relative paths. TODO: set the real domain before launch.
    */
-  siteUrl: "https://www.rekonstech.com",
+  siteUrl: "https://rekonstech.com",
 
   /** Home page search and social metadata. */
   meta: {

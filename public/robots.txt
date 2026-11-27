@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /healthz
 
-Sitemap: https://www.rekonstech.com/sitemap.xml
+Sitemap: https://rekonstech.com/sitemap.xml
