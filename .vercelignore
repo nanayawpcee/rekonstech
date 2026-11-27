@@ -3,3 +3,4 @@ data/
 *.log
 .DS_Store
 integrations/
+studio-rekonstech_production/

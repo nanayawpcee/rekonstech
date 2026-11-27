@@ -1,7 +1,8 @@
 /* Quote basket for the Sales & Supply catalogue.
    Collects items in localStorage and attaches them to the existing service
-   request as one itemised enquiry. No payments, no checkout — the price is
-   confirmed on quotation, so the basket is a shopping list, not an order. */
+   request as one itemised enquiry. No prices and no checkout: stock can be
+   new or second-hand, so pricing is agreed on quotation. The basket is a
+   shopping list, not an order. */
 (function () {
   'use strict';
 
@@ -10,18 +11,12 @@
   if (!root || !grid) return;
 
   var STORAGE_KEY = 'rk-quote-basket';
-  var CURRENCY = 'GH₵';
-  // Catalogue prices are placeholders until Sanity supplies real ones — see
-  // catalogueMeta.showPricing in src/content/catalogue.content.ts, the single
-  // switch that also hides price on the cards and in the drawer's markup.
-  var SHOW_PRICING = grid.dataset.showPricing === 'true';
 
   var drawer = root.querySelector('#qb-drawer');
   var scrim = root.querySelector('.qb-scrim');
   var linesEl = root.querySelector('[data-qb-lines]');
   var emptyEl = root.querySelector('[data-qb-empty]');
   var countEl = root.querySelector('[data-qb-count]');
-  var totalEl = root.querySelector('[data-qb-total]');
   var subtitleEl = root.querySelector('[data-qb-subtitle]');
   var openButton = root.querySelector('[data-qb-open]');
 
@@ -40,21 +35,11 @@
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch (error) {
-      /* out of quota or blocked — the in-memory basket still works */
+      /* out of quota or blocked: the in-memory basket still works */
     }
   }
 
   var basket = read();
-
-  function money(amount) {
-    return CURRENCY + ' ' + amount.toLocaleString('en-GH');
-  }
-
-  function totalOf(items) {
-    return items.reduce(function (sum, line) {
-      return sum + line.price * line.qty;
-    }, 0);
-  }
 
   function countOf(items) {
     return items.reduce(function (sum, line) {
@@ -62,14 +47,14 @@
     }, 0);
   }
 
-  /** Readable summary posted with the request — this is what lands in your inbox. */
+  /** Readable summary posted with the request: this is what lands in the sheet and inbox. */
   function summarise(items) {
-    if (!items.length) return '';
-    var lines = items.map(function (line) {
-      var entry = line.qty + ' x ' + line.name + ' (' + line.sku + ')';
-      return SHOW_PRICING ? entry + ' @ ' + money(line.price) : entry;
-    });
-    return SHOW_PRICING ? lines.join('; ') + '. Indicative total: ' + money(totalOf(items)) : lines.join('; ');
+    return items
+      .map(function (line) {
+        var details = [line.sku, line.condition].filter(Boolean).join(', ');
+        return line.qty + ' x ' + line.name + (details ? ' (' + details + ')' : '');
+      })
+      .join('; ');
   }
 
   /* ---------------------------------------------------------------- render */
@@ -87,11 +72,11 @@
       name.textContent = line.name;
       info.appendChild(name);
 
-      if (SHOW_PRICING) {
-        var price = document.createElement('p');
-        price.className = 'mt-0.5 font-mono text-[11px] text-ink-400';
-        price.textContent = money(line.price) + ' each';
-        info.appendChild(price);
+      if (line.condition) {
+        var condition = document.createElement('p');
+        condition.className = 'mt-0.5 font-mono text-[11px] text-ink-400';
+        condition.textContent = line.condition;
+        info.appendChild(condition);
       }
 
       var controls = document.createElement('div');
@@ -124,8 +109,6 @@
 
     var count = countOf(basket);
     countEl.textContent = String(count);
-    // totalEl only exists in the DOM when catalogueMeta.showPricing is true.
-    if (totalEl) totalEl.textContent = money(totalOf(basket));
     emptyEl.hidden = basket.length > 0;
     subtitleEl.textContent = count
       ? count + (count === 1 ? ' item' : ' items') + ' collected'
@@ -197,19 +180,20 @@
       var card = button.closest('[data-product]');
       if (!card) return;
 
-      var sku = card.dataset.sku;
+      var id = card.dataset.id || card.dataset.sku;
       var existing = null;
       basket.forEach(function (line) {
-        if (line.sku === sku) existing = line;
+        if ((line.id || line.sku) === id) existing = line;
       });
 
       if (existing) {
         existing.qty += 1;
       } else {
         basket.push({
-          sku: sku,
+          id: id,
+          sku: card.dataset.sku || '',
           name: card.dataset.name,
-          price: Number(card.dataset.price) || 0,
+          condition: card.dataset.condition || '',
           qty: 1,
         });
       }

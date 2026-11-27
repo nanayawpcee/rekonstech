@@ -10,15 +10,11 @@ export class SalesSupplyController {
 
   @Get('sales-supply')
   @Render('sales-supply')
-  salesSupplyPage(@Query('submitted') submitted?: string, @Query('error') error?: string) {
+  async salesSupplyPage(@Query('submitted') submitted?: string, @Query('error') error?: string) {
     return {
       site,
       page: salesSupply,
-      catalogue: {
-        items: this.catalogue.findAll(),
-        filters: this.catalogue.filters(),
-        meta: this.catalogue.meta(),
-      },
+      catalogue: await this.catalogue.load(),
       pageScripts: ['/js/quote-basket.js'],
       serviceCategoryOptions,
       // Pre-selects "Sales & Supply" in the shared request form.

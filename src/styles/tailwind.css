@@ -929,3 +929,19 @@
     }
   }
 }
+
+/* Catalogue condition badge: new, refurbished or used stock. Outside @layer on
+   purpose: the modifier class is built in the template, so Tailwind's content
+   scan would never find it and would purge a layered rule. */
+.cat-condition {
+  @apply absolute left-6 top-6 rounded-full px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] shadow-soft;
+}
+.cat-condition--new {
+  @apply bg-accent-500 text-ink-900;
+}
+.cat-condition--refurbished {
+  @apply bg-brand-600 text-white;
+}
+.cat-condition--used {
+  @apply bg-amber-400 text-ink-900;
+}

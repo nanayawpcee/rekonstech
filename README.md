@@ -187,6 +187,7 @@ root and the function config, so there is nothing to set in the dashboard.
 | Variable | Why |
 |---|---|
 | `SERVICE_REQUEST_WEBHOOK_URL` | Where quote requests are delivered. Any endpoint accepting a JSON POST — Zapier, Make, Formspree, n8n, your own inbox service. |
+| `SANITY_PROJECT_ID` | Turns on the Sanity product catalogue. Optional: without it the Sales & Supply page shows the built-in placeholder products. |
 
 Without it, enquiries are only written to the function logs. See *Where requests
 go* below.
@@ -236,6 +237,50 @@ confirmation.
   small app, but expect a slower first paint.
 
 ---
+
+## Product catalogue (Sanity)
+
+The Sales & Supply catalogue is edited in a hosted Sanity Studio, so staff can
+add, change and hide products without a code change or redeploy. Products have
+**no price**: stock includes refurbished and used items, so pricing is agreed
+with each customer on quotation. Every product has a condition (New,
+Refurbished or Used) shown as a badge on its card and included in quote requests.
+
+**Setup** (done: project `mei5tdsl`, dataset `production`, public)
+
+The Studio is a standalone Sanity project in
+[`studio-rekonstech_production/`](studio-rekonstech_production/) with its own
+`package.json`; it is not part of the Nest build and is excluded from Vercel.
+
+```bash
+cd studio-rekonstech_production
+npm install
+npm run dev                 # local Studio at http://localhost:3333
+npx sanity schemas deploy   # after changing schemaTypes/
+npx sanity deploy           # publish the hosted Studio for staff
+```
+
+`SANITY_PROJECT_ID=mei5tdsl` is set in Vercel (Production). Invite staff under
+**Members** on sanity.io/manage; they only need the hosted Studio URL.
+
+**How it behaves**
+
+- [`CatalogueService`](src/pages/catalogue.service.ts) queries Sanity's HTTP API
+  directly (no SDK, so nothing ESM-only reaches the CommonJS build) and caches
+  the result for 60 seconds per server instance. Edits appear on the site within
+  about a minute or two once **Publish** is pressed; drafts never show.
+- **Hide from the website** removes a sold item without deleting it.
+- If Sanity cannot be reached, the last good list is served; with nothing
+  cached, the page shows a "stock list is being updated" panel pointing to the
+  request form rather than an error.
+- Without `SANITY_PROJECT_ID`, the placeholder list in
+  [`catalogue.content.ts`](src/content/catalogue.content.ts) is used.
+- Categories are a fixed dropdown in
+  [`studio-rekonstech_production/schemaTypes/product.ts`](studio-rekonstech_production/schemaTypes/product.ts); keep
+  `CATALOGUE_CATEGORIES` in the content file in step when adding one, which sets
+  the filter order.
+- A private dataset works too: create a read token under **API** and set it as
+  `SANITY_READ_TOKEN` in Vercel.
 
 ## Service request API
 

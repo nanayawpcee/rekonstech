@@ -19,6 +19,7 @@
       </div>
 
       {{!-- Category filter --}}
+      {{#if catalogue.items.length}}
       <div class="reveal mt-10 flex flex-wrap gap-2">
         {{#each catalogue.filters}}
           <button
@@ -33,23 +34,21 @@
           </button>
         {{/each}}
       </div>
+      {{/if}}
 
-      <div
-        id="catalogue-grid"
-        class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-        data-show-pricing="{{catalogue.meta.showPricing}}"
-      >
+      {{#if catalogue.items.length}}
+      <div id="catalogue-grid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {{#each catalogue.items}}
           <article
             class="reveal group flex flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift"
             data-product
             data-category="{{this.category}}"
+            data-id="{{this.id}}"
             data-sku="{{this.sku}}"
             data-name="{{this.name}}"
-            data-price="{{this.price}}"
-            data-price-label="{{this.priceLabel}}"
+            data-condition="{{this.conditionLabel}}"
           >
-            <div class="bg-ink-50 p-4">
+            <div class="relative bg-ink-50 p-4">
               <img
                 class="h-36 w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 src="{{this.image.src}}"
@@ -57,28 +56,25 @@
                 loading="lazy"
                 decoding="async"
               />
+              <span class="cat-condition cat-condition--{{this.condition}}">{{this.conditionLabel}}</span>
             </div>
 
             <div class="flex flex-1 flex-col p-5">
               <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-400">{{this.category}}</p>
               <h3 class="mt-1.5 text-[15px] leading-tight">{{this.name}}</h3>
-              <p class="mt-1 text-[12.5px] leading-5 text-ink-400">{{this.spec}}</p>
+              {{#if this.spec}}<p class="mt-1 text-[12.5px] leading-5 text-ink-400">{{this.spec}}</p>{{/if}}
+              {{#if this.conditionNote}}<p class="mt-1.5 text-[12px] leading-5 text-ink-600">{{this.conditionNote}}</p>{{/if}}
 
-              <div class="mt-4 flex items-center justify-between border-t border-ink-100 pt-4">
-                {{#if @root.catalogue.meta.showPricing}}
-                  <div>
-                    <p class="font-display text-lg font-extrabold leading-none text-ink-900">{{this.priceLabel}}</p>
-                    <p class="mt-1 flex items-center gap-1.5 text-[11px] text-ink-400">
-                      {{{icon "clock" "h-3 w-3"}}}
-                      {{this.lead}}
-                    </p>
-                  </div>
-                {{else}}
-                  <p class="flex items-center gap-1.5 text-[11.5px] font-semibold text-ink-500">
+              <div class="mt-auto flex items-center justify-between gap-3 border-t border-ink-100 pt-4">
+                <p class="flex items-center gap-1.5 text-[11.5px] font-semibold text-ink-500">
+                  {{#if this.availability}}
                     {{{icon "clock" "h-3.5 w-3.5 text-brand-600"}}}
-                    {{this.lead}}
-                  </p>
-                {{/if}}
+                    {{this.availability}}
+                  {{else}}
+                    {{{icon "file-check" "h-3.5 w-3.5 text-brand-600"}}}
+                    Price on request
+                  {{/if}}
+                </p>
                 <button
                   type="button"
                   data-add-to-quote
@@ -96,8 +92,21 @@
 
       <p class="mt-6 flex items-center gap-2 text-xs text-ink-400">
         {{{icon "file-check" "h-3.5 w-3.5 text-brand-600"}}}
-        {{#if catalogue.meta.showPricing}}{{catalogue.meta.priceNote}}{{else}}{{catalogue.meta.noPriceNote}}{{/if}}
+        {{catalogue.meta.note}}
       </p>
+      {{else}}
+      <div class="mt-8 rounded-[1.5rem] border border-dashed border-ink-200 bg-white/70 px-6 py-12 text-center">
+        <span class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-brand-50 text-brand-600">
+          {{{icon "package" "h-5 w-5"}}}
+        </span>
+        <h3 class="mt-4 text-lg text-ink-900">{{catalogue.meta.emptyTitle}}</h3>
+        <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-ink-400">{{catalogue.meta.emptyCopy}}</p>
+        <a href="#request" class="btn-primary mt-6 inline-flex">
+          Request a Quotation
+          {{{icon "arrow-right" "h-4 w-4"}}}
+        </a>
+      </div>
+      {{/if}}
     </div>
   </div>
 </section>

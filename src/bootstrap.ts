@@ -60,7 +60,8 @@ function applySecurityHeaders(app: NestExpressApplication): void {
           // Templates use inline style attributes for gradients and starfield positions.
           styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
           fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-          imgSrc: ["'self'", 'data:', 'https://images.unsplash.com'],
+          // cdn.sanity.io serves catalogue product photos uploaded in the Studio.
+          imgSrc: ["'self'", 'data:', 'https://images.unsplash.com', 'https://cdn.sanity.io'],
           mediaSrc: ["'self'"],
           connectSrc: ["'self'"],
           formAction: ["'self'"],
