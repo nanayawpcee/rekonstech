@@ -17,7 +17,7 @@
     <meta property="og:title" content="{{pageTitle}}" />
     <meta property="og:description" content="{{metaDescription}}" />
     {{!-- Absolute, because og:image is fetched by scrapers with no page context --}}
-    <meta property="og:image" content="{{site.siteUrl}}{{site.hero.image.src}}" />
+    <meta property="og:image" content="{{#if ogImage}}{{absoluteUrl ogImage}}{{else}}{{absoluteUrl site.meta.ogImage}}{{/if}}" />
     <meta name="twitter:card" content="summary_large_image" />
 
     {{!--

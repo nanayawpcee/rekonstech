@@ -1,3 +1,4 @@
+import { formErrorMessage } from '../service-requests/form-errors';
 import { Controller, Get, Query, Render } from '@nestjs/common';
 import { serviceCategoryOptions, site } from '../content/site.content';
 import { softwareBook } from '../content/software-book.content';
@@ -29,9 +30,10 @@ export class SoftwareSolutionsController {
       presetCategory: 'software-solutions',
       pageTitle: softwareSolutions.meta.title,
       metaDescription: softwareSolutions.meta.description,
+      ogImage: softwareSolutions.meta.ogImage,
       pageScripts: ['/js/tech-stack.js', '/js/flip-book.js'],
       submitted: submitted === '1',
-      formError: typeof error === 'string' ? error.slice(0, 160) : undefined,
+      formError: formErrorMessage(error),
     };
   }
 }

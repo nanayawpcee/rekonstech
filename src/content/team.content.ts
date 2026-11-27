@@ -7,9 +7,11 @@ export const team = {
   ],
 
   meta: {
-    title: "Our Team | Rekonstech Consulting and Trading Services",
+    title: "Our Team: IT, Security & Networking Specialists | Rekonstech",
     description:
-      "The four specialists behind Rekonstech・software, security, networking and supply, led by people who stay on the account after handover.",
+      "Meet the specialists behind Rekonstech in Accra: software, security, networking and supply, led by people who stay on your account long after handover.",
+    // JPG on purpose: some social scrapers still reject WebP.
+    ogImage: "/img/team-hero.jpg",
   },
 
   hero: {
@@ -21,7 +23,7 @@ export const team = {
     primaryCta: { label: "Talk to a Specialist", href: "#request" },
     secondaryCta: { label: "Meet the Team", href: "#members" },
     image: {
-      src: "/img/team-hero.jpg",
+      src: "/img/team-hero.webp",
       alt: "Three Rekonstech engineers in white coats and hard hats reviewing a job on a tablet",
     },
     promises: [
@@ -50,7 +52,7 @@ export const team = {
         role: "CEO & Managing Director",
         bio: "Sets the roadmap for every engagement and stays the one point of contact from proposal to handover.",
         image: {
-          src: "img/ceo.jpg",
+          src: "/img/ceo.webp",
           alt: "Portrait of Prince Antwi Acheampong, CEO & Managing Director at Rekonstech",
         },
       },
@@ -60,7 +62,7 @@ export const team = {
         role: "Software Engineer",
         bio: "Leads custom builds end to end from data migration to the training session that hands the system over.",
         image: {
-          src: "img/se.jpg",
+          src: "/img/se.webp",
           alt: "Portrait of Prince Charles Appiah Gyamrah, Software Engineer at Rekonstech",
         },
       },
@@ -70,7 +72,7 @@ export const team = {
         role: "Head of Security & Networking",
         bio: "Designs the CCTV, access-control and network installs, then keeps them covered under a written SLA.",
         image: {
-          src: "img/hsn.jpg",
+          src: "/img/hsn.webp",
           alt: "Portrait of Alexander Segbedzi, Head of Security & Networking at Rekonstech",
         },
       },
@@ -80,7 +82,7 @@ export const team = {
         role: "Graphic Designer & Supply Specialist",
         bio: "Designs the visual identity for every engagement, then sources and configures the hardware to match.",
         image: {
-          src: "img/gd.jpg",
+          src: "/img/gd.webp",
           alt: "Portrait of David Akariboga, Graphic Designer & Supply Specialist at Rekonstech",
         },
       },

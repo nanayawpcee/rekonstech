@@ -1,3 +1,4 @@
+import { formErrorMessage } from '../service-requests/form-errors';
 import { Controller, Get, Query, Render } from '@nestjs/common';
 import { networking } from '../content/networking.content';
 import { serviceCategoryOptions, site } from '../content/site.content';
@@ -15,8 +16,9 @@ export class NetworkingController {
       presetCategory: 'networking-internet',
       pageTitle: networking.meta.title,
       metaDescription: networking.meta.description,
+      ogImage: networking.meta.ogImage,
       submitted: submitted === '1',
-      formError: typeof error === 'string' ? error.slice(0, 160) : undefined,
+      formError: formErrorMessage(error),
     };
   }
 }

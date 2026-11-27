@@ -54,6 +54,14 @@ export const site = {
    */
   siteUrl: "https://www.rekonstech.com",
 
+  /** Home page search and social metadata. */
+  meta: {
+    title: "IT Solutions, CCTV & Networking in Accra, Ghana | Rekonstech",
+    description:
+      "Rekonstech designs, installs and supports software, CCTV, access control, networks and IT hardware for businesses in Accra and across Ghana. Free site survey.",
+    ogImage: "/img/team-hero.jpg",
+  },
+
   company: {
     name: "Rekonstech",
     legalName: "Rekonstech Consulting and Trading Services",
@@ -89,7 +97,7 @@ export const site = {
       // Our own team photograph. Source is 632px square — replace with a wider,
       // higher-resolution original when one is available, since the hero band
       // scales it up considerably.
-      src: "/img/team-hero.jpg",
+      src: "/img/team-hero.webp",
       alt: "Three Rekonstech engineers in white coats and hard hats reviewing a job on a tablet",
     },
     socialProof: {
@@ -119,7 +127,7 @@ export const site = {
     titleAccent: "for Every Enterprise",
     copy: "Rekonstech Consulting and Trading Services is a full-stack technology partner: we build the software, install the systems, supply the hardware and stay on call long after handover.",
     image: {
-      src: "/img/subject1.jpg",
+      src: "/img/subject1.webp",
       alt: "Rekonstech technical team configuring client hardware",
     },
     insetImage: {

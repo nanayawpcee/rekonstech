@@ -441,15 +441,23 @@
   }
 
   /* Click targets over the outer thirds of each page */
+  /* In a 3D scene z-index is ignored, so the zones are lifted in front of the
+     stacked sheets (the deepest sits ~10px up). Width matches the page's side
+     padding so a zone never covers a link on the page. */
   .bk-zone {
     position: absolute;
     top: 0;
     bottom: 0;
-    z-index: 40;
-    width: 12%;
+    width: 46px;
     border: 0;
     background: transparent;
     cursor: pointer;
+    transform: translateZ(14px);
+  }
+
+  .bk-zone:disabled {
+    cursor: default;
+    background: transparent !important;
   }
 
   .bk-zone--prev {
@@ -499,7 +507,26 @@
   }
 
   .bk-hint {
-    @apply mt-5 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-ink-500;
+    @apply mt-5 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-ink-200;
+  }
+}
+
+/* Desktop clicks. The book is tilted back, so its top half sits behind the
+   flat wrapper planes and those swallowed every click there; faces turned away
+   from the reader also kept catching clicks meant for the page on top. */
+@media (min-width: 768px) {
+  .bk-scaler,
+  .bk-shift,
+  .bk-tilt,
+  .bk-book,
+  .bk-deck,
+  .bk-face[aria-hidden='true'] {
+    pointer-events: none;
+  }
+
+  .bk-face,
+  .bk-zone {
+    pointer-events: auto;
   }
 }
 

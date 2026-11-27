@@ -1,3 +1,4 @@
+import { formErrorMessage } from '../service-requests/form-errors';
 import { Controller, Get, Query, Render } from '@nestjs/common';
 import { salesSupply } from '../content/sales-supply.content';
 import { serviceCategoryOptions, site } from '../content/site.content';
@@ -24,8 +25,9 @@ export class SalesSupplyController {
       presetCategory: 'sales-supply',
       pageTitle: salesSupply.meta.title,
       metaDescription: salesSupply.meta.description,
+      ogImage: salesSupply.meta.ogImage,
       submitted: submitted === '1',
-      formError: typeof error === 'string' ? error.slice(0, 160) : undefined,
+      formError: formErrorMessage(error),
     };
   }
 }

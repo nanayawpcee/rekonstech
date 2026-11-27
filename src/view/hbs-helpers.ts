@@ -1,5 +1,6 @@
 import hbs from 'hbs';
 import { renderIcon } from '../content/icons';
+import { site } from '../content/site.content';
 import { buildOrganizationSchema } from '../content/structured-data';
 
 export function registerHbsHelpers(): void {
@@ -26,6 +27,12 @@ export function registerHbsHelpers(): void {
       .replace(/\u2028/g, '\\u2028')
       .replace(/\u2029/g, '\\u2029');
     return new handlebars.SafeString(`<script type="application/ld+json">${json}</script>`);
+  });
+
+  /** {{absoluteUrl path}}: prefixes site-relative paths with the origin; full URLs pass through. */
+  handlebars.registerHelper('absoluteUrl', (value: unknown) => {
+    if (typeof value !== 'string' || value.length === 0) return '';
+    return /^https?:\/\//.test(value) ? value : `${site.siteUrl}${value.startsWith('/') ? '' : '/'}${value}`;
   });
 
   /** {{year}} — keeps the footer copyright current without a redeploy. */

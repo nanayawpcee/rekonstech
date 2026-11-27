@@ -138,11 +138,11 @@ Icons are inline SVGs in [`src/content/icons.ts`](src/content/icons.ts), rendere
 
 ## Brand assets
 
-The official logo drives both the artwork and the colour system.
+The official logo drives both the artwork and the colour system. The original supplied
+artwork (`public/img/logo.png`) was removed from the site; recover it from git history if needed.
 
 | File                         | What it is                                                                           |
 | ---------------------------- | ------------------------------------------------------------------------------------ |
-| `public/img/logo.png`        | The original supplied artwork, untouched (transparent PNG)                           |
 | `public/img/logo-mark.png`   | The RK mark alone, trimmed and sized for display — **used in the header and footer** |
 | `public/img/logo-full.png`   | The complete stacked lockup, trimmed of empty margin (reference only)                |
 | `public/img/favicon-512.png` | The mark on a square canvas, used as favicon and Apple touch icon                    |

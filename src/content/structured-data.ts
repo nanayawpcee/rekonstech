@@ -16,7 +16,7 @@ export function buildOrganizationSchema(description: string) {
     alternateName: company.name,
     url: `${siteUrl}/`,
     logo: `${siteUrl}/img/logo-full.png`,
-    image: `${siteUrl}${site.hero.image.src}`,
+    image: `${siteUrl}${site.meta.ogImage}`,
     description,
     telephone: company.phone,
     email: company.email,

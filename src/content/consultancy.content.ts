@@ -12,9 +12,11 @@ export const consultancy = {
     { icon: 'life-buoy', href: '#request', label: 'Book a consultation' },
   ],
   meta: {
-    title: 'Consultancy Services | Rekonstech Consulting and Trading Services',
+    title: 'IT Consultancy & Digital Transformation, Ghana | Rekonstech',
     description:
-      'IT consultancy and digital transformation advisory, compliance guidance, and staff training・Practical roadmaps your team can actually deliver, from an advisor with no product to push.',
+      'IT strategy, digital transformation, compliance guidance and staff training for Ghanaian organisations. Practical roadmaps from an advisor with nothing to sell.',
+    // JPG on purpose: some social scrapers still reject WebP.
+    ogImage: '/img/consultancy-hero.jpg',
   },
 
   hero: {
@@ -33,7 +35,7 @@ export const consultancy = {
     image: {
       // Our own photo, not a stock shot — swap only if the team wants a
       // different one. See public/img/consultancy-hero.jpg for the source crop.
-      src: '/img/consultancy-hero.jpg',
+      src: '/img/consultancy-hero.webp',
       alt: 'A Rekonstech consultant reviewing a client system on a tablet with a colleague',
     },
   },
@@ -92,7 +94,7 @@ export const consultancy = {
         image: {
           // Same photo as the hero — a real Rekonstech consultant walking a
           // colleague through a device, which is exactly what this card is about.
-          src: '/img/consultancy-hero.jpg',
+          src: '/img/consultancy-hero.webp',
           alt: 'A Rekonstech consultant walking a colleague through a hands-on session on a tablet',
         },
         summary: 'Hands-on sessions so new systems get adopted rather than quietly abandoned.',

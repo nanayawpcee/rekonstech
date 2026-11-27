@@ -36,7 +36,8 @@
     var autoplayObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting) entry.target.play().catch(function () {});
+          // A video without `loop` plays once and then rests on its last frame.
+          if (entry.isIntersecting && !entry.target.ended) entry.target.play().catch(function () {});
         });
       },
       { threshold: 0.25 },

@@ -8,9 +8,11 @@ export const softwareSolutions = {
     { icon: 'life-buoy', href: '#request', label: 'Start a project' },
   ],
   meta: {
-    title: 'Software Solutions | rekonstech Consulting and Trading Services',
+    title: 'Custom Software & Website Design in Accra | Rekonstech',
     description:
-      'Custom web applications, SME website design and ongoing maintenance from rekonstech; scoped in plain language, built to modern standards, and supported long after launch.',
+      'Custom web apps, business websites and ongoing maintenance for Ghanaian SMEs. Scoped in plain language, built to modern standards, supported after launch.',
+    // JPG on purpose: some social scrapers still reject WebP.
+    ogImage: '/img/earth-globe-poster.jpg',
   },
 
   hero: {

@@ -1,3 +1,4 @@
+import { formErrorMessage } from '../service-requests/form-errors';
 import { Controller, Get, Query, Render } from '@nestjs/common';
 import { serviceCategoryOptions, site } from '../content/site.content';
 
@@ -10,17 +11,18 @@ export class HomeController {
       site,
       serviceCategoryOptions,
       isHome: true,
-      pageTitle: `${site.company.legalName} | IT Solutions, Security Systems & Networking`,
-      metaDescription: site.hero.copy,
+      pageTitle: site.meta.title,
+      metaDescription: site.meta.description,
+      ogImage: site.meta.ogImage,
       // Populated only for the no-JavaScript form round-trip.
       submitted: submitted === '1',
-      formError: typeof error === 'string' ? error.slice(0, 160) : undefined,
+      formError: formErrorMessage(error),
     };
   }
 
   /** Container/uptime probe. */
   @Get('healthz')
   health() {
-    return { status: 'ok', uptime: process.uptime() };
+    return { status: 'ok' };
   }
 }

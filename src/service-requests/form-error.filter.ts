@@ -6,6 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
+import { codeForValidationMessage } from './form-errors';
 
 /**
  * Keeps the form usable without JavaScript.
@@ -28,8 +29,8 @@ export class FormErrorFilter implements ExceptionFilter {
 
     if (wantsHtml) {
       const first = Array.isArray(body?.message) ? body.message[0] : body?.message;
-      const reason = encodeURIComponent(first ?? 'Please check your details and try again.');
-      response.redirect(HttpStatus.SEE_OTHER, `/?error=${reason}#request`);
+      const code = codeForValidationMessage(first);
+      response.redirect(HttpStatus.SEE_OTHER, `/?error=${code}#request`);
       return;
     }
 

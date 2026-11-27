@@ -5,9 +5,11 @@
 
 export const salesSupply = {
   meta: {
-    title: 'Sales & Supply | Rekonstech Consulting and Trading Services',
+    title: 'Laptops, Servers & IT Hardware Supply in Ghana | Rekonstech',
     description:
-      'Genuine desktops, laptops and servers, accessories and peripherals, and licensed software procurement specced for the workload, configured before delivery and warranty-backed.',
+      'Genuine desktops, laptops, servers, peripherals and licensed software, specced for the job, configured before delivery and warranty-backed. Get a quote.',
+    // JPG on purpose: some social scrapers still reject WebP.
+    ogImage: '/img/supply-hero-poster.jpg',
   },
 
   hero: {
@@ -27,7 +29,7 @@ export const salesSupply = {
     /** Full-bleed cinematic backdrop: server room into a multi-monitor showroom. */
     video: {
       src: '/video/supply-hero.mp4',
-      poster: '/img/supply-hero-poster.jpg',
+      poster: '/img/supply-hero-poster.webp',
       alt: 'Camera glide from a server rack with pulsing status lights into a bright showroom of laptops, monitors, networking gear and a printer',
     },
   },
@@ -174,7 +176,7 @@ export const salesSupply = {
   /** Dark closing panel: our own supply promise, not a fabricated review. */
   closing: {
     image: {
-      src: '/img/team-hero.jpg',
+      src: '/img/team-hero.webp',
       alt: 'Rekonstech engineers reviewing an equipment list on site',
     },
     statement:

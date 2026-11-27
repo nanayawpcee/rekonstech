@@ -1,3 +1,4 @@
+import { formErrorMessage } from '../service-requests/form-errors';
 import { Controller, Get, Query, Render } from '@nestjs/common';
 import { serviceCategoryOptions, site } from '../content/site.content';
 import { team } from '../content/team.content';
@@ -13,8 +14,9 @@ export class TeamController {
       serviceCategoryOptions,
       pageTitle: team.meta.title,
       metaDescription: team.meta.description,
+      ogImage: team.meta.ogImage,
       submitted: submitted === '1',
-      formError: typeof error === 'string' ? error.slice(0, 160) : undefined,
+      formError: formErrorMessage(error),
     };
   }
 }

@@ -12,9 +12,11 @@ export const securitySystems = {
     { icon: 'life-buoy', href: '#request', label: 'Book a survey' },
   ],
   meta: {
-    title: 'Security Systems Installation | Rekonstech Consulting and Trading Services',
+    title: 'CCTV & Access Control Installation in Accra | Rekonstech',
     description:
-      'CCTV surveillance with remote monitoring, intruder alarms, biometric access control and power backup・Surveyed, installed and maintained by Rekonstech.',
+      'CCTV with remote monitoring, intruder alarms, biometric access control and power backup for businesses in Ghana. Surveyed, installed and maintained by us.',
+    // JPG on purpose: some social scrapers still reject WebP.
+    ogImage: 'https://images.unsplash.com/photo-1589935447067-5531094415d1?auto=format&fit=crop&w=1200&h=630&q=75',
   },
 
   hero: {

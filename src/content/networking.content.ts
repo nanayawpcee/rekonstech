@@ -12,9 +12,11 @@ export const networking = {
     { icon: 'life-buoy', href: '#request', label: 'Book a survey' },
   ],
   meta: {
-    title: 'Networking & Internet Services | Rekonstech Consulting and Trading Services',
+    title: 'Network & Wi-Fi Installation in Accra | Rekonstech',
     description:
-      'LAN, WAN and enterprise Wi-Fi designed from a site survey, internet setups for businesses, hotels, schools and hospitals, plus cloud integration and secure VPN access.',
+      'LAN, WAN and enterprise Wi-Fi designed from a site survey, plus business internet, cloud and secure VPN for offices, hotels, schools and hospitals in Ghana.',
+    // JPG on purpose: some social scrapers still reject WebP.
+    ogImage: '/img/networking-hero-poster.jpg',
   },
 
   hero: {
@@ -32,7 +34,7 @@ export const networking = {
     ],
     video: {
       src: '/video/networking-hero.mp4',
-      poster: '/img/networking-hero-poster.jpg',
+      poster: '/img/networking-hero-poster.webp',
       alt: 'A glowing cable connects into an enterprise network switch in a server rack, with a translucent holographic data panel materialising above it',
     },
     galleryLabel: 'On site this month',

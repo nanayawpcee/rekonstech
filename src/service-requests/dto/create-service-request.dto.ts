@@ -9,6 +9,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { serviceCategoryOptions } from '../../content/site.content';
+import { FORM_ERRORS } from '../form-errors';
 
 const CATEGORY_SLUGS = serviceCategoryOptions.map((option) => option.value);
 
@@ -18,22 +19,22 @@ const trim = ({ value }: { value: unknown }) =>
 export class CreateServiceRequestDto {
   @Transform(trim)
   @IsString()
-  @Length(2, 120, { message: 'Please enter your full name.' })
+  @Length(2, 120, { message: FORM_ERRORS.name })
   fullName!: string;
 
   @Transform(trim)
   @IsString()
   @Matches(/^[+()\d][\d\s().-]{5,24}$/, {
-    message: 'Please enter a valid phone number.',
+    message: FORM_ERRORS.phone,
   })
   phone!: string;
 
-  @IsIn(CATEGORY_SLUGS, { message: 'Please choose a service category.' })
+  @IsIn(CATEGORY_SLUGS, { message: FORM_ERRORS.category })
   serviceCategory!: string;
 
   @IsOptional()
   @Transform(trim)
-  @IsEmail({}, { message: 'Please enter a valid email address.' })
+  @IsEmail({}, { message: FORM_ERRORS.email })
   email?: string;
 
   @IsOptional()

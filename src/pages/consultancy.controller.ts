@@ -1,3 +1,4 @@
+import { formErrorMessage } from '../service-requests/form-errors';
 import { Controller, Get, Query, Render } from '@nestjs/common';
 import { consultancy } from '../content/consultancy.content';
 import { serviceCategoryOptions, site } from '../content/site.content';
@@ -15,8 +16,9 @@ export class ConsultancyController {
       presetCategory: 'consultancy',
       pageTitle: consultancy.meta.title,
       metaDescription: consultancy.meta.description,
+      ogImage: consultancy.meta.ogImage,
       submitted: submitted === '1',
-      formError: typeof error === 'string' ? error.slice(0, 160) : undefined,
+      formError: formErrorMessage(error),
     };
   }
 }
